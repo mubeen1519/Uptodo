@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Uptodo</string>
+    //Home page
+    <string name="HomeText">What do you want to do today?</string>
+    <string name="HomeText2">Tap + to add your tasks</string>
+    
+    //Category page
+    <string name="new_category">Create new category</string>
+    <string name="category_icon">Category icon:</string>
+    <string name="choose_icon">Choose icon from library</string>
+    <string name="category_color">Category color:</string>
+</resources>
