@@ -4,10 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.example.uptodo.authentication.GoogleSignInState
-import com.example.uptodo.components.patterns.isValidEmail
 import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.Graph
-import com.example.uptodo.navigation.Home
 import com.example.uptodo.services.module.AccountService
 import com.example.uptodo.services.module.LogService
 import com.google.firebase.auth.AuthCredential
@@ -24,7 +22,7 @@ class LoginViewModel @Inject constructor(
     private val email get() = uiState.value.email
     private val password get() = uiState.value.password
 
-    val _googleState = mutableStateOf(GoogleSignInState())
+    private val _googleState = mutableStateOf(GoogleSignInState())
     val googleState: State<GoogleSignInState> = _googleState
 
     fun onEmailChange(newValue: String) {
@@ -36,10 +34,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onLoginClick(openScreen: (String) -> Unit) {
-        if (!email.isValidEmail()) {
-        }
         viewModelScope.launch(super.showErrorExceptionHandler) {
-            val userId = accountService.getUserId()
             accountService.authenticate(email, password) { error ->
                 if (error == null) {
                     linkAccount()
@@ -49,7 +44,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun linkAccount() {
+    private fun linkAccount() {
         viewModelScope.launch(super.showErrorExceptionHandler) {
             accountService.linkAccount(email, password) { error ->
                 if (error != null) {

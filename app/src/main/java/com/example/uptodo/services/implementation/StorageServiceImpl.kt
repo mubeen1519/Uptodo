@@ -1,9 +1,7 @@
 package com.example.uptodo.services.implementation
 
-import com.example.uptodo.mainViewModel.MainViewModel.Companion.todoItem
 import com.example.uptodo.services.module.StorageService
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore

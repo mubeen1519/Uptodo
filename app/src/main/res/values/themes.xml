@@ -2,4 +2,29 @@
 <resources>
 
     <style name="Theme.Uptodo" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="themeOnverlay_timePicker" parent="@style/Theme.AppCompat.DayNight.Dialog">
+        <item name="colorControlActivated">@color/defaultBlack</item>
+        <item name="colorAccent">@color/defaultBlack</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:windowBackground">@color/defaultBlack</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/DatePickerTheme.ButtonBarButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/DatePickerTheme.ButtonBarButtonStyle</item>
+        <item name="android:timePickerStyle">@style/ClockTimePickerStyle</item>
+    </style>
+
+    <style name="DatePickerTheme.ButtonBarButtonStyle" parent="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ClockTimePickerStyle" parent="android:Widget.Material.Light.TimePicker">
+        <item name="android:timePickerMode">spinner</item>
+        <item name="android:numbersTextColor">@color/white</item>
+        <item name="android:numbersSelectorColor">@color/defaultBlack</item>
+
+        <item name="android:numbersBackgroundColor">@color/defaultBlack</item>
+        <item name="android:headerBackground">@color/defaultBlack</item>
+    </style>
+
 </resources>

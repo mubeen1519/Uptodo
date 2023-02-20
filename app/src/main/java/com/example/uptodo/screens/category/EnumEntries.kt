@@ -17,15 +17,15 @@ enum class Priority constructor(val value : Int,val icon: Int){
     Priority10(10,R.drawable.priority),
 }
 
-enum class Colors constructor(val color : Color) {
-    Yellow(Yellows),
-    Green(Color.Green),
-    SkyBlue(com.example.uptodo.ui.theme.SkyBlue),
-    OceanBlue(com.example.uptodo.ui.theme.OceanBlue),
-    LightBlue(com.example.uptodo.ui.theme.LightBlue),
-    Peach(HomeBox),
-    DarkPurple(Margenda),
-    DarkPink(com.example.uptodo.ui.theme.DarkPink)
+enum class Colors constructor(val color : Color,val icon: Int) {
+    Yellow(Yellows,R.drawable.baseline_check_24),
+    Green(Color.Green,R.drawable.baseline_check_24),
+    SkyBlue(com.example.uptodo.ui.theme.SkyBlue,R.drawable.baseline_check_24),
+    OceanBlue(com.example.uptodo.ui.theme.OceanBlue,R.drawable.baseline_check_24),
+    LightBlue(com.example.uptodo.ui.theme.LightBlue,R.drawable.baseline_check_24),
+    Peach(HomeBox,R.drawable.baseline_check_24),
+    DarkPurple(Margenda,R.drawable.baseline_check_24),
+    DarkPink(com.example.uptodo.ui.theme.DarkPink,R.drawable.baseline_check_24)
 }
 
 
@@ -33,7 +33,7 @@ enum class Icons constructor(val icon: Int,val title : String,val color: Color){
     Work(R.drawable.work,"Work", WorkColor),
     University(R.drawable.university,"University", UniColor),
     Sport(R.drawable.sport,"Sport", SportBox),
-    Music(R.drawable.music,"Music", Margenda),
+    Music(R.drawable.music,"Music", SocialBox),
     Design(R.drawable.design,"Design", DesignBox),
     Home(R.drawable.home,"Home", HomeBox),
     Movie(R.drawable.movie,"Movie", MovieBox),
@@ -41,6 +41,9 @@ enum class Icons constructor(val icon: Int,val title : String,val color: Color){
     Social(R.drawable.social,"Social", SocialBox),
     Grocery(R.drawable.grocery,"Grocery", SportBox)
 }
+
+
+
 
 
 

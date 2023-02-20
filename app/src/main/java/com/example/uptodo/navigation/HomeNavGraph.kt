@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.uptodo.components.categories.CategoryData
 import com.example.uptodo.screens.calender.CalenderScreen
 import com.example.uptodo.screens.focus.FocusScreen
 import com.example.uptodo.screens.home.HomeScreenContent

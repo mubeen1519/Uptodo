@@ -7,7 +7,6 @@ import com.example.uptodo.authentication.GoogleSignInState
 import com.example.uptodo.components.patterns.isValidEmail
 import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.Graph
-import com.example.uptodo.navigation.Home
 import com.example.uptodo.services.module.AccountService
 import com.example.uptodo.services.module.LogService
 import com.google.firebase.auth.AuthCredential
@@ -20,7 +19,7 @@ class RegistrationViewModel @Inject constructor(
     private val accountService: AccountService,
     private val logService: LogService
 ) : MainViewModel(logService) {
-    val _googleState = mutableStateOf(GoogleSignInState())
+    private val _googleState = mutableStateOf(GoogleSignInState())
     val googleState: State<GoogleSignInState> = _googleState
 
 
@@ -42,9 +41,6 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun onRegisterClick(navigate: (String) -> Unit) {
-        if (!email.isValidEmail()) {
-
-        }
         viewModelScope.launch(super.showErrorExceptionHandler) {
             accountService.createAccount(email, password, confirmPassword) { error ->
                 if (error == null) {
@@ -55,7 +51,7 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
-    fun linkRegisterAccount(){
+    private fun linkRegisterAccount(){
         viewModelScope.launch(super.showErrorExceptionHandler){
             accountService.RegisterAccount(email,password){ error ->
                 if(error != null) logService.logNonFatalCrash(error)

@@ -21,14 +21,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.uptodo.R
 import com.example.uptodo.components.CommonDialog
 import com.example.uptodo.components.DrawableIcon
+import com.example.uptodo.components.InputField
 import com.example.uptodo.navigation.Graph
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.screens.home.HomeViewModel
-import com.example.uptodo.ui.theme.*
+import com.example.uptodo.ui.theme.BottomBarColor
+import com.example.uptodo.ui.theme.Purple40
 
 @Composable
 fun CategoryDialog(
@@ -101,7 +102,12 @@ fun BodyContent(
                             )
                         }
                     }
-                    Text(text = icons.title, color = Color.White, fontSize = 12.sp)
+                    Text(
+                        text = icons.title,
+                        color = Color.White,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(top = 7.dp)
+                    )
                 }
             }
         }
@@ -247,7 +253,7 @@ fun IconLibraryContent(
             itemsIndexed(Icons.values()) { index, icons ->
                 Column {
                     IconButton(
-                        modifier = Modifier.size(25.dp),
+                        modifier = Modifier.size(35.dp),
                         onClick = {
                             selectedIndex.value = index
                             onItemSelection(selectedIndex.value)
@@ -267,4 +273,112 @@ fun IconLibraryContent(
     }
 }
 
+@Composable
+fun AccountNameDialog(dialogState: MutableState<Boolean>) {
+    ChangeAccountName(dialogState = dialogState)
+}
+
+@Composable
+fun ChangeAccountName(
+    dialogState: MutableState<Boolean>,
+) {
+    Column(
+        modifier = Modifier
+            .background(BottomBarColor)
+            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Change account name", textAlign = TextAlign.Center, color = Color.White)
+        Spacer(modifier = Modifier.height(10.dp))
+        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Spacer(modifier = Modifier.height(8.dp))
+
+        InputField(placeholderText = "Account Name", onFieldChange = {})
+        Spacer(modifier = Modifier.height(15.dp))
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = { dialogState.value = false },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = BottomBarColor,
+                    contentColor = Purple40
+                ),
+                shape = RoundedCornerShape(5.dp),
+            ) {
+                Text(text = "Cancel")
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = {
+                    dialogState.value = false
+                }, colors = ButtonDefaults.buttonColors(
+                    containerColor = Purple40,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(5.dp)
+            ) {
+                Text(text = "Edit")
+            }
+        }
+    }
+}
+@Composable
+fun ChangePasswordDialog(
+    dialogState: MutableState<Boolean>,
+    ){
+    ChangeAccountPassword(dialogState = dialogState)
+}
+
+@Composable
+fun ChangeAccountPassword(
+    dialogState: MutableState<Boolean>,
+) {
+    Column(
+        modifier = Modifier
+            .background(BottomBarColor)
+            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Change account Password", textAlign = TextAlign.Center, color = Color.White)
+        Spacer(modifier = Modifier.height(10.dp))
+        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Spacer(modifier = Modifier.height(8.dp))
+
+    }
+    Column(modifier = Modifier.fillMaxWidth().background(BottomBarColor).padding(20.dp)) {
+
+        InputField(
+            placeholderText = "Enter old Password",
+            onFieldChange = {},
+            label = "Enter old Password"
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        InputField(placeholderText = "Enter new Password", onFieldChange = {}, label = "Enter new Password", isFieldSecured = true)
+
+        Spacer(modifier = Modifier.height(15.dp))
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = { dialogState.value = false },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = BottomBarColor,
+                    contentColor = Purple40
+                ),
+                shape = RoundedCornerShape(5.dp),
+            ) {
+                Text(text = "Cancel")
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = {
+                    dialogState.value = false
+                }, colors = ButtonDefaults.buttonColors(
+                    containerColor = Purple40,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(5.dp)
+            ) {
+                Text(text = "Edit")
+            }
+        }
+    }
+}
 

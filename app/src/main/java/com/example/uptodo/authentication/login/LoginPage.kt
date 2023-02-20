@@ -1,4 +1,4 @@
-package com.example.uptodo.authentication
+package com.example.uptodo.authentication.login
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -28,12 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.R
-import com.example.uptodo.authentication.login.LoginViewModel
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.InputField
 import com.example.uptodo.navigation.Create_Account
 import com.example.uptodo.navigation.Graph
-import com.example.uptodo.navigation.Home
 import com.example.uptodo.navigation.Registration
 import com.example.uptodo.services.Constant.CLIENT_ID
 import com.example.uptodo.ui.theme.Purple40

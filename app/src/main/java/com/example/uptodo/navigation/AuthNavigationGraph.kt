@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.uptodo.authentication.CreateAccount
-import com.example.uptodo.authentication.LoginPage
+import com.example.uptodo.authentication.login.LoginPage
 import com.example.uptodo.authentication.register.RegisterPage
 import com.example.uptodo.splash.Pages
 import com.example.uptodo.splash.Splash

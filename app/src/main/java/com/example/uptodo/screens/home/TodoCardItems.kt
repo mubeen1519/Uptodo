@@ -5,7 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -14,7 +14,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
@@ -30,13 +29,18 @@ fun TodoCardItems(
     onCheckChange: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val scope = rememberCoroutineScope()
+
+
     Card(
-        onClick = { /*TODO*/ },
+        onClick = {
+        },
         backgroundColor = CardColor,
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
-            .padding(top = 10.dp, end = 10.dp, start = 10.dp)
+            .padding(top = 8.dp, end = 8.dp, start = 8.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(
@@ -58,9 +62,11 @@ fun TodoCardItems(
                         fontSize = 16.sp
                     )
                 }
-                Row {
-                    Text(text = "date", color = Color.White, fontSize = 12.sp)
-                    Spacer(modifier = Modifier.weight(0.7f))
+                Row(modifier = Modifier
+                    .padding(top = 5.dp)
+                    .fillMaxWidth()) {
+                    Text(text = viewModel.getDateAndTime(todoItem), color = Color.White, fontSize = 9.sp)
+                    Spacer(modifier = Modifier.weight(2f))
                     Button(
                         modifier = Modifier.size(width = 100.dp, height = 35.dp),
                         onClick = {},
@@ -119,14 +125,15 @@ fun TodoCardItems(
                         )
                     }
 
-                    Button(
+                    OutlinedButton(
                         modifier = Modifier
-                            .size(width = 72.dp, 30.dp)
+                            .size(width = 55.dp, height = 30.dp)
                             .padding(start = 8.dp, end = 8.dp)
                             .border(
                                 border = BorderStroke(1.dp, Purple40),
                                 shape = RoundedCornerShape(5.dp)
                             ),
+                        contentPadding = PaddingValues(0.dp),
                         onClick = { /*TODO*/ },
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = BottomBarColor,

@@ -24,14 +24,13 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.uptodo.R
-import com.example.uptodo.components.DatePickers
+import com.example.uptodo.components.DateAndTimePicker
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.InputField
 import com.example.uptodo.components.categories.CategoryDialog
 import com.example.uptodo.components.categories.PriorityDialog
 import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.ui.theme.BottomBarColor
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -72,7 +71,6 @@ fun ModalBottomSheet(
     sheetValue: ModalBottomSheetState,
 ){
     val coroutineScope = rememberCoroutineScope()
-    val dateDialogState = rememberMaterialDialogState()
 
     val todo by viewModel.todo
     val context = LocalContext.current
@@ -80,6 +78,10 @@ fun ModalBottomSheet(
         mutableStateOf(false)
     }
     val priorityState: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+
+    val dateState: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
     ModalBottomSheetLayout(
@@ -108,10 +110,12 @@ fun ModalBottomSheet(
                         placeholderText = "Description",
                         onFieldChange = viewModel::onDescriptionChange,
                     )
-                    DatePickers(dialogState = dateDialogState)
+                    if(dateState.value){
+                        DateAndTimePicker(state = dateState, viewModel,viewModel::onDateChange)
+                    }
                     Row {
                         IconButton(onClick = {
-                            dateDialogState.show()
+                            dateState.value = true
                         }) {
                             DrawableIcon(
                                 painter = painterResource(id = R.drawable.timer),
@@ -219,7 +223,8 @@ fun RowScope.AddItems(
                 tint = Color.White
             )
         },
-        selectedContentColor = Color.Black
+        selectedContentColor = Color.White,
+        unselectedContentColor = Color.Black
     )
 }
 
