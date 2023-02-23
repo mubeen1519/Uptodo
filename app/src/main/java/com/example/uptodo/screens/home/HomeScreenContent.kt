@@ -24,6 +24,8 @@ import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.SearchField
 import com.example.uptodo.components.categories.NavigationDrawerItem
+import com.example.uptodo.screens.settings.ChangeThemeDialog
+import com.example.uptodo.screens.settings.ThemeSetting
 import kotlinx.coroutines.launch
 
 @SuppressLint("SuspiciousIndentation")
@@ -31,7 +33,6 @@ import kotlinx.coroutines.launch
 fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     todoId: String,
-
     ) {
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -42,6 +43,11 @@ fun HomeScreenContent(
     }
     val searchedText = textState.value.text
 
+    val mutualDialog: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+
+
     LaunchedEffect(viewModel) {
         viewModel.getTodo(todoId)
         viewModel.initailizeTodo()
@@ -50,6 +56,9 @@ fun HomeScreenContent(
         modifier = Modifier
             .fillMaxSize()
     ) {
+        if(mutualDialog.value){
+            ChangeThemeDialog(dialogState = mutualDialog, userSetting = viewModel.themeSetting)
+        }
 
         ModalDrawer(
             drawerState = drawerState,
@@ -111,6 +120,9 @@ fun HomeScreenContent(
                                     painter = painterResource(id = item.forwardIcon),
                                     contentDescription = "forward",
                                     tint = Color.White,
+                                    modifier = Modifier.clickable {
+                                        mutualDialog.value = true
+                                    }
                                 )
                             }
                         }
@@ -203,21 +215,24 @@ fun navDrawerItems(): List<NavigationDrawerItem> {
         NavigationDrawerItem(
             R.drawable.brush,
             "Change app color",
-            R.drawable.arrow_forward
+            R.drawable.arrow_forward,
+            "Change Theme"
         )
     )
     listItems.add(
         NavigationDrawerItem(
             R.drawable.text,
             "Change app typography",
-            R.drawable.arrow_forward
+            R.drawable.arrow_forward,
+            "Change typography"
         ),
     )
     listItems.add(
         NavigationDrawerItem(
             R.drawable.language,
             "Change app language",
-            R.drawable.arrow_forward
+            R.drawable.arrow_forward,
+            "Change language"
         ),
     )
 
@@ -225,7 +240,8 @@ fun navDrawerItems(): List<NavigationDrawerItem> {
         NavigationDrawerItem(
             R.drawable.import_icon,
             "Import from google calender",
-            R.drawable.arrow_forward
+            R.drawable.arrow_forward,
+            "Import calender"
         ),
     )
     return listItems

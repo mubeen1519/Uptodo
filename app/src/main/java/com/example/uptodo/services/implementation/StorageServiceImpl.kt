@@ -1,18 +1,31 @@
 package com.example.uptodo.services.implementation
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.OpenableColumns
+import androidx.activity.result.ActivityResultLauncher
+import androidx.customview.widget.Openable
 import com.example.uptodo.services.module.StorageService
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.net.URI
+import java.util.UUID
 import javax.inject.Inject
 
 class StorageServiceImpl @Inject constructor() : StorageService {
     private var listenerRegistration: ListenerRegistration? = null
 
+    val storage = Firebase.storage.reference.child("images");
 
     override fun addTodoListener(
         todo: String,
@@ -41,6 +54,15 @@ class StorageServiceImpl @Inject constructor() : StorageService {
     override fun removeListener() {
         listenerRegistration?.remove()
     }
+
+    override fun addImage(
+        bitmap: Bitmap,
+        onSuccess: (String, String) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+
+    }
+
 
     override fun getTodoItem(
         todoId: String,

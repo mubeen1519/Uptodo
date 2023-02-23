@@ -1,20 +1,23 @@
 package com.example.uptodo.components.categories
 
+import android.graphics.Bitmap
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -24,6 +27,7 @@ import androidx.navigation.NavHostController
 import com.example.uptodo.components.CommonDialog
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.InputField
+import com.example.uptodo.navigation.Create_Account
 import com.example.uptodo.navigation.Graph
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
@@ -275,7 +279,9 @@ fun IconLibraryContent(
 
 @Composable
 fun AccountNameDialog(dialogState: MutableState<Boolean>) {
-    ChangeAccountName(dialogState = dialogState)
+    CommonDialog(state = dialogState) {
+        ChangeAccountName(dialogState = dialogState)
+    }
 }
 
 @Composable
@@ -320,11 +326,14 @@ fun ChangeAccountName(
         }
     }
 }
+
 @Composable
 fun ChangePasswordDialog(
     dialogState: MutableState<Boolean>,
-    ){
-    ChangeAccountPassword(dialogState = dialogState)
+) {
+    CommonDialog(state = dialogState) {
+        ChangeAccountPassword(dialogState = dialogState)
+    }
 }
 
 @Composable
@@ -342,7 +351,12 @@ fun ChangeAccountPassword(
         Spacer(modifier = Modifier.height(8.dp))
 
     }
-    Column(modifier = Modifier.fillMaxWidth().background(BottomBarColor).padding(20.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(BottomBarColor)
+            .padding(20.dp)
+    ) {
 
         InputField(
             placeholderText = "Enter old Password",
@@ -352,7 +366,12 @@ fun ChangeAccountPassword(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        InputField(placeholderText = "Enter new Password", onFieldChange = {}, label = "Enter new Password", isFieldSecured = true)
+        InputField(
+            placeholderText = "Enter new Password",
+            onFieldChange = {},
+            label = "Enter new Password",
+            isFieldSecured = true
+        )
 
         Spacer(modifier = Modifier.height(15.dp))
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -378,6 +397,117 @@ fun ChangeAccountPassword(
             ) {
                 Text(text = "Edit")
             }
+        }
+    }
+}
+
+@Composable
+fun ImageFromGalleryDialog(dialogState: MutableState<Boolean>) {
+    CommonDialog(state = dialogState) {
+        PickImage(dialogState = dialogState)
+    }
+}
+
+@Composable
+fun PickImage(
+    dialogState: MutableState<Boolean>
+) {
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+    val context = LocalContext.current
+    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+
+    val launcher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
+            imageUri = uri
+        }
+
+
+    Column(
+        modifier = Modifier
+            .background(BottomBarColor)
+            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Change account Image", textAlign = TextAlign.Center, color = Color.White)
+        Spacer(modifier = Modifier.height(10.dp))
+        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Spacer(modifier = Modifier.height(8.dp))
+
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(BottomBarColor)
+            .padding(top = 10.dp, start = 20.dp, end = 20.dp)
+    ) {
+        Text(text = "Take Picture", color = Color.White, fontSize = 15.sp)
+
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = "Import from gallery",
+            color = Color.White,
+            fontSize = 15.sp,
+            modifier = Modifier.clickable {
+                dialogState.value = false
+                launcher.launch("image/*")
+
+            })
+
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(text = "Import from Google drive", color = Color.White, fontSize = 15.sp)
+    }
+}
+
+@Composable
+fun LogoutDialog(dialogState: MutableState<Boolean>, navController: NavHostController) {
+    CommonDialog(state = dialogState) {
+        Logout(dialogState = dialogState, navController = navController)
+    }
+}
+
+@Composable
+fun Logout(
+    dialogState: MutableState<Boolean>,
+    viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavHostController
+) {
+    Column(
+        modifier = Modifier
+            .background(BottomBarColor)
+            .fillMaxWidth()
+            .padding(10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("Are you sure you want to logout", color = Color.White, fontSize = 15.sp)
+        Spacer(modifier = Modifier.height(15.dp))
+
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = { dialogState.value = false },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = BottomBarColor,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(5.dp)
+            ) {
+                Text(text = "Cancel", color = Purple40)
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = {
+                    viewModel.Logout()
+                    navController.navigate(Graph.Authentication)
+                }, colors = ButtonDefaults.buttonColors(
+                    contentColor = Color.White,
+                    containerColor = Purple40
+                ),
+                shape = RoundedCornerShape(5.dp)
+
+            ) {
+                Text(text = "Logout")
+            }
+
         }
     }
 }

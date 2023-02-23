@@ -1,5 +1,8 @@
 package com.example.uptodo.screens.home
 
+import android.content.Context
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.viewModelScope
@@ -9,6 +12,7 @@ import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.DEFAULT_TODO_ID
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
+import com.example.uptodo.screens.settings.ThemeSetting
 import com.example.uptodo.services.implementation.TODOItem
 import com.example.uptodo.services.module.AccountService
 import com.example.uptodo.services.module.LogService
@@ -32,6 +36,8 @@ class HomeViewModel @Inject constructor(
     private val storageService: StorageService,
     private val logService: LogService
 ) : MainViewModel(logService) {
+    @Inject
+    lateinit var themeSetting: ThemeSetting
     private var todoItem = mutableStateMapOf<String, TODOItem>()
     var allUserTodo = mutableStateListOf<TODOItem>()
 
@@ -94,6 +100,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun Logout(){
+        viewModelScope.launch(super.showErrorExceptionHandler){
+            accountService.signOut()
+        }
+    }
     fun initailizeTodo() {
         viewModelScope.launch(super.showErrorExceptionHandler) {
             storageService.getAllTodoFromFireBase(

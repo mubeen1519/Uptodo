@@ -1,15 +1,17 @@
 package com.example.uptodo.screens.profile
 
-import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,19 +20,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.categories.AccountNameDialog
 import com.example.uptodo.components.categories.ChangePasswordDialog
+import com.example.uptodo.components.categories.ImageFromGalleryDialog
+import com.example.uptodo.components.categories.LogoutDialog
 import com.example.uptodo.ui.theme.BottomBarColor
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(navHostController: NavHostController) {
     val accountName: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
     val accountPassword: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
+
+    val logout: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+
+    val imageFromGallery: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+    val imageUri = rememberSaveable{
+        mutableStateOf("")
+    }
+
     val scrollState = rememberScrollState()
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -55,8 +75,9 @@ fun ProfileScreen() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(modifier = Modifier.size(width = 80.dp, height = 120.dp)) {
-                    Image(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.profile),
+                    AsyncImage(
+                        model = imageUri.value,
+                        placeholder = painterResource(id = R.drawable.user),
                         contentDescription = "profile",
                         modifier = Modifier.fillMaxSize()
                     )
@@ -105,7 +126,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.setting),
+                        painter = painterResource(id = R.drawable.setting),
                         contentDescription = "setting",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)
@@ -118,7 +139,7 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White
                     )
@@ -143,7 +164,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.user),
+                        painter = painterResource(id = R.drawable.user),
                         contentDescription = "user",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)
@@ -156,7 +177,7 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White,
                         modifier = Modifier.clickable { accountName.value = true }
@@ -172,7 +193,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.key),
+                        painter = painterResource(id = R.drawable.key),
                         contentDescription = "password",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)
@@ -185,11 +206,14 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White,
                         modifier = Modifier.clickable { accountPassword.value = true }
                     )
+                }
+                if(imageFromGallery.value){
+                    ImageFromGalleryDialog(dialogState = imageFromGallery)
                 }
                 Row(
                     modifier = Modifier
@@ -198,7 +222,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.camera),
+                        painter = painterResource(id = R.drawable.camera),
                         contentDescription = "camera",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)
@@ -211,9 +235,12 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White
+                        tint = Color.White,
+                        modifier = Modifier.clickable {
+                            imageFromGallery.value = true
+                        }
                     )
                 }
                 // uptodo row
@@ -233,7 +260,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.about_us),
+                        painter = painterResource(id = R.drawable.about_us),
                         contentDescription = "about us",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)
@@ -246,7 +273,7 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White
                     )
@@ -258,7 +285,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.faq),
+                        painter = painterResource(id = R.drawable.faq),
                         contentDescription = "faq",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)
@@ -271,7 +298,7 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White
                     )
@@ -283,7 +310,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.feedback),
+                        painter = painterResource(id = R.drawable.feedback),
                         contentDescription = "faq",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)
@@ -296,7 +323,7 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White
                     )
@@ -309,7 +336,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.like),
+                        painter = painterResource(id = R.drawable.like),
                         contentDescription = "faq",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)
@@ -322,10 +349,13 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White
                     )
+                }
+                if(logout.value){
+                    LogoutDialog(dialogState = logout, navController = navHostController)
                 }
                 Row(
                     modifier = Modifier
@@ -334,7 +364,7 @@ fun ProfileScreen() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.logout),
+                        painter = painterResource(id = R.drawable.logout),
                         contentDescription = "logout",
                         tint = Color.Red,
                         modifier = Modifier.size(22.dp)
@@ -347,9 +377,12 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     DrawableIcon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.arrow_forward),
+                        painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White
+                        tint = Color.White,
+                        modifier = Modifier.clickable {
+                            logout.value = true
+                        }
                     )
                 }
             }
@@ -357,8 +390,3 @@ fun ProfileScreen() {
     }
 }
 
-@Preview
-@Composable
-fun Screen() {
-    ProfileScreen()
-}

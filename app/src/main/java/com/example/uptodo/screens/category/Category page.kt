@@ -79,26 +79,26 @@ fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem) {
                 } else {
                     IconButton(onClick = {
                         iconLibraryState.value = false
-
                     }) {
                         DrawableIcon(
                             painter =
                             painterResource(
-                                id = icons.icon
-                            //                                when (icons) {
-//                                    Icons.Grocery -> Icons.Grocery.icon
-//                                    Icons.Design -> Icons.Design.icon
-//                                    Icons.Health -> Icons.Health.icon
-//                                    Icons.Home -> Icons.Home.icon
-//                                    Icons.Movie -> Icons.Movie.icon
-//                                    Icons.Music -> Icons.Music.icon
-//                                    Icons.Social -> Icons.Social.icon
-//                                    Icons.Sport -> Icons.Sport.icon
-//                                    Icons.University -> Icons.University.icon
-//                                    Icons.Work -> Icons.Work.icon
-//                                    null -> Icons.Work.icon
-//                                }
-                            ), contentDescription = "icons"
+                                id = when (icons) {
+                                    Icons.Grocery -> Icons.Grocery.icon
+                                    Icons.Design -> Icons.Design.icon
+                                    Icons.Health -> Icons.Health.icon
+                                    Icons.Home -> Icons.Home.icon
+                                    Icons.Movie -> Icons.Movie.icon
+                                    Icons.Music -> Icons.Music.icon
+                                    Icons.Social -> Icons.Social.icon
+                                    Icons.Sport -> Icons.Sport.icon
+                                    Icons.University -> Icons.University.icon
+                                    Icons.Work -> Icons.Work.icon
+                                }
+                            ), contentDescription = "icons",
+                            modifier = Modifier.size(30.dp).clickable {
+                                
+                            }
                         )
                     }
                 }
@@ -114,12 +114,11 @@ fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem) {
             EnumColors(itemWidth = 30.dp, onItemSelection = { })
         }
 
-        Spacer(modifier = Modifier.height(40.dp))
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxSize()
             ) {
                 Text(
                     text = "Cancel",

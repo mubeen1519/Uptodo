@@ -11,7 +11,6 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent :: class)
 @Module
 abstract class ServiceModule {
-
     @Binds
     abstract fun provideAccountService(impl: AccountServiceImpl) : AccountService
 
