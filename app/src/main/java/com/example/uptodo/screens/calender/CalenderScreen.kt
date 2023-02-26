@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.LocalMinimumTouchTargetEnforcement
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -35,6 +37,7 @@ import kotlinx.datetime.todayIn
 import java.text.SimpleDateFormat
 import java.util.*
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
@@ -66,8 +69,7 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
             KalendarOceanic(
                 takeMeToDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .fillMaxWidth(),
                 kalendarDayColors = KalendarDayColors(
                     textColor = Color.White,
                     selectedTextColor = Color.White
@@ -99,41 +101,53 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
                     .background(BottomBarColor)
                     .clip(shape = RoundedCornerShape(5.dp))
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp)
-                ) {
-                    Button(
-                        onClick = {
-                            clicked = "today"
-
-                        },
+                CompositionLocalProvider(LocalMinimumTouchTargetEnforcement provides false) {
+                    Row(
                         modifier = Modifier
-                            .size(width = 140.dp, height = 55.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = if(clicked == "today") Purple40  else BottomBarColor,
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(5.dp)
+                            .fillMaxWidth()
+                            .padding(10.dp)
                     ) {
-                        Text(text = "Today")
-                    }
-                    Spacer(modifier = Modifier.weight(1f))
-                    Button(
-                        onClick = {
-                            clicked = "completed"
-                        },
-                        modifier = Modifier
-                            .size(width = 140.dp, height = 55.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = if(clicked == "completed") Purple40 else BottomBarColor ,
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(5.dp)
+                        Button(
+                            onClick = {
+                                clicked = "today"
 
-                    ) {
-                        Text(text = "Completed")
+                            },
+                            modifier = Modifier
+                                .size(width = 140.dp, height = 55.dp).border(
+                                    BorderStroke(
+                                        1.dp, Color.White
+                                    ),
+                                    shape = RoundedCornerShape(5.dp)
+                                ),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (clicked == "today") Purple40 else BottomBarColor,
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(5.dp)
+                        ) {
+                            Text(text = "Today")
+                        }
+                        Spacer(modifier = Modifier.weight(1f))
+                        Button(
+                            onClick = {
+                                clicked = "completed"
+                            },
+                            modifier = Modifier
+                                .size(width = 140.dp, height = 55.dp).border(
+                                    BorderStroke(
+                                        1.dp, Color.White
+                                    ),
+                                    shape = RoundedCornerShape(5.dp)
+                                ),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (clicked == "completed") Purple40 else BottomBarColor,
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(5.dp)
+
+                        ) {
+                            Text(text = "Completed")
+                        }
                     }
                 }
             }
@@ -145,7 +159,12 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
         ) {
             if (clicked == "today") {
                 LazyColumn(userScrollEnabled = true) {
-                    items(viewModel.allUserTodo.filter { it.date.contains(todayDate,ignoreCase = true)}, key = { it.id }) { todoItem ->
+                    items(viewModel.allUserTodo.filter {
+                        it.date.contains(
+                            todayDate,
+                            ignoreCase = true
+                        )
+                    }, key = { it.id }) { todoItem ->
                         TodoCardItems(
                             todoItem = todoItem,
                             onCheckChange = {
@@ -154,9 +173,11 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
                         )
                     }
                 }
-            } else if(clicked == "completed"){
+            } else if (clicked == "completed") {
                 LazyColumn(userScrollEnabled = true) {
-                    items(viewModel.allUserTodo.filter {it.completed }, key = { it.id }) { todoItem ->
+                    items(
+                        viewModel.allUserTodo.filter { it.completed },
+                        key = { it.id }) { todoItem ->
                         TodoCardItems(
                             todoItem = todoItem,
                             onCheckChange = {

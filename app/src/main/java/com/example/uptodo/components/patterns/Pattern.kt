@@ -2,7 +2,6 @@ package com.example.uptodo.components.patterns
 
 import android.util.Patterns
 import com.example.uptodo.services.implementation.TODOItem
-import java.util.regex.Pattern
 
 
 fun String.isValidEmail() : Boolean {
@@ -19,3 +18,4 @@ return this?.date.orEmpty().isNotBlank()
 fun TODOItem?.hasTime():Boolean{
     return this?.time.orEmpty().isNotBlank()
 }
+

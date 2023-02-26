@@ -2,6 +2,7 @@ package com.example.uptodo.screens.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -29,8 +30,6 @@ fun TodoCardItems(
     onCheckChange: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
-    val scope = rememberCoroutineScope()
 
 
     Card(
@@ -62,10 +61,16 @@ fun TodoCardItems(
                         fontSize = 16.sp
                     )
                 }
-                Row(modifier = Modifier
-                    .padding(top = 5.dp)
-                    .fillMaxWidth()) {
-                    Text(text = viewModel.getDateAndTime(todoItem), color = Color.White, fontSize = 9.sp)
+                Row(
+                    modifier = Modifier
+                        .padding(top = 5.dp)
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = viewModel.getDateAndTime(todoItem),
+                        color = Color.White,
+                        fontSize = 9.sp
+                    )
                     Spacer(modifier = Modifier.weight(2f))
                     Button(
                         modifier = Modifier.size(width = 100.dp, height = 35.dp),
@@ -125,57 +130,59 @@ fun TodoCardItems(
                         )
                     }
 
-                    OutlinedButton(
-                        modifier = Modifier
-                            .size(width = 55.dp, height = 30.dp)
-                            .padding(start = 8.dp, end = 8.dp)
-                            .border(
-                                border = BorderStroke(1.dp, Purple40),
-                                shape = RoundedCornerShape(5.dp)
-                            ),
-                        contentPadding = PaddingValues(0.dp),
-                        onClick = { /*TODO*/ },
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = BottomBarColor,
-                            contentColor = Color.White,
-                        )
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(
-                                id = when (todoItem.priority) {
-                                    Priority.Priority1 -> Priority.Priority1.icon
-                                    Priority.Priority2 -> Priority.Priority2.icon
-                                    Priority.Priority3 -> Priority.Priority3.icon
-                                    Priority.Priority4 -> Priority.Priority4.icon
-                                    Priority.Priority5 -> Priority.Priority5.icon
-                                    Priority.Priority6 -> Priority.Priority6.icon
-                                    Priority.Priority7 -> Priority.Priority7.icon
-                                    Priority.Priority8 -> Priority.Priority8.icon
-                                    Priority.Priority9 -> Priority.Priority9.icon
-                                    Priority.Priority10 -> Priority.Priority10.icon
-                                    null -> Priority.Priority1.icon
-                                }
-                            ),
-                            contentDescription = "some",
-                            tint = Color.Unspecified,
-                            modifier = Modifier.size(10.dp)
-                        )
-                        Text(
-                            text = when (todoItem.priority) {
-                                Priority.Priority1 -> Priority.Priority1.value.toString()
-                                Priority.Priority2 -> Priority.Priority2.value.toString()
-                                Priority.Priority3 -> Priority.Priority3.value.toString()
-                                Priority.Priority4 -> Priority.Priority4.value.toString()
-                                Priority.Priority5 -> Priority.Priority5.value.toString()
-                                Priority.Priority6 -> Priority.Priority6.value.toString()
-                                Priority.Priority7 -> Priority.Priority7.value.toString()
-                                Priority.Priority8 -> Priority.Priority8.value.toString()
-                                Priority.Priority9 -> Priority.Priority9.value.toString()
-                                Priority.Priority10 -> Priority.Priority10.value.toString()
-                                null -> Priority.Priority1.value.toString()
-                            },
-                            color = Color.White, fontSize = 9.sp
-                        )
+                    CompositionLocalProvider(LocalMinimumTouchTargetEnforcement provides false) {
+                        OutlinedButton(
+                            modifier = Modifier
+                                .size(width = 55.dp, height = 35.dp)
+                                .padding(start = 8.dp, end = 8.dp)
+                                .border(
+                                    border = BorderStroke(1.dp, Purple40),
+                                    shape = RoundedCornerShape(5.dp)
+                                ),
+                            contentPadding = PaddingValues(0.dp),
+                            onClick = {},
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = BottomBarColor,
+                                contentColor = Color.White,
+                            )
+                        ) {
+                            DrawableIcon(
+                                painter = painterResource(
+                                    id = when (todoItem.priority) {
+                                        Priority.Priority1 -> Priority.Priority1.icon
+                                        Priority.Priority2 -> Priority.Priority2.icon
+                                        Priority.Priority3 -> Priority.Priority3.icon
+                                        Priority.Priority4 -> Priority.Priority4.icon
+                                        Priority.Priority5 -> Priority.Priority5.icon
+                                        Priority.Priority6 -> Priority.Priority6.icon
+                                        Priority.Priority7 -> Priority.Priority7.icon
+                                        Priority.Priority8 -> Priority.Priority8.icon
+                                        Priority.Priority9 -> Priority.Priority9.icon
+                                        Priority.Priority10 -> Priority.Priority10.icon
+                                        null -> Priority.Priority1.icon
+                                    }
+                                ),
+                                contentDescription = "some",
+                                tint = Color.Unspecified,
+                                modifier = Modifier.size(10.dp)
+                            )
+                            Text(
+                                text = when (todoItem.priority) {
+                                    Priority.Priority1 -> Priority.Priority1.value.toString()
+                                    Priority.Priority2 -> Priority.Priority2.value.toString()
+                                    Priority.Priority3 -> Priority.Priority3.value.toString()
+                                    Priority.Priority4 -> Priority.Priority4.value.toString()
+                                    Priority.Priority5 -> Priority.Priority5.value.toString()
+                                    Priority.Priority6 -> Priority.Priority6.value.toString()
+                                    Priority.Priority7 -> Priority.Priority7.value.toString()
+                                    Priority.Priority8 -> Priority.Priority8.value.toString()
+                                    Priority.Priority9 -> Priority.Priority9.value.toString()
+                                    Priority.Priority10 -> Priority.Priority10.value.toString()
+                                    null -> Priority.Priority1.value.toString()
+                                },
+                                color = Color.White, fontSize = 9.sp
+                            )
+                        }
                     }
                 }
             }
