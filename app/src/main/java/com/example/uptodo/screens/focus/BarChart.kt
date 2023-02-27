@@ -1,8 +1,6 @@
 package com.example.uptodo.screens.focus
 
-import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -14,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,19 +19,25 @@ import androidx.compose.ui.unit.sp
 import com.example.uptodo.ui.theme.ChartColor
 
 @Composable
-fun Chart(data: Map<Float, String>, hours: List<String>) {
-    val context = LocalContext.current
+fun Chart(data: Map<Float, String>) {
 
+    val hoursList = listOf(
+        "6h","5h","4h","3h","2h","1h"
+    )
     //Graph dimension
     val barGraphHeight by remember {
         mutableStateOf(200.dp)
     }
     val barGraphWidth by remember {
-        mutableStateOf(15.dp)
+        mutableStateOf(20.dp)
+    }
+
+    val text by remember {
+        mutableStateOf("")
     }
 
     //scale graph
-    val scaleYAxisWidth by remember { mutableStateOf(2.dp) }
+    val scaleYAxisWidth by remember { mutableStateOf(30.dp) }
     val scaleLineWidth by remember { mutableStateOf(2.dp) }
 
     Column(modifier = Modifier
@@ -53,21 +56,15 @@ fun Chart(data: Map<Float, String>, hours: List<String>) {
                     .width(scaleYAxisWidth),
                 contentAlignment = Alignment.BottomCenter
             ) {
-                Column(
-                    modifier = Modifier.fillMaxHeight(),
-                    verticalArrangement = Arrangement.Bottom
-                ) {
-                    Text(text = hours.toString(), color = Color.White)
-                    Spacer(modifier = Modifier.fillMaxHeight())
-                }
-                Column(
-                    modifier = Modifier.fillMaxHeight(),
-                    verticalArrangement = Arrangement.Bottom
-                ) {
-                    Text(text = hours.toString(), color = Color.White)
-                    Spacer(modifier = Modifier.fillMaxHeight(0.5f))
-                }
 
+                Column(
+                        modifier = Modifier.fillMaxHeight(),
+                        verticalArrangement = Arrangement.Top
+                    ) {
+                    hoursList.forEach {
+                        Text(text = it, color = Color.White, modifier = Modifier.padding(bottom = 15.dp))
+                    }
+                }
             }
             Box(
                 modifier = Modifier
@@ -80,8 +77,8 @@ fun Chart(data: Map<Float, String>, hours: List<String>) {
             data.forEach {
                 Box(
                     modifier = Modifier
-                        .padding(start = 30.dp)
-                        .clip(RoundedCornerShape(5.dp))
+                        .padding(start = barGraphWidth, bottom = 5.dp)
+                        .clip(RoundedCornerShape(2.dp))
                         .width(barGraphWidth)
                         .fillMaxHeight(it.key)
                         .background(ChartColor)
@@ -92,7 +89,7 @@ fun Chart(data: Map<Float, String>, hours: List<String>) {
         // X-Axis Line
         Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(0.97f)
                 .height(scaleLineWidth)
                 .background(Color.White)
         )
@@ -100,7 +97,7 @@ fun Chart(data: Map<Float, String>, hours: List<String>) {
         // Scale X-Axis
         Row(
             modifier = Modifier
-                .padding(start = scaleYAxisWidth + barGraphWidth + scaleLineWidth)
+                .padding(start = scaleYAxisWidth + barGraphWidth)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(barGraphWidth)
         ) {
@@ -111,7 +108,7 @@ fun Chart(data: Map<Float, String>, hours: List<String>) {
                     text = it,
                     textAlign = TextAlign.Center,
                     color = Color.White,
-                    fontSize = 10.sp
+                    fontSize = 9.sp
                 )
             }
         }
@@ -122,7 +119,7 @@ fun Chart(data: Map<Float, String>, hours: List<String>) {
 @Composable
 fun prviewss(){
     Chart(data = mapOf(
-        Pair(0.5f, "SUN"),
+        Pair(0.4f, "SUN"),
         Pair(0.3f, "MON"),
         Pair(0.5f, "TUE"),
         Pair(0.7f, "WED"),
@@ -130,7 +127,6 @@ fun prviewss(){
         Pair(0.9f, "FRI"),
         Pair(0.8f, "SAT"),
 
-        ), hours = listOf(
-        "1h", "2h", "3h", "4h", "5h", "6h"),
+        ),
         )
 }

@@ -1,5 +1,6 @@
 package com.example.uptodo.navigation
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,6 +12,7 @@ import com.example.uptodo.screens.home.HomeScreenContent
 import com.example.uptodo.screens.profile.ProfileScreen
 import com.example.uptodo.screens.settings.ThemeSetting
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeNavGraph(navHostController: NavHostController) {
     NavHost(

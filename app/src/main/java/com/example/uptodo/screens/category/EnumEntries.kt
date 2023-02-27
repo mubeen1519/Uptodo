@@ -29,7 +29,7 @@ enum class Colors constructor(val color : Color,val icon: Int) {
 }
 
 
-enum class Icons constructor(val icon: Int,val title : String,val color: Color){
+enum class Icons constructor(val icon: Int, var title : String, var color: Color){
     Work(R.drawable.work,"Work", WorkColor),
     University(R.drawable.university,"University", UniColor),
     Sport(R.drawable.sport,"Sport", SportBox),

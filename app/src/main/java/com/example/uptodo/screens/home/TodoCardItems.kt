@@ -22,18 +22,26 @@ import com.example.uptodo.services.implementation.TODOItem
 import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.CardColor
 import com.example.uptodo.ui.theme.Purple40
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TodoCardItems(
     todoItem: TODOItem,
     onCheckChange: () -> Unit,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    sheetContentState: MutableState<Int>,
+    sheetValue: ModalBottomSheetState,
 ) {
 
+    val scope = rememberCoroutineScope()
 
     Card(
         onClick = {
+            scope.launch {
+                sheetContentState.value = 1
+                sheetValue.show()
+            }
         },
         backgroundColor = CardColor,
         modifier = Modifier

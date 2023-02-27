@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.LocalMinimumTouchTargetEnforcement
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -40,7 +42,10 @@ import java.util.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
-
+    val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val sheetContentState = remember {
+        mutableStateOf(0)
+    }
     LaunchedEffect(viewModel) {
         viewModel.initailizeTodo()
     }
@@ -170,6 +175,8 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
                             onCheckChange = {
                                 viewModel.onTodoCheck(todoItem)
                             },
+                            sheetValue = sheetValue,
+                            sheetContentState = sheetContentState
                         )
                     }
                 }
@@ -183,6 +190,8 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
                             onCheckChange = {
                                 viewModel.onTodoCheck(todoItem)
                             },
+                            sheetValue = sheetValue,
+                            sheetContentState = sheetContentState
                         )
                     }
                 }

@@ -139,6 +139,7 @@ class HomeViewModel @Inject constructor(
         todo.value = todo.value.copy(description = newValue)
     }
 
+
     fun onPriorityChange(priority: Priority) {
         todo.value.priority = priority
     }
@@ -146,6 +147,11 @@ class HomeViewModel @Inject constructor(
     fun onIconChange(icons: Icons) {
         todo.value.icon = icons
     }
+
+    fun onIconTitleChange(newValue: String) {
+        todo.value.icon?.title = newValue
+    }
+
 
     fun getDateAndTime(todoItem: TODOItem): String {
         val stringBuilder = StringBuilder("")

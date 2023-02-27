@@ -16,69 +16,78 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.InputField
 import com.example.uptodo.components.categories.LibraryIcon
 import com.example.uptodo.navigation.Home
+import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.services.implementation.TODOItem
 import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 
 @Composable
-fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem) {
+fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem,viewModel: HomeViewModel = hiltViewModel()) {
 
     val iconLibraryState: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
-    val selectedValue by remember {
+    val selectedValue = remember {
         mutableStateOf(0)
     }
 
+    val value by remember {
+        mutableStateOf("")
+    }
+
     Column(modifier = Modifier.padding(10.dp)) {
-        Text(
-            text = stringResource(id = R.string.new_category),
-            color = Color.White,
-            fontSize = 20.sp
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-        InputField(
-            placeholderText = "Category name",
-            onFieldChange = {},
-            label = "Category name:"
-        )
-
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(text = stringResource(id = R.string.category_icon), color = Color.LightGray)
-
-        Spacer(modifier = Modifier.height(15.dp))
-        if (iconLibraryState.value) {
-            LibraryIcon(
-                state = iconLibraryState,
+        Icons.values().forEachIndexed { index, icons ->
+            Text(
+                text = stringResource(id = R.string.new_category),
+                color = Color.White,
+                fontSize = 20.sp
             )
-        }
-        Button(
-            onClick = {
-                iconLibraryState.value = true
-            }, colors = ButtonDefaults.buttonColors(
-                containerColor = BottomBarColor,
-                contentColor = Color.White
-            ),
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.size(width = 200.dp, height = 40.dp)
-        ) {
 
-            val text = stringResource(id = R.string.choose_icon)
-            Icons.values().forEachIndexed { index, icons ->
-                if (selectedValue == index) {
+            Spacer(modifier = Modifier.height(15.dp))
+            InputField(
+                value = value,
+                placeholderText = "Category name",
+                onFieldChange = viewModel::onIconTitleChange,
+                label = "Category name:"
+            )
+
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(text = stringResource(id = R.string.category_icon), color = Color.LightGray)
+
+            Spacer(modifier = Modifier.height(15.dp))
+            if (iconLibraryState.value) {
+                LibraryIcon(
+                    state = iconLibraryState,
+                )
+            }
+            Button(
+                onClick = {
+                    iconLibraryState.value = true
+                }, colors = ButtonDefaults.buttonColors(
+                    containerColor = BottomBarColor,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(8.dp),
+                modifier = Modifier.size(width = 200.dp, height = 40.dp)
+            ) {
+
+                val text = stringResource(id = R.string.choose_icon)
+                if (selectedValue.value == index) {
                     Text(text = text, color = Color.White)
                 } else {
                     IconButton(onClick = {
                         iconLibraryState.value = false
+                        selectedValue.value = index
                     }) {
                         DrawableIcon(
                             painter =
@@ -96,45 +105,50 @@ fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem) {
                                     Icons.Work -> Icons.Work.icon
                                 }
                             ), contentDescription = "icons",
-                            modifier = Modifier.size(30.dp).clickable {
-                                
-                            }
+                            modifier = Modifier
+                                .size(30.dp)
+                                .clickable {
+
+                                }
                         )
                     }
                 }
-
             }
-        }
 
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(text = stringResource(id = R.string.category_color), color = Color.LightGray)
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(text = stringResource(id = R.string.category_color), color = Color.LightGray)
 
-        Spacer(modifier = Modifier.height(15.dp))
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            EnumColors(itemWidth = 30.dp, onItemSelection = { })
-        }
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                EnumColors(itemWidth = 30.dp, onItemSelection = {
+                    icons.color
+                })
+            }
 
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text(
-                    text = "Cancel",
-                    color = Purple40,
-                    modifier = Modifier.clickable { navigate(Home) })
-
-                Button(
-                    onClick = {},
-                    modifier = Modifier.size(width = 150.dp, height = 40.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Purple40,
-                        contentColor = Color.White
-                    ),
-                    shape = RoundedCornerShape(8.dp)
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    Text(text = "Create Category", color = Color.White)
+                    Text(
+                        text = "Cancel",
+                        color = Purple40,
+                        modifier = Modifier.clickable { navigate(Home) })
+
+                    Button(
+                        onClick = {
+                             viewModel.onIconChange(icons)
+                        },
+                        modifier = Modifier.size(width = 150.dp, height = 40.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Purple40,
+                            contentColor = Color.White
+                        ),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(text = "Create Category", color = Color.White)
+                    }
                 }
             }
         }
@@ -166,7 +180,7 @@ fun EnumColors(
             DrawableIcon(
                 painter = painterResource(id = item.icon),
                 contentDescription = "check",
-                tint = if(selectedIndex.value == index) Color.White else Color.Transparent
+                tint = if (selectedIndex.value == index) Color.White else Color.Transparent
             )
         }
     }

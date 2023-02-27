@@ -6,10 +6,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.*
 import androidx.compose.material.DrawerValue
-import androidx.compose.material.ModalDrawer
-import androidx.compose.material.rememberDrawerState
 import androidx.compose.material3.*
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,12 +29,17 @@ import com.example.uptodo.screens.settings.ChangeThemeDialog
 import com.example.uptodo.screens.settings.ThemeSetting
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     todoId: String,
     ) {
+    val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val sheetContentState = remember {
+        mutableStateOf(0)
+    }
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val openDrawer: () -> Unit = { scope.launch { drawerState.open() } }
@@ -56,7 +62,7 @@ fun HomeScreenContent(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        if(mutualDialog.value){
+        if (mutualDialog.value) {
             ChangeThemeDialog(dialogState = mutualDialog, userSetting = viewModel.themeSetting)
         }
 
@@ -183,22 +189,24 @@ fun HomeScreenContent(
                         SearchField(state = textState, placeholderText = "Search")
                     }
 
-                                LazyColumn {
-                                    items(viewModel.allUserTodo.filter {
-                                        it.title.contains(searchedText, ignoreCase = true)
-                                    }.sortedBy { it.date }, key = { it.id }) { todoItem ->
-                                        TodoCardItems(
-                                            todoItem = todoItem,
-                                            onCheckChange = {
-                                                viewModel.onTodoCheck(todoItem)
-                                            },
-                                        )
-                                    }
-                                }
-                            }
+                    LazyColumn {
+                        items(viewModel.allUserTodo.filter {
+                            it.title.contains(searchedText, ignoreCase = true)
+                        }.sortedBy { it.date }, key = { it.id }) { todoItem ->
+                            TodoCardItems(
+                                todoItem = todoItem,
+                                onCheckChange = {
+                                    viewModel.onTodoCheck(todoItem)
+                                },
+                                sheetValue = sheetValue,
+                                sheetContentState = sheetContentState
+                            )
                         }
                     }
                 }
+            }
+        }
+    }
 //    DisposableEffect(viewModel) {
 //        viewModel.addListener()
 //        onDispose {
@@ -206,7 +214,8 @@ fun HomeScreenContent(
 //        }
 //    }
 
-            }
+}
+
 @Composable
 fun navDrawerItems(): List<NavigationDrawerItem> {
     val listItems = arrayListOf<NavigationDrawerItem>()

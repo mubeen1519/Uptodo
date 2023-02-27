@@ -34,7 +34,9 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
     val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     var showBottomBar by rememberSaveable { mutableStateOf(true) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-
+    val sheetContentState = remember {
+        mutableStateOf(0)
+    }
     showBottomBar = when (navBackStackEntry?.destination?.route) {
         Details.CategoryPages.route -> false
         else -> true
@@ -47,6 +49,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
                 onClick = {
                     if (showBottomBar) {
                         coroutineScope.launch {
+                            sheetContentState.value = 1
                             if (state.isVisible) {
                                 state.hide()
                             } else {
