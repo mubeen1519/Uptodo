@@ -438,7 +438,7 @@ fun PickImage(
         modifier = Modifier
             .fillMaxWidth()
             .background(BottomBarColor)
-            .padding(top = 10.dp, start = 20.dp, end = 20.dp)
+            .padding(top = 10.dp, start = 20.dp, end = 20.dp, bottom = 20.dp)
     ) {
         Text(text = "Take Picture", color = Color.White, fontSize = 15.sp)
 
@@ -497,7 +497,7 @@ fun Logout(
             Button(
                 onClick = {
                     viewModel.Logout()
-                    navController.navigate(Graph.Authentication)
+                    navController.popBackStack()
                 }, colors = ButtonDefaults.buttonColors(
                     contentColor = Color.White,
                     containerColor = Purple40

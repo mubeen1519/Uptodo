@@ -25,8 +25,8 @@ import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.SearchField
 import com.example.uptodo.components.categories.NavigationDrawerItem
+import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.settings.ChangeThemeDialog
-import com.example.uptodo.screens.settings.ThemeSetting
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -35,11 +35,10 @@ import kotlinx.coroutines.launch
 fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     todoId: String,
+    currentBottomSheet : BottomSheetType
     ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    val sheetContentState = remember {
-        mutableStateOf(0)
-    }
+
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val openDrawer: () -> Unit = { scope.launch { drawerState.open() } }
@@ -49,7 +48,7 @@ fun HomeScreenContent(
     }
     val searchedText = textState.value.text
 
-    val mutualDialog: MutableState<Boolean> = remember {
+    val themeDialog: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
 
@@ -62,8 +61,8 @@ fun HomeScreenContent(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        if (mutualDialog.value) {
-            ChangeThemeDialog(dialogState = mutualDialog, userSetting = viewModel.themeSetting)
+        if (themeDialog.value) {
+            ChangeThemeDialog(dialogState = themeDialog, userSetting = viewModel.themeSetting)
         }
 
         ModalDrawer(
@@ -71,6 +70,8 @@ fun HomeScreenContent(
             drawerBackgroundColor = Color.Black,
             drawerContent = {
                 val itemsList = navDrawerItems()
+                var selectedItem by remember{mutableStateOf( itemsList[0])}
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
@@ -101,7 +102,7 @@ fun HomeScreenContent(
                         .padding(top = 50.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    items(itemsList) { item ->
+                    this.items(items = itemsList) { item ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -127,7 +128,9 @@ fun HomeScreenContent(
                                     contentDescription = "forward",
                                     tint = Color.White,
                                     modifier = Modifier.clickable {
-                                        mutualDialog.value = true
+                                        if (selectedItem == item) {
+                                            themeDialog.value = true
+                                        }
                                     }
                                 )
                             }
@@ -199,7 +202,9 @@ fun HomeScreenContent(
                                     viewModel.onTodoCheck(todoItem)
                                 },
                                 sheetValue = sheetValue,
-                                sheetContentState = sheetContentState
+                                onClick = {
+                                    currentBottomSheet.let { BottomSheetType.TYPE2 }
+                                }
                             )
                         }
                     }

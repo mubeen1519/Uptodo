@@ -42,6 +42,9 @@ enum class Icons constructor(val icon: Int, var title : String, var color: Color
     Grocery(R.drawable.grocery,"Grocery", SportBox)
 }
 
+enum class BottomSheetType {
+    TYPE1, TYPE2,
+}
 
 
 

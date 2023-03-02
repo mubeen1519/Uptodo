@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.components.DrawableIcon
+import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.services.implementation.TODOItem
@@ -30,17 +31,23 @@ fun TodoCardItems(
     todoItem: TODOItem,
     onCheckChange: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
-    sheetContentState: MutableState<Int>,
     sheetValue: ModalBottomSheetState,
+    onClick : () -> Unit
 ) {
+
 
     val scope = rememberCoroutineScope()
 
     Card(
         onClick = {
             scope.launch {
-                sheetContentState.value = 1
-                sheetValue.show()
+                    onClick()
+                if(sheetValue.isVisible){
+                    sheetValue.hide()
+                }else{
+                    sheetValue.show()
+                }
+
             }
         },
         backgroundColor = CardColor,

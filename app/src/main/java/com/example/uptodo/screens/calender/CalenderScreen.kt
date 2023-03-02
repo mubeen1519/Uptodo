@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.screens.home.TodoCardItems
 import com.example.uptodo.ui.theme.BottomBarColor
@@ -41,7 +42,10 @@ import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun CalenderScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
+    currentBottomSheet: BottomSheetType
+) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val sheetContentState = remember {
         mutableStateOf(0)
@@ -71,20 +75,21 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 .fillMaxWidth()
                 .height(150.dp)
         ) {
-            KalendarOceanic(
+            CalenderHorizontal(
                 takeMeToDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
                 modifier = Modifier
-                    .fillMaxWidth(),
-                kalendarDayColors = KalendarDayColors(
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(5.dp)),
+                calendarDayColors = KalendarDayColors(
                     textColor = Color.White,
                     selectedTextColor = Color.White
                 ),
-                kalendarThemeColor = KalendarThemeColor(
+                calendarThemeColor = KalendarThemeColor(
                     backgroundColor = BottomBarColor,
                     dayBackgroundColor = Purple40,
                     headerTextColor = Color.White,
                 ),
-                kalendarHeaderConfig = KalendarHeaderConfig(
+                calendarHeaderConfig = KalendarHeaderConfig(
                     kalendarTextConfig = KalendarTextConfig(
                         kalendarTextColor = KalendarTextColor(
                             Color.White
@@ -118,7 +123,8 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
                             },
                             modifier = Modifier
-                                .size(width = 140.dp, height = 55.dp).border(
+                                .size(width = 140.dp, height = 55.dp)
+                                .border(
                                     BorderStroke(
                                         1.dp, Color.White
                                     ),
@@ -138,7 +144,8 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
                                 clicked = "completed"
                             },
                             modifier = Modifier
-                                .size(width = 140.dp, height = 55.dp).border(
+                                .size(width = 140.dp, height = 55.dp)
+                                .border(
                                     BorderStroke(
                                         1.dp, Color.White
                                     ),
@@ -176,7 +183,9 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
                                 viewModel.onTodoCheck(todoItem)
                             },
                             sheetValue = sheetValue,
-                            sheetContentState = sheetContentState
+                            onClick = {
+                                currentBottomSheet.name
+                            }
                         )
                     }
                 }
@@ -191,7 +200,9 @@ fun CalenderScreen(viewModel: HomeViewModel = hiltViewModel()) {
                                 viewModel.onTodoCheck(todoItem)
                             },
                             sheetValue = sheetValue,
-                            sheetContentState = sheetContentState
+                            onClick = {
+                                currentBottomSheet.name
+                            }
                         )
                     }
                 }
