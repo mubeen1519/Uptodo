@@ -176,7 +176,7 @@ fun HomeScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 100.dp, start = 10.dp, end = 10.dp, bottom = 70.dp),
+                    .padding(top = 100.dp, start = 10.dp, end = 10.dp, bottom = 120.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (viewModel.allUserTodo.isEmpty()) {
@@ -189,7 +189,7 @@ fun HomeScreenContent(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        SearchField(state = textState, placeholderText = "Search")
+                        SearchField(state = textState, placeholderText = "Search for your task..")
                     }
 
                     LazyColumn {

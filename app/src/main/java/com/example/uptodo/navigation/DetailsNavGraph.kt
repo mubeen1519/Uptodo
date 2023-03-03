@@ -13,9 +13,8 @@ navigation(
     route = Graph.DETAILS,
     startDestination = Details.CategoryPages.route
 ){
-    val todoItem = mutableStateOf(TODOItem())
     composable(Details.CategoryPages.route){
-        CategoryPage( navigate = {route -> navHostController.navigate(route)}, todoItem = todoItem.value)
+        CategoryPage( navigate = {route -> navHostController.navigate(route)})
     }
 }
 }

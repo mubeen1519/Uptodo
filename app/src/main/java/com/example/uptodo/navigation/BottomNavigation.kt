@@ -1,6 +1,7 @@
 package com.example.uptodo.navigation
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.*
@@ -18,6 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.ui.theme.BottomBarColor
+import com.example.uptodo.ui.theme.Purple40
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -36,7 +38,9 @@ fun BottomNavigationBar(
 
     val bottomBarDestination = pages.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
-        BottomNavigation(backgroundColor = BottomBarColor) {
+        BottomNavigation(
+            backgroundColor = BottomBarColor, modifier = Modifier.height(70.dp)
+        ) {
             pages.forEach { screen ->
                 AddItems(
                     screen = screen,
@@ -55,10 +59,14 @@ fun RowScope.AddItems(
     currentDestination: NavDestination?,
 
     ) {
+    val isSelected = currentDestination?.hierarchy?.any {
+        it.route == screen.route
+    } == true
     BottomNavigationItem(
-        selected = currentDestination?.hierarchy?.any {
-            it.route == screen.route
-        } == true,
+        selectedContentColor = Color.White,
+        unselectedContentColor = Color.White,
+        modifier = Modifier.padding(6.dp),
+        selected = isSelected,
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
@@ -74,12 +82,11 @@ fun RowScope.AddItems(
                 painter = painterResource(id = screen.icon),
                 contentDescription = screen.title,
                 modifier = Modifier.size(25.dp),
-                tint = Color.White
+                tint = Color.Unspecified
             )
         },
-        selectedContentColor = Color.White,
-        unselectedContentColor = Color.Black
-    )
+
+        )
 }
 
 

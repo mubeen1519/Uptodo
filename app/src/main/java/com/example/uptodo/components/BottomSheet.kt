@@ -35,20 +35,12 @@ fun ModalBottomSheet(
     bottomSheetType: BottomSheetType,
 ) {
     ModalBottomSheetLayout(
-        modifier = Modifier.fillMaxSize(),
         sheetState = sheetValue,
         sheetContent = {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .defaultMinSize(minHeight = 100.dp)
-            ) {
               when(bottomSheetType){
                   BottomSheetType.TYPE1 -> BottomScreen1(navController = navController, sheetValue = sheetValue)
                   BottomSheetType.TYPE2 -> BottomScreen2(state = sheetValue)
               }
-            }
-
         },
         sheetBackgroundColor = BottomBarColor,
         sheetShape = RoundedCornerShape(20.dp),
@@ -80,7 +72,7 @@ fun BottomScreen1(
     }
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .background(BottomBarColor)
     ) {
         Column(

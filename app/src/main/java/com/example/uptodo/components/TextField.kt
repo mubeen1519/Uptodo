@@ -62,9 +62,10 @@ fun InputField(
         placeholder = {
             Text(
                 text = placeholderText,
-                fontSize = 10.sp
+                fontSize = 12.sp
             )
         },
+        textStyle =MaterialTheme.typography.bodySmall,
         shape = RoundedCornerShape(5.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             placeholderColor = Color.Gray,

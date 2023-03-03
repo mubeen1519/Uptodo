@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Uptodo" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Uptodo" parent="android:Theme.Material.Light.NoActionBar">
+    </style>
 
+    <!-- time picker theme. -->
     <style name="themeOnverlay_timePicker" parent="@style/Theme.AppCompat.DayNight.Dialog">
         <item name="colorControlActivated">@color/defaultBlack</item>
         <item name="colorAccent">@color/defaultBlack</item>

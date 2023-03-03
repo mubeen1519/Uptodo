@@ -198,6 +198,7 @@ fun PriorityContent(
                                 selectedIndex.value = index
                                 onItemSelection(selectedIndex.value)
                                 viewModel.onPriorityChange(priority)
+
                             },
                         ) {
                             DrawableIcon(
@@ -210,10 +211,41 @@ fun PriorityContent(
                         Text(
                             text = priority.value.toString(),
                             color = Color.White,
-                            modifier = Modifier.padding(top = 20.dp)
+                            modifier = Modifier.padding(top = 25.dp)
                         )
                     }
                 }
+            }
+        }
+        Spacer(modifier = Modifier.height(15.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Button(
+                onClick = {
+                    dialogState.value = false
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = BottomBarColor,
+                    contentColor = Purple40
+                ),
+                shape = RoundedCornerShape(5.dp),
+            ) {
+                Text(text = "Cancel")
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Button(
+                onClick = {
+                    dialogState.value = false
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Purple40,
+                    contentColor = Color.White
+                ),
+                shape = RoundedCornerShape(5.dp),
+                modifier = Modifier.padding(end = 10.dp).size(width = 150.dp, height = 40.dp)
+            ) {
+                Text(text = "Save")
             }
         }
     }

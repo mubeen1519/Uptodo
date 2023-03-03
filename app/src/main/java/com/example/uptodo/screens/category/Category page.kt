@@ -9,14 +9,16 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,12 +29,11 @@ import com.example.uptodo.components.InputField
 import com.example.uptodo.components.categories.LibraryIcon
 import com.example.uptodo.navigation.Home
 import com.example.uptodo.screens.home.HomeViewModel
-import com.example.uptodo.services.implementation.TODOItem
 import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 
 @Composable
-fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem,viewModel: HomeViewModel = hiltViewModel()) {
+fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltViewModel()) {
 
     val iconLibraryState: MutableState<Boolean> = remember {
         mutableStateOf(false)
@@ -41,7 +42,7 @@ fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem,viewModel: HomeV
         mutableStateOf(0)
     }
 
-    val value by remember {
+    val values = remember {
         mutableStateOf("")
     }
 
@@ -54,10 +55,13 @@ fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem,viewModel: HomeV
             )
 
             Spacer(modifier = Modifier.height(15.dp))
+
             InputField(
-                value = value,
+                value = icons.title.replace(icons.title, values.value, ignoreCase = true),
                 placeholderText = "Category name",
-                onFieldChange = viewModel::onIconTitleChange,
+                onFieldChange = {
+                    values.value = it
+                },
                 label = "Category name:"
             )
 
@@ -105,11 +109,7 @@ fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem,viewModel: HomeV
                                     Icons.Work -> Icons.Work.icon
                                 }
                             ), contentDescription = "icons",
-                            modifier = Modifier
-                                .size(30.dp)
-                                .clickable {
-
-                                }
+                            modifier = Modifier.size(30.dp)
                         )
                     }
                 }
@@ -138,7 +138,7 @@ fun CategoryPage(navigate: (String) -> Unit, todoItem: TODOItem,viewModel: HomeV
 
                     Button(
                         onClick = {
-                             viewModel.onIconChange(icons)
+                            viewModel.onIconChange(icons)
                         },
                         modifier = Modifier.size(width = 150.dp, height = 40.dp),
                         colors = ButtonDefaults.buttonColors(

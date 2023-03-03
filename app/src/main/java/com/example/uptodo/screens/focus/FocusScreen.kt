@@ -4,14 +4,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +19,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.components.patterns.Utility
 import com.example.uptodo.components.patterns.Utility.formatTime
 import com.example.uptodo.ui.theme.BottomBarColor
-import com.example.uptodo.ui.theme.Purple40
 
 @Composable
 fun FocusScreen(viewModel: TimerViewModel = hiltViewModel()) {
@@ -35,7 +31,7 @@ fun FocusScreen(viewModel: TimerViewModel = hiltViewModel()) {
     Column(modifier = Modifier
         .fillMaxSize()
         .verticalScroll(scrollState)
-        .padding(bottom = 50.dp)) {
+        .padding(bottom = 100.dp)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
