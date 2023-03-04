@@ -49,17 +49,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-//    fun addListener(){
-//        viewModelScope.launch(super.showErrorExceptionHandler){
-//            storageService.addTodoListener(UUID.randomUUID().toString(), ::onDocumentEvent, ::onError)
-//        }
-//    }
-//
-//    fun removeListener(){
-//        viewModelScope.launch(super.showErrorExceptionHandler){
-//            storageService.removeListener()
-//        }
-//    }
+    fun addListener(){
+        viewModelScope.launch(super.showErrorExceptionHandler){
+            storageService.addTodoListener(UUID.randomUUID().toString(), ::onDocumentEvent, ::onError)
+        }
+    }
+
+    fun removeListener(){
+        viewModelScope.launch(super.showErrorExceptionHandler){
+            storageService.removeListener()
+        }
+    }
 
     private fun onDocumentEvent(wasDocumentDeleted: Boolean, todos: TODOItem) {
         if (wasDocumentDeleted) this.todoItem.remove(todos.id) else this.todoItem[todos.id] = todos
@@ -116,7 +116,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun <T> SnapshotStateList<T>.swapList(newList: List<T>) {
+    private fun <T> SnapshotStateList<T>.swapList(newList: List<T>) {
         clear()
         addAll(newList)
     }

@@ -393,7 +393,8 @@ fun ChangeAccountPassword(
         InputField(
             placeholderText = "Enter old Password",
             onFieldChange = {},
-            label = "Enter old Password"
+            label = "Enter old Password",
+            isFieldSecured = true
         )
 
         Spacer(modifier = Modifier.height(10.dp))

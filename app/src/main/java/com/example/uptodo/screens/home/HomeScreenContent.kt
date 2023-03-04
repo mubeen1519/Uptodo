@@ -212,12 +212,12 @@ fun HomeScreenContent(
             }
         }
     }
-//    DisposableEffect(viewModel) {
-//        viewModel.addListener()
-//        onDispose {
-//            viewModel.removeListener()
-//        }
-//    }
+    DisposableEffect(viewModel) {
+        viewModel.addListener()
+        onDispose {
+            viewModel.removeListener()
+        }
+    }
 
 }
 
