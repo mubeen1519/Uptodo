@@ -1,9 +1,8 @@
 package com.example.uptodo.screens.home
 
-import android.content.Context
-import android.content.Intent
-import androidx.activity.result.ActivityResultLauncher
-import androidx.compose.runtime.*
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.viewModelScope
 import com.example.uptodo.components.patterns.hasDate
@@ -19,14 +18,7 @@ import com.example.uptodo.services.module.LogService
 import com.example.uptodo.services.module.StorageService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlinx.datetime.todayIn
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 
@@ -36,12 +28,19 @@ class HomeViewModel @Inject constructor(
     private val storageService: StorageService,
     private val logService: LogService
 ) : MainViewModel(logService) {
+
+    val displayName get() = accountService.displayName
+    val profile get() = accountService.photoUrl
     @Inject
     lateinit var themeSetting: ThemeSetting
     private var todoItem = mutableStateMapOf<String, TODOItem>()
     var allUserTodo = mutableStateListOf<TODOItem>()
 
     var todo = mutableStateOf(TODOItem())
+
+
+
+
 
     fun onTodoCheck(todo: TODOItem) {
         storageService.updateTodoItem(todo.copy(completed = !todo.completed)) { error ->

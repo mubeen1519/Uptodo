@@ -1,11 +1,14 @@
 package com.example.uptodo.services.module
 
+import android.net.Uri
 import com.example.uptodo.services.implementation.UserProfileData
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 
 interface AccountService {
+    val displayName: String
+    val photoUrl: String
     fun hasUser(): FirebaseUser?
 
     fun isAnonymousUser(): Boolean
@@ -21,6 +24,8 @@ interface AccountService {
         onResult: (Throwable?) -> Unit
     )
 
+    suspend fun uploadPictureToFirebase(url: Uri)
+    suspend fun loadFromFireBase()
     fun linkAccount(email: String, password: String, onResult: (Throwable?) -> Unit)
 
     fun RegisterAccount(email: String,password: String,onResult: (Throwable?) -> Unit)

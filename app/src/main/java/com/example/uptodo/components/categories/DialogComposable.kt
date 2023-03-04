@@ -445,16 +445,6 @@ fun ImageFromGalleryDialog(dialogState: MutableState<Boolean>) {
 fun PickImage(
     dialogState: MutableState<Boolean>
 ) {
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
-    val context = LocalContext.current
-    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
-
-    val launcher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
-            imageUri = uri
-        }
-
-
     Column(
         modifier = Modifier
             .background(BottomBarColor)
@@ -482,7 +472,6 @@ fun PickImage(
             fontSize = 15.sp,
             modifier = Modifier.clickable {
                 dialogState.value = false
-                launcher.launch("image/*")
 
             })
 

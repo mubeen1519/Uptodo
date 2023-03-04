@@ -7,10 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -29,10 +27,14 @@ import com.example.uptodo.components.categories.AccountNameDialog
 import com.example.uptodo.components.categories.ChangePasswordDialog
 import com.example.uptodo.components.categories.ImageFromGalleryDialog
 import com.example.uptodo.components.categories.LogoutDialog
+import com.example.uptodo.services.implementation.UserProfileData
 import com.example.uptodo.ui.theme.BottomBarColor
 
 @Composable
-fun ProfileScreen(navHostController: NavHostController) {
+fun ProfileScreen(
+    navHostController: NavHostController,
+    profileViewModel: ProfileViewModel = hiltViewModel()
+) {
     val accountName: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
@@ -47,9 +49,10 @@ fun ProfileScreen(navHostController: NavHostController) {
     val imageFromGallery: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
-    val imageUri = rememberSaveable{
-        mutableStateOf("")
-    }
+    val userDataFromFirebase by remember { mutableStateOf(UserProfileData()) }
+    var userProfileImg by remember { mutableStateOf("") }
+
+    userProfileImg = userDataFromFirebase.imageUrl.toString()
 
     val scrollState = rememberScrollState()
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
@@ -74,13 +77,10 @@ fun ProfileScreen(navHostController: NavHostController) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(modifier = Modifier.size(width = 80.dp, height = 120.dp)) {
-                    AsyncImage(
-                        model = imageUri.value,
-                        placeholder = painterResource(id = R.drawable.user),
-                        contentDescription = "profile",
-                        modifier = Modifier.fillMaxSize()
-                    )
+                PickImageFromGallery(profilePictureUrlForCheck = userProfileImg) {
+                    if (it != null) {
+                        profileViewModel.uploadImageToFirebase(it)
+                    }
                 }
                 Text(text = "Mubeen Ali", color = Color.White, fontSize = 15.sp)
                 Spacer(modifier = Modifier.height(10.dp))
@@ -145,7 +145,7 @@ fun ProfileScreen(navHostController: NavHostController) {
                     )
                 }
                 // Account row
-                if(accountName.value){
+                if (accountName.value) {
                     AccountNameDialog(dialogState = accountName)
                 }
                 Row(
@@ -183,7 +183,7 @@ fun ProfileScreen(navHostController: NavHostController) {
                         modifier = Modifier.clickable { accountName.value = true }
                     )
                 }
-                if(accountPassword.value){
+                if (accountPassword.value) {
                     ChangePasswordDialog(dialogState = accountPassword)
                 }
                 Row(
@@ -212,7 +212,7 @@ fun ProfileScreen(navHostController: NavHostController) {
                         modifier = Modifier.clickable { accountPassword.value = true }
                     )
                 }
-                if(imageFromGallery.value){
+                if (imageFromGallery.value) {
                     ImageFromGalleryDialog(dialogState = imageFromGallery)
                 }
                 Row(
@@ -354,7 +354,7 @@ fun ProfileScreen(navHostController: NavHostController) {
                         tint = Color.White
                     )
                 }
-                if(logout.value){
+                if (logout.value) {
                     LogoutDialog(dialogState = logout, navController = navHostController)
                 }
                 Row(

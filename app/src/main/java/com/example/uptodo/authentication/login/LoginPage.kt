@@ -45,7 +45,6 @@ fun LoginPage(
     navigate: (String) -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
-
     var uiState by viewModel.uiState
     val context = LocalContext.current
     val googleSignInState = viewModel.googleState.value
@@ -118,7 +117,7 @@ fun LoginPage(
 
             Spacer(modifier = Modifier.height(40.dp))
             Button(
-                onClick = { viewModel.onLoginClick(navigate) },
+                onClick = { viewModel.onLoginClick(navigate,context) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)

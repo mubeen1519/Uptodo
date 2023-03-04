@@ -8,49 +8,88 @@ import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toIcon
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import com.example.uptodo.R
 
 @Composable
-fun PickImageFromGallery() {
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
+fun PickImageFromGallery(
+    profilePictureUrlForCheck: String,
+    size: Dp = 100.dp,
+    onSelect: (Uri?) -> Unit = {},
+) {
     val context = LocalContext.current
-    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
 
-    val launcher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
-            imageUri = uri
-        }
+    var imageUri by remember {
+        mutableStateOf<Uri?>(null)
+    }
+    var bitmap by remember {
+        mutableStateOf<Bitmap?>(null)
+    }
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        imageUri = uri
+        onSelect(uri)
+    }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier
+            .clip(CircleShape),
+        contentAlignment = Alignment.Center
     ) {
-        imageUri?.let { btm ->
-            if (Build.VERSION.SDK_INT < 28) {
-                bitmap.value = MediaStore.Images.Media.getBitmap(context.contentResolver, btm)
-            } else {
-                val source = ImageDecoder.createSource(context.contentResolver, btm)
-                bitmap.value = ImageDecoder.decodeBitmap(source)
+        LaunchedEffect(key1 = imageUri) {
+            if (imageUri != null) {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
+                } else {
+                    val source = ImageDecoder
+                        .createSource(context.contentResolver, imageUri!!)
+                    bitmap = ImageDecoder.decodeBitmap(source)
+                }
             }
         }
-
-        bitmap.value?.let { bitmap ->
+        if (bitmap != null) {
             Image(
-                bitmap = bitmap.asImageBitmap(),
+                painter = rememberAsyncImagePainter(bitmap),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(400.dp)
-                    .padding(20.dp)
+                    .clickable { launcher.launch("image/*") }
+                    .size(size),
+                contentScale = ContentScale.Crop
             )
-
+        } else {
+            if (profilePictureUrlForCheck != "") {
+                Image(painter = rememberAsyncImagePainter(profilePictureUrlForCheck),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clickable { launcher.launch("image/*") }
+                        .size(size),
+                    contentScale = ContentScale.Crop)
+            } else {
+                Image(painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(context).data(R.mipmap.ic_launcher_round)
+                        .build()
+                ),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clickable { launcher.launch("image/*") }
+                        .size(size),
+                    contentScale = ContentScale.Crop)
+            }
         }
     }
 }

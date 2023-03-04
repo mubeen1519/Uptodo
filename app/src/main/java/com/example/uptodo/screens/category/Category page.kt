@@ -42,7 +42,7 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
         mutableStateOf(0)
     }
 
-    val values = remember {
+    val newValues = remember {
         mutableStateOf("")
     }
 
@@ -57,10 +57,10 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
             Spacer(modifier = Modifier.height(15.dp))
 
             InputField(
-                value = icons.title.replace(icons.title, values.value, ignoreCase = true),
+                value = icons.title.replace(icons.title, newValues.value, ignoreCase = true),
                 placeholderText = "Category name",
                 onFieldChange = {
-                    values.value = it
+                    newValues.value = it
                 },
                 label = "Category name:"
             )

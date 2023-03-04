@@ -1,9 +1,12 @@
 package com.example.uptodo.authentication.login
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.example.uptodo.authentication.GoogleSignInState
+import com.example.uptodo.components.patterns.isValidEmail
 import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.Graph
 import com.example.uptodo.services.module.AccountService
@@ -25,6 +28,10 @@ class LoginViewModel @Inject constructor(
     private val _googleState = mutableStateOf(GoogleSignInState())
     val googleState: State<GoogleSignInState> = _googleState
 
+    fun showToast(context: Context, msg: String) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+    }
+
     fun onEmailChange(newValue: String) {
         this.uiState.value = uiState.value.copy(email = newValue)
     }
@@ -33,8 +40,11 @@ class LoginViewModel @Inject constructor(
         this.uiState.value = uiState.value.copy(password = newValue)
     }
 
-    fun onLoginClick(openScreen: (String) -> Unit) {
+    fun onLoginClick(openScreen: (String) -> Unit,context: Context) {
         viewModelScope.launch(super.showErrorExceptionHandler) {
+            if(!email.isValidEmail()){
+                showToast(context,"Please Insert Valid Email")
+            }
             accountService.authenticate(email, password) { error ->
                 if (error == null) {
                     linkAccount()

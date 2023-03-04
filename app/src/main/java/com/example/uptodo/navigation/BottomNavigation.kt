@@ -74,6 +74,7 @@ fun RowScope.AddItems(
             }
 
         },
+        alwaysShowLabel = false,
         label = {
             Text(text = screen.title, color = Color.White, fontSize = 12.sp)
         },
