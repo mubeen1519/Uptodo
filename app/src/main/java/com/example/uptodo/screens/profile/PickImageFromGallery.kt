@@ -4,9 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,16 +15,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toIcon
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.uptodo.R
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun PickImageFromGallery(
     profilePictureUrlForCheck: String,
@@ -54,11 +53,13 @@ fun PickImageFromGallery(
         LaunchedEffect(key1 = imageUri) {
             if (imageUri != null) {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                    bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
+                    val source = ImageDecoder.createSource(context.contentResolver,imageUri!!)
+                 bitmap = ImageDecoder.decodeBitmap(source)
                 } else {
                     val source = ImageDecoder
                         .createSource(context.contentResolver, imageUri!!)
-                    bitmap = ImageDecoder.decodeBitmap(source)
+                  bitmap =  ImageDecoder.decodeBitmap(source)
+
                 }
             }
         }

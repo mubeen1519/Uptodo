@@ -518,7 +518,6 @@ fun Logout(
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
-                    viewModel.Logout()
                     navController.popBackStack()
                 }, colors = ButtonDefaults.buttonColors(
                     contentColor = Color.White,

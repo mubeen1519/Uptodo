@@ -5,6 +5,7 @@ import com.example.uptodo.services.implementation.UserProfileData
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.flow.Flow
 
 interface AccountService {
     val displayName: String
@@ -24,15 +25,13 @@ interface AccountService {
         onResult: (Throwable?) -> Unit
     )
 
-    suspend fun uploadPictureToFirebase(url: Uri)
-    suspend fun loadFromFireBase()
+
     fun linkAccount(email: String, password: String, onResult: (Throwable?) -> Unit)
 
     fun RegisterAccount(email: String,password: String,onResult: (Throwable?) -> Unit)
 
     fun deleteAccount(onResult: (Throwable?) -> Unit)
 
-    fun signOut()
 
     suspend fun getUserData(): UserProfileData?
 

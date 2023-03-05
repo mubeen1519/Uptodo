@@ -99,11 +99,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun Logout(){
-        viewModelScope.launch(super.showErrorExceptionHandler){
-            accountService.signOut()
-        }
-    }
     fun initailizeTodo() {
         viewModelScope.launch(super.showErrorExceptionHandler) {
             storageService.getAllTodoFromFireBase(

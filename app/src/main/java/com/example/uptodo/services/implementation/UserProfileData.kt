@@ -1,9 +1,9 @@
 package com.example.uptodo.services.implementation
 
 data class UserProfileData(
-    var id : String? = null,
-    var username : String? = null,
-    var password : String? = null,
-    var confirmPassword : String? = null,
-    var imageUrl : String? = null
+    var id : String = "",
+    var username : String = "",
+    var password : String = "",
+    var confirmPassword : String = "",
+    var imageUrl : String = ""
 )
