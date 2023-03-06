@@ -1,23 +1,20 @@
 package com.example.uptodo.components.categories
 
-import android.graphics.Bitmap
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -27,7 +24,6 @@ import androidx.navigation.NavHostController
 import com.example.uptodo.components.CommonDialog
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.InputField
-import com.example.uptodo.navigation.Create_Account
 import com.example.uptodo.navigation.Graph
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
@@ -53,7 +49,7 @@ fun CategoryDialog(
 }
 
 @Composable
-fun BodyContent(
+private fun BodyContent(
     navController: NavHostController,
     viewModel: HomeViewModel = hiltViewModel(),
     btnText: String,
@@ -151,7 +147,7 @@ fun PriorityDialog(state: MutableState<Boolean>, viewModel: HomeViewModel = hilt
 }
 
 @Composable
-fun PriorityContent(
+private fun PriorityContent(
     dialogState: MutableState<Boolean>,
     onItemSelection: (selectedItemIndex: Int) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
@@ -263,7 +259,7 @@ fun LibraryIcon(state: MutableState<Boolean>, viewModel: HomeViewModel = hiltVie
 }
 
 @Composable
-fun IconLibraryContent(
+private fun IconLibraryContent(
     dialogState: MutableState<Boolean>,
     onItemSelection: (selectedItemIndex: Int) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
@@ -293,7 +289,7 @@ fun IconLibraryContent(
                         onClick = {
                             selectedIndex.value = index
                             onItemSelection(selectedIndex.value)
-                            viewModel.onIconChange(icons)
+                            dialogState.value = false
                         },
                     ) {
                         DrawableIcon(
@@ -317,7 +313,7 @@ fun AccountNameDialog(dialogState: MutableState<Boolean>) {
 }
 
 @Composable
-fun ChangeAccountName(
+private fun ChangeAccountName(
     dialogState: MutableState<Boolean>,
 ) {
     Column(
@@ -369,7 +365,7 @@ fun ChangePasswordDialog(
 }
 
 @Composable
-fun ChangeAccountPassword(
+private fun ChangeAccountPassword(
     dialogState: MutableState<Boolean>,
 ) {
     Column(
@@ -435,52 +431,6 @@ fun ChangeAccountPassword(
 }
 
 @Composable
-fun ImageFromGalleryDialog(dialogState: MutableState<Boolean>) {
-    CommonDialog(state = dialogState) {
-        PickImage(dialogState = dialogState)
-    }
-}
-
-@Composable
-fun PickImage(
-    dialogState: MutableState<Boolean>
-) {
-    Column(
-        modifier = Modifier
-            .background(BottomBarColor)
-            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "Change account Image", textAlign = TextAlign.Center, color = Color.White)
-        Spacer(modifier = Modifier.height(10.dp))
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
-        Spacer(modifier = Modifier.height(8.dp))
-
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(BottomBarColor)
-            .padding(top = 10.dp, start = 20.dp, end = 20.dp, bottom = 20.dp)
-    ) {
-        Text(text = "Take Picture", color = Color.White, fontSize = 15.sp)
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = "Import from gallery",
-            color = Color.White,
-            fontSize = 15.sp,
-            modifier = Modifier.clickable {
-                dialogState.value = false
-
-            })
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "Import from Google drive", color = Color.White, fontSize = 15.sp)
-    }
-}
-
-@Composable
 fun LogoutDialog(dialogState: MutableState<Boolean>, navController: NavHostController) {
     CommonDialog(state = dialogState) {
         Logout(dialogState = dialogState, navController = navController)
@@ -488,7 +438,7 @@ fun LogoutDialog(dialogState: MutableState<Boolean>, navController: NavHostContr
 }
 
 @Composable
-fun Logout(
+private fun Logout(
     dialogState: MutableState<Boolean>,
     viewModel: HomeViewModel = hiltViewModel(),
     navController: NavHostController

@@ -1,6 +1,5 @@
 package com.example.uptodo.screens.profile
 
-import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -25,7 +24,6 @@ import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.categories.AccountNameDialog
 import com.example.uptodo.components.categories.ChangePasswordDialog
-import com.example.uptodo.components.categories.ImageFromGalleryDialog
 import com.example.uptodo.components.categories.LogoutDialog
 import com.example.uptodo.services.implementation.UserProfileData
 import com.example.uptodo.ui.theme.BottomBarColor
@@ -51,9 +49,6 @@ fun ProfileScreen(
         mutableStateOf(false)
     }
 
-    val imageFromGallery: MutableState<Boolean> = remember {
-        mutableStateOf(false)
-    }
     var userDataFromFirebase by remember { mutableStateOf(UserProfileData()) }
     userDataFromFirebase = profileViewModel.userDataStateFromFirebase.value
 
@@ -99,310 +94,280 @@ fun ProfileScreen(
                     }
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-                    Text(text = email, color = Color.White, fontSize = 15.sp)
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Row(
+                Text(text = email, color = Color.White, fontSize = 15.sp)
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp), horizontalArrangement = Arrangement.Center
+                ) {
+                    Box(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(20.dp), horizontalArrangement = Arrangement.Center
+                            .size(width = 140.dp, height = 55.dp)
+                            .background(BottomBarColor)
+                            .clip(RoundedCornerShape(5.dp)),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(width = 140.dp, height = 55.dp)
-                                .background(BottomBarColor)
-                                .clip(RoundedCornerShape(5.dp)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(text = "10 Task Left", color = Color.White)
-                        }
-                        Spacer(modifier = Modifier.weight(1f))
-                        Box(
-                            modifier = Modifier
-                                .size(width = 140.dp, height = 55.dp)
-                                .background(BottomBarColor)
-                                .clip(RoundedCornerShape(5.dp)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(text = "5 Task done", color = Color.White)
-                        }
+                        Text(text = "10 Task Left", color = Color.White)
                     }
-                    //  Setting row
-                    Row(
+                    Spacer(modifier = Modifier.weight(1f))
+                    Box(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, start = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
+                            .size(width = 140.dp, height = 55.dp)
+                            .background(BottomBarColor)
+                            .clip(RoundedCornerShape(5.dp)),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Text("Settings", color = Color.LightGray)
+                        Text(text = "5 Task done", color = Color.White)
                     }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, start = 10.dp, end = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.setting),
-                            contentDescription = "setting",
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "Change app Settings",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White
-                        )
-                    }
-                    // Account row
-                    if (accountName.value) {
-                        AccountNameDialog(dialogState = accountName)
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, start = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        Text("Account", color = Color.LightGray)
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, start = 10.dp, end = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.user),
-                            contentDescription = "user",
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "Change account name",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White,
-                            modifier = Modifier.clickable { accountName.value = true }
-                        )
-                    }
-                    if (accountPassword.value) {
-                        ChangePasswordDialog(dialogState = accountPassword)
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 25.dp, start = 10.dp, end = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.key),
-                            contentDescription = "password",
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "Change account password",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White,
-                            modifier = Modifier.clickable { accountPassword.value = true }
-                        )
-                    }
-                    if (imageFromGallery.value) {
-                        ImageFromGalleryDialog(dialogState = imageFromGallery)
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 25.dp, start = 10.dp, end = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.camera),
-                            contentDescription = "camera",
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "Change account Image",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White,
-                            modifier = Modifier.clickable {
-                                imageFromGallery.value = true
-                            }
-                        )
-                    }
-                    // uptodo row
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, start = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        Text("Uptodo", color = Color.LightGray)
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, start = 10.dp, end = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.about_us),
-                            contentDescription = "about us",
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "About us",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 25.dp, start = 10.dp, end = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.faq),
-                            contentDescription = "faq",
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "FAQ",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 25.dp, start = 10.dp, end = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.feedback),
-                            contentDescription = "faq",
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "Help & Feedback",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White
-                        )
-                    }
+                }
+                //  Setting row
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, start = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Text("Settings", color = Color.LightGray)
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, start = 10.dp, end = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.setting),
+                        contentDescription = "setting",
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Text(
+                        text = "Change app Settings",
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.arrow_forward),
+                        contentDescription = "forward",
+                        tint = Color.White
+                    )
+                }
+                // Account row
+                if (accountName.value) {
+                    AccountNameDialog(dialogState = accountName)
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, start = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Text("Account", color = Color.LightGray)
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, start = 10.dp, end = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.user),
+                        contentDescription = "user",
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Text(
+                        text = "Change account name",
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.arrow_forward),
+                        contentDescription = "forward",
+                        tint = Color.White,
+                        modifier = Modifier.clickable { accountName.value = true }
+                    )
+                }
+                if (accountPassword.value) {
+                    ChangePasswordDialog(dialogState = accountPassword)
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 25.dp, start = 10.dp, end = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.key),
+                        contentDescription = "password",
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Text(
+                        text = "Change account password",
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.arrow_forward),
+                        contentDescription = "forward",
+                        tint = Color.White,
+                        modifier = Modifier.clickable { accountPassword.value = true }
+                    )
+                }
 
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 25.dp, start = 10.dp, end = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.like),
-                            contentDescription = "faq",
-                            tint = Color.White,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "Support Us",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White
-                        )
-                    }
-                    if (logout.value) {
-                        LogoutDialog(dialogState = logout, navController = navHostController)
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 25.dp, start = 10.dp, end = 10.dp, bottom = 110.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.logout),
-                            contentDescription = "logout",
-                            tint = Color.Red,
-                            modifier = Modifier.size(22.dp)
-                        )
-                        Text(
-                            text = "Logout",
-                            color = Color.Red,
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 10.dp)
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-                        DrawableIcon(
-                            painter = painterResource(id = R.drawable.arrow_forward),
-                            contentDescription = "forward",
-                            tint = Color.White,
-                            modifier = Modifier.clickable {
-                                logout.value = true
-                            }
-                        )
-                    }
+                // uptodo row
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, start = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Text("Uptodo", color = Color.LightGray)
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, start = 10.dp, end = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.about_us),
+                        contentDescription = "about us",
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Text(
+                        text = "About us",
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.arrow_forward),
+                        contentDescription = "forward",
+                        tint = Color.White
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 25.dp, start = 10.dp, end = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.faq),
+                        contentDescription = "faq",
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Text(
+                        text = "FAQ",
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.arrow_forward),
+                        contentDescription = "forward",
+                        tint = Color.White
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 25.dp, start = 10.dp, end = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.feedback),
+                        contentDescription = "faq",
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Text(
+                        text = "Help & Feedback",
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.arrow_forward),
+                        contentDescription = "forward",
+                        tint = Color.White
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 25.dp, start = 10.dp, end = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.like),
+                        contentDescription = "faq",
+                        tint = Color.White,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Text(
+                        text = "Support Us",
+                        color = Color.White,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.arrow_forward),
+                        contentDescription = "forward",
+                        tint = Color.White
+                    )
+                }
+                if (logout.value) {
+                    LogoutDialog(dialogState = logout, navController = navHostController)
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 25.dp, start = 10.dp, end = 10.dp, bottom = 110.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.logout),
+                        contentDescription = "logout",
+                        tint = Color.Red,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Text(
+                        text = "Logout",
+                        color = Color.Red,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    DrawableIcon(
+                        painter = painterResource(id = R.drawable.arrow_forward),
+                        contentDescription = "forward",
+                        tint = Color.White,
+                        modifier = Modifier.clickable {
+                            logout.value = true
+                        }
+                    )
                 }
             }
         }
     }
+}

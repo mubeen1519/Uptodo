@@ -41,8 +41,8 @@ fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
     todoId: String,
-    currentBottomSheet : BottomSheetType
-    ) {
+    currentBottomSheet: BottomSheetType
+) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
     val scope = rememberCoroutineScope()
@@ -80,7 +80,7 @@ fun HomeScreenContent(
             drawerBackgroundColor = Color.Black,
             drawerContent = {
                 val itemsList = navDrawerItems()
-                var selectedItem by remember{mutableStateOf( itemsList[0])}
+                var selectedItem by remember { mutableStateOf(itemsList[0]) }
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

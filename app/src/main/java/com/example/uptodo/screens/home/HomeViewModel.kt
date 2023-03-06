@@ -13,7 +13,6 @@ import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.screens.settings.ThemeSetting
 import com.example.uptodo.services.implementation.TODOItem
-import com.example.uptodo.services.module.AccountService
 import com.example.uptodo.services.module.LogService
 import com.example.uptodo.services.module.StorageService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,23 +35,24 @@ class HomeViewModel @Inject constructor(
     var todo = mutableStateOf(TODOItem())
 
 
-
-
-
     fun onTodoCheck(todo: TODOItem) {
-        storageService.updateTodoItem(todo.copy(completed = !todo.completed)) { error ->
-            if (error != null) onError(error)
+        viewModelScope.launch(super.showErrorExceptionHandler) {
+            storageService.updateTodoItem(todo.copy(completed = !todo.completed))
         }
     }
 
-    fun addListener(){
-        viewModelScope.launch(super.showErrorExceptionHandler){
-            storageService.addTodoListener(UUID.randomUUID().toString(), ::onDocumentEvent, ::onError)
+    fun addListener() {
+        viewModelScope.launch(super.showErrorExceptionHandler) {
+            storageService.addTodoListener(
+                UUID.randomUUID().toString(),
+                ::onDocumentEvent,
+                ::onError
+            )
         }
     }
 
-    fun removeListener(){
-        viewModelScope.launch(super.showErrorExceptionHandler){
+    fun removeListener() {
+        viewModelScope.launch(super.showErrorExceptionHandler) {
             storageService.removeListener()
         }
     }
@@ -68,31 +68,15 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun updateTodo(todoItem: TODOItem) {
-        viewModelScope.launch(super.showErrorExceptionHandler) {
-            val updateTodo = todoItem.copy()
-            storageService.updateTodoItem(updateTodo) { error ->
-                if (error != null) onError(error)
-            }
-        }
-    }
-
     private fun saveTodo(todoItem: TODOItem) {
-        storageService.addTodoItem(todoItem) { error ->
-            if (error != null) onError(error)
-
+        viewModelScope.launch(super.showErrorExceptionHandler) {
+            storageService.addTodoItem(todoItem)
         }
     }
 
     fun onDelete(todo: TODOItem) {
         viewModelScope.launch(super.showErrorExceptionHandler) {
-            storageService.deleteTodoItem(todo.id) { error ->
-                if (error != null) {
-                    onError(error)
-                } else {
-                    allUserTodo.removeIf { it.id == todo.id }
-                }
-            }
+            storageService.deleteTodoItem(todo.id)
         }
     }
 

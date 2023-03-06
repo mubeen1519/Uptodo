@@ -1,30 +1,25 @@
 package com.example.uptodo.services.implementation
 
 import com.example.uptodo.services.module.AccountService
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.EmailAuthProvider
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.*
 import javax.inject.Inject
 
-class AccountServiceImpl @Inject constructor() : AccountService {
+class AccountServiceImpl @Inject constructor(private val auth : FirebaseAuth) : AccountService {
 
     override fun hasUser(): FirebaseUser? {
-        return Firebase.auth.currentUser
+        return auth.currentUser
     }
 
     override fun isAnonymousUser(): Boolean {
-        return Firebase.auth.currentUser?.isAnonymous ?: true
+        return auth.currentUser?.isAnonymous ?: true
     }
 
     override fun getUserId(): String {
-        return Firebase.auth.currentUser?.uid.orEmpty()
+        return auth.currentUser?.uid.orEmpty()
     }
 
     override fun authenticate(email: String, password: String, onResult: (Throwable?) -> Unit) {
-        Firebase.auth.signInWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     onResult(it.exception)
@@ -43,7 +38,7 @@ class AccountServiceImpl @Inject constructor() : AccountService {
             this.password = password
             this.confirmPassword = confirmPassword
         }
-        Firebase.auth.createUserWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 userProfileData.id = it.result.user?.uid!!
                 onResult(it.exception)
@@ -52,14 +47,14 @@ class AccountServiceImpl @Inject constructor() : AccountService {
 
     override fun linkAccount(email: String, password: String, onResult: (Throwable?) -> Unit) {
         val credential = EmailAuthProvider.getCredential(email, password)
-        Firebase.auth.currentUser!!.linkWithCredential(credential)
+        auth.currentUser!!.linkWithCredential(credential)
             .addOnCompleteListener {
                 onResult(it.exception)
             }
     }
 
     override fun deleteAccount(onResult: (Throwable?) -> Unit) {
-        Firebase.auth.currentUser!!.delete()
+        auth.currentUser!!.delete()
             .addOnCompleteListener {
                 onResult(it.exception)
             }
@@ -72,12 +67,12 @@ class AccountServiceImpl @Inject constructor() : AccountService {
 
     override fun RegisterAccount(email: String, password: String, onResult: (Throwable?) -> Unit) {
         val credential = EmailAuthProvider.getCredential(email, password)
-        Firebase.auth.currentUser!!.linkWithCredential(credential)
+        auth.currentUser!!.linkWithCredential(credential)
             .addOnCompleteListener { onResult(it.exception) }
     }
 
     override fun signInWithGoogle(credential: AuthCredential, onResult: (AuthResult?) -> Unit) {
-        Firebase.auth.signInWithCredential(credential)
+        auth.signInWithCredential(credential)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     onResult(it.result)

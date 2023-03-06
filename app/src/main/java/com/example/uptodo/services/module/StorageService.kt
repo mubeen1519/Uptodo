@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.Flow
 import java.net.URI
 
 interface StorageService {
-    fun getTodoItem(todoId: String, onError: (Throwable) -> Unit, onSuccess: (TODOItem) -> Unit)
+    suspend fun getTodoItem(todoId: String, onError: (Throwable) -> Unit, onSuccess: (TODOItem) -> Unit) : TODOItem?
 
-    fun addTodoItem(todoItem: TODOItem, onResult: (Throwable?) -> Unit)
+    suspend fun addTodoItem(todoItem: TODOItem) : String
 
-    fun updateTodoItem(todoItem: TODOItem, onResult: (Throwable?) -> Unit)
+    suspend fun updateTodoItem(todoItem: TODOItem)
 
-    fun deleteTodoItem(todoItem: String, onResult: (Throwable?) -> Unit)
+    suspend fun deleteTodoItem(todoItem: String)
 
-    fun getAllTodoFromFireBase(
+    suspend fun getAllTodoFromFireBase(
         onResult: (Throwable?) -> Unit,
         onSuccess: (List<TODOItem>) -> Unit
     )
@@ -32,11 +32,6 @@ interface StorageService {
 
     fun removeListener()
 
-
-    fun addImage(
-        bitmap: Bitmap, onSuccess: (String, String) -> Unit = { _, _ -> },
-        onFailure: (String) -> Unit
-    )
 
 
 }
