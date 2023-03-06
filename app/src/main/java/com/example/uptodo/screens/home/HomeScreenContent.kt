@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.DrawerValue
 import androidx.compose.material3.*
@@ -14,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -21,12 +23,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
 import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.SearchField
 import com.example.uptodo.components.categories.NavigationDrawerItem
 import com.example.uptodo.screens.category.BottomSheetType
+import com.example.uptodo.screens.profile.ProfileViewModel
 import com.example.uptodo.screens.settings.ChangeThemeDialog
+import com.example.uptodo.services.implementation.UserProfileData
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -34,6 +39,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
+    profileViewModel: ProfileViewModel = hiltViewModel(),
     todoId: String,
     currentBottomSheet : BottomSheetType
     ) {
@@ -51,6 +57,10 @@ fun HomeScreenContent(
     val themeDialog: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
+    var userDataFromFirebase by remember { mutableStateOf(UserProfileData()) }
+    userDataFromFirebase = profileViewModel.userDataStateFromFirebase.value
+    var userProfileImg by remember { mutableStateOf("") }
+    userProfileImg = userDataFromFirebase.imageUrl
 
 
     LaunchedEffect(viewModel) {
@@ -166,11 +176,13 @@ fun HomeScreenContent(
                         )
                     }
                     Text(text = "Home", color = Color.White, textAlign = TextAlign.Center)
-                    Image(
-                        painter = painterResource(id = R.drawable.profile),
-                        contentDescription = "Profile",
-                        modifier = Modifier.size(35.dp),
-                    )
+                    Box(modifier = Modifier.clip(CircleShape)) {
+                        Image(
+                            painter = rememberAsyncImagePainter(userProfileImg),
+                            contentDescription = "Profile",
+                            modifier = Modifier.size(35.dp),
+                        )
+                    }
                 }
             }
             Column(

@@ -8,8 +8,6 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 interface AccountService {
-    val displayName: String
-    val photoUrl: String
     fun hasUser(): FirebaseUser?
 
     fun isAnonymousUser(): Boolean

@@ -82,7 +82,7 @@ fun PickImageFromGallery(
                     contentScale = ContentScale.Crop)
             } else {
                 Image(painter = rememberAsyncImagePainter(
-                    model = ImageRequest.Builder(context).data(R.mipmap.ic_launcher_round)
+                    model = ImageRequest.Builder(context).data(R.drawable.user)
                         .build()
                 ),
                     contentDescription = null,

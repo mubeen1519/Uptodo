@@ -11,10 +11,6 @@ import javax.inject.Inject
 
 class AccountServiceImpl @Inject constructor() : AccountService {
 
-    override val displayName = Firebase.auth.currentUser?.displayName.toString()
-    override val photoUrl = Firebase.auth.currentUser?.photoUrl.toString()
-
-
     override fun hasUser(): FirebaseUser? {
         return Firebase.auth.currentUser
     }

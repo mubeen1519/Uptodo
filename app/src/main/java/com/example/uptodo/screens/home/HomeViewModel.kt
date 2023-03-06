@@ -24,13 +24,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val accountService: AccountService,
     private val storageService: StorageService,
-    private val logService: LogService
+    logService: LogService
 ) : MainViewModel(logService) {
 
-    val displayName get() = accountService.displayName
-    val profile get() = accountService.photoUrl
     @Inject
     lateinit var themeSetting: ThemeSetting
     private var todoItem = mutableStateMapOf<String, TODOItem>()

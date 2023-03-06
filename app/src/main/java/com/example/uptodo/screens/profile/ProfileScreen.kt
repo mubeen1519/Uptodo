@@ -58,15 +58,9 @@ fun ProfileScreen(
     userDataFromFirebase = profileViewModel.userDataStateFromFirebase.value
 
     var userProfileImg by remember { mutableStateOf("") }
-
     userProfileImg = userDataFromFirebase.imageUrl
 
-    var updatedImage by remember {
-        mutableStateOf<Uri?>(null)
-    }
-    var email by remember {
-        mutableStateOf("")
-    }
+    var email by remember { mutableStateOf("") }
     email = userDataFromFirebase.username
 
     val scrollState = rememberScrollState()
@@ -104,6 +98,7 @@ fun ProfileScreen(
 
                     }
                 }
+                Spacer(modifier = Modifier.height(10.dp))
                     Text(text = email, color = Color.White, fontSize = 15.sp)
                     Spacer(modifier = Modifier.height(10.dp))
                     Row(

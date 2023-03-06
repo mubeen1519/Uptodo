@@ -73,10 +73,10 @@ class ProfileScreenImp @Inject constructor(
                 val databaseRef =
                     database.getReference("Profiles").child(userId).child("profile")
                 val childUpdates = mutableMapOf<String, Any>()
-                childUpdates["/profileID/"] = userId
-                childUpdates["/userEmail/"] = userEmail
+                childUpdates["/id/"] = userId
+                childUpdates["/username/"] = userEmail
 
-                if (user.imageUrl != "") childUpdates["/userProfilePictureUrl/"] =
+                if (user.imageUrl != "") childUpdates["/imageUrl/"] =
                     user.imageUrl
                 databaseRef.updateChildren(childUpdates).await()
                 emit(Response.Success(true))
@@ -93,8 +93,7 @@ class ProfileScreenImp @Inject constructor(
             val postListener = databaseRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userFromFirebaseDatabase = snapshot.child(userId!!).child("profile")
-                        .getValue(UserProfileData::class.java)
-                        ?: UserProfileData()
+                        .getValue(UserProfileData::class.java) ?: UserProfileData()
                     this@callbackFlow.trySendBlocking(Response.Success(userFromFirebaseDatabase))
                 }
 
