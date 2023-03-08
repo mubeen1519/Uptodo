@@ -1,9 +1,11 @@
-package com.example.uptodo.screens.profile
+package com.example.uptodo.services.module
 
+import com.example.uptodo.screens.profile.CreateOrUpdateProfileToFirebase
+import com.example.uptodo.screens.profile.LoadProfileFromFirebase
+import com.example.uptodo.screens.profile.ProfileScreenUseCases
+import com.example.uptodo.screens.profile.UploadPictureToFirebase
 import com.example.uptodo.services.implementation.ProfileScreenImp
-import com.example.uptodo.services.module.ProfileScreenRepo
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore

@@ -1,5 +1,7 @@
 package com.example.uptodo.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -11,9 +13,8 @@ import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.focus.FocusScreen
 import com.example.uptodo.screens.home.HomeScreenContent
 import com.example.uptodo.screens.profile.ProfileScreen
-import com.example.uptodo.screens.settings.ThemeSetting
 
-@OptIn(ExperimentalMaterialApi::class)
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun HomeNavGraph(navHostController: NavHostController) {
     NavHost(
@@ -21,24 +22,24 @@ fun HomeNavGraph(navHostController: NavHostController) {
         route = Graph.Home,
         startDestination = BottomBar.Home.route
     ) {
-        composable(BottomBar.Home.route,
-        arguments = listOf(navArgument(Home_TODO_ID){defaultValue = DEFAULT_TODO_ID})
-        ){
+        composable(
+            BottomBar.Home.route,
+            arguments = listOf(navArgument(Home_TODO_ID) { defaultValue = DEFAULT_TODO_ID })
+        ) {
 
             HomeScreenContent(
                 todoId = it.arguments?.getString(Home_TODO_ID) ?: DEFAULT_TODO_ID,
-                currentBottomSheet = BottomSheetType.TYPE2
             )
         }
 
-        composable(BottomBar.Calender.route){
+        composable(BottomBar.Calender.route) {
             CalenderScreen(currentBottomSheet = BottomSheetType.TYPE2)
         }
 
-        composable(BottomBar.Focus.route){
+        composable(BottomBar.Focus.route) {
             FocusScreen()
         }
-        composable(BottomBar.Profile.route){
+        composable(BottomBar.Profile.route) {
             ProfileScreen(navHostController)
         }
         detailNavGraph(navHostController)

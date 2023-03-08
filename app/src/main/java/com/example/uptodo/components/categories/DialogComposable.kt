@@ -248,12 +248,12 @@ private fun PriorityContent(
 }
 
 @Composable
-fun LibraryIcon(state: MutableState<Boolean>, viewModel: HomeViewModel = hiltViewModel()) {
+fun LibraryIcon(state: MutableState<Boolean>, viewModel: HomeViewModel = hiltViewModel(),selectedItem : (Int) -> Unit) {
     CommonDialog(state = state) {
         IconLibraryContent(
             dialogState = state,
             viewModel = viewModel,
-            onItemSelection = {}
+            onItemSelection = {selectedItem(it)}
         )
     }
 }

@@ -9,15 +9,11 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -47,6 +43,8 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
         mutableStateOf("")
     }
 
+    val todo by viewModel.todo
+
     Column(modifier = Modifier.padding(10.dp)) {
         Icons.values().forEachIndexed { index, icons ->
             Text(
@@ -73,50 +71,51 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
             if (iconLibraryState.value) {
                 LibraryIcon(
                     state = iconLibraryState,
+                    selectedItem = {selectedValue.value = it}
                 )
             }
             Button(
                 onClick = {
                     iconLibraryState.value = true
-                }, colors = ButtonDefaults.buttonColors(
+                },
+                colors = ButtonDefaults.buttonColors(
                     containerColor = BottomBarColor,
                     contentColor = Color.White
                 ),
                 shape = RoundedCornerShape(8.dp),
             ) {
-                    IconButton(onClick = {
-                        iconLibraryState.value = false
-                        selectedValue.value = index
-                    }) {
-                        DrawableIcon(
-                            painter =
-                            painterResource(
-                                id = icons.icon
-                            //                                when(index){
-//                                    Icons.Grocery.icon -> icons.icon
-//                                    Icons.University.icon -> icons.icon
-//                                    Icons.Work.icon -> icons.icon
-//                                    Icons.Sport.icon -> icons.icon
-//                                    Icons.Social.icon -> icons.icon
-//                                    Icons.Music.icon -> icons.icon
-//                                    Icons.Home.icon -> icons.icon
-//                                    Icons.Health.icon -> icons.icon
-//                                    Icons.Design.icon -> icons.icon
-//                                    Icons.Movie.icon -> icons.icon
-//                                    else -> icons.icon
-//                                }
-                            ), contentDescription = "icons",
-                            modifier = Modifier.size(30.dp)
-                        )
-                    }
+                IconButton(onClick = {
+                    iconLibraryState.value = false
+                    selectedValue.value = index
+                }) {
+                    DrawableIcon(
+                        painter =
+                        painterResource(
+                            id = when (selectedValue.value) {
+                                Icons.Home.icon -> icons.icon
+                                Icons.Movie.icon -> icons.icon
+                                Icons.Health.icon -> icons.icon
+                                Icons.Design.icon -> icons.icon
+                                Icons.Music.icon -> icons.icon
+                                Icons.Social.icon -> icons.icon
+                                Icons.Sport.icon -> icons.icon
+                                Icons.Work.icon -> icons.icon
+                                Icons.University.icon -> icons.icon
+                                Icons.Grocery.icon -> icons.icon
+                                else -> Icons.Home.icon
+                            }
+                        ), contentDescription = "icons",
+                        modifier = Modifier.size(30.dp)
+                    )
                 }
+            }
             Spacer(modifier = Modifier.height(15.dp))
             Text(text = stringResource(id = R.string.category_color), color = Color.LightGray)
 
             Spacer(modifier = Modifier.height(15.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 EnumColors(itemWidth = 30.dp, onItemSelection = {
-                    icons.color
+                    selectedValue.value = index
                 })
             }
 
@@ -133,6 +132,7 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
 
                     Button(
                         onClick = {
+                            selectedValue.value = index
                             viewModel.onIconChange(icons)
                             navigate(Home)
                         },

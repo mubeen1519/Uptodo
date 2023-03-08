@@ -41,7 +41,6 @@ fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
     todoId: String,
-    currentBottomSheet: BottomSheetType
 ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -176,12 +175,22 @@ fun HomeScreenContent(
                         )
                     }
                     Text(text = "Home", color = Color.White, textAlign = TextAlign.Center)
-                    Box(modifier = Modifier.clip(CircleShape)) {
-                        Image(
-                            painter = rememberAsyncImagePainter(userProfileImg),
-                            contentDescription = "Profile",
-                            modifier = Modifier.size(35.dp),
-                        )
+                    if (userProfileImg != "") {
+                        Box(modifier = Modifier.clip(CircleShape)) {
+                            Image(
+                                painter = rememberAsyncImagePainter(userProfileImg),
+                                contentDescription = "Profile",
+                                modifier = Modifier.size(35.dp),
+                            )
+                        }
+                    } else {
+                        Box(modifier = Modifier.clip(CircleShape)) {
+                            Image(
+                                painter = painterResource(id = R.drawable.user),
+                                contentDescription = "Profile",
+                                modifier = Modifier.size(30.dp),
+                            )
+                        }
                     }
                 }
             }
@@ -215,7 +224,7 @@ fun HomeScreenContent(
                                 },
                                 sheetValue = sheetValue,
                                 onClick = {
-                                    currentBottomSheet.let { BottomSheetType.TYPE2 }
+                                    BottomSheetType.TYPE2
                                 }
                             )
                         }
