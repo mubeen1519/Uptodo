@@ -17,10 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.uptodo.components.ModalBottomSheet
+import com.example.uptodo.components.SheetLayout
 import com.example.uptodo.components.VectorIcon
 import com.example.uptodo.navigation.*
 import com.example.uptodo.screens.category.BottomSheetType
+import com.example.uptodo.services.implementation.TODOItem
+import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 import kotlinx.coroutines.launch
 
@@ -42,42 +44,73 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
         Details.CategoryPages.route -> false
         else -> true
     }
-    var currentBottomSheet: BottomSheetType? by remember{
+    var currentBottomSheet: BottomSheetType? by remember {
         mutableStateOf(null)
     }
+    val openSheet: (BottomSheetType) -> Unit = {
+        coroutineScope.launch {
+            currentBottomSheet = it
+            if (state.isVisible) {
+                state.hide()
+            } else {
+                state.show()
+            }
+        }
+    }
+    val todo = remember {
+        mutableStateOf(TODOItem())
+    }
 
-    Scaffold(
-        backgroundColor = Color.Black,
-        bottomBar = { if (showBottomBar) BottomNavigationBar(navController = navController) },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    if (showBottomBar) {
-                        coroutineScope.launch {
-                           currentBottomSheet =  BottomSheetType.TYPE1
-                            if (state.isVisible) {
-                                state.hide()
-                            } else {
-                                state.show()
-                            }
-                        }
-                    }
-                },
-                containerColor = if (showBottomBar) Purple40 else Color.Black,
-                shape = RoundedCornerShape(100.dp),
-                contentColor = if (showBottomBar) Color.White else Color.Black
-            ) {
-                VectorIcon(imageVector = Icons.Default.Add, contentDescription = "Add todo")
+    ModalBottomSheetLayout(
+        sheetState = state,
+        sheetContent = {
+            Column(modifier = Modifier.fillMaxSize()) {
+                currentBottomSheet?.let {
+                    SheetLayout(
+                        bottomSheetType = it,
+                        navController = navController,
+                        state = state,
+                        todoId = todo.value.id
+                    )
+                }
             }
         },
-        floatingActionButtonPosition = FabPosition.Center,
-        isFloatingActionButtonDocked = true,
+        sheetBackgroundColor = BottomBarColor,
+        sheetShape = RoundedCornerShape(20.dp),
     ) {
-        HomeNavGraph(navHostController = navController)
-        currentBottomSheet?.let { it1 -> ModalBottomSheet(navController = navController, sheetValue = state, bottomSheetType = it1) }
+        Scaffold(
+            backgroundColor = Color.Black,
+            bottomBar = { if (showBottomBar) BottomNavigationBar(navController = navController) },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = {
+                        if (showBottomBar) {
+                            coroutineScope.launch {
+                                currentBottomSheet = BottomSheetType.TYPE1
+                                if (state.isVisible) {
+                                    state.hide()
+                                } else {
+                                    state.show()
+                                }
+                            }
+                        }
+                    },
+                    containerColor = if (showBottomBar) Purple40 else Color.Black,
+                    shape = RoundedCornerShape(100.dp),
+                    contentColor = if (showBottomBar) Color.White else Color.Black
+                ) {
+                    VectorIcon(imageVector = Icons.Default.Add, contentDescription = "Add todo")
+                }
+            },
+            floatingActionButtonPosition = FabPosition.Center,
+            isFloatingActionButtonDocked = true,
+        ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                HomeNavGraph(navHostController = navController, openSheet = openSheet)
+            }
+        }
     }
 }
-
 
 
 

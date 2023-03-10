@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -71,7 +72,7 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
             if (iconLibraryState.value) {
                 LibraryIcon(
                     state = iconLibraryState,
-                    selectedItem = {selectedValue.value = it}
+                    selectedItem = { selectedValue.value = it }
                 )
             }
             Button(
@@ -92,16 +93,16 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
                         painter =
                         painterResource(
                             id = when (selectedValue.value) {
+                                Icons.Grocery.icon -> icons.icon
+                                Icons.University.icon -> icons.icon
+                                Icons.Work.icon -> icons.icon
+                                Icons.Sport.icon -> icons.icon
+                                Icons.Social.icon -> icons.icon
+                                Icons.Music.icon -> icons.icon
                                 Icons.Home.icon -> icons.icon
-                                Icons.Movie.icon -> icons.icon
                                 Icons.Health.icon -> icons.icon
                                 Icons.Design.icon -> icons.icon
-                                Icons.Music.icon -> icons.icon
-                                Icons.Social.icon -> icons.icon
-                                Icons.Sport.icon -> icons.icon
-                                Icons.Work.icon -> icons.icon
-                                Icons.University.icon -> icons.icon
-                                Icons.Grocery.icon -> icons.icon
+                                Icons.Movie.icon -> icons.icon
                                 else -> Icons.Home.icon
                             }
                         ), contentDescription = "icons",
@@ -115,7 +116,7 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
             Spacer(modifier = Modifier.height(15.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 EnumColors(itemWidth = 30.dp, onItemSelection = {
-                    selectedValue.value = index
+                    selectedValue.value = it
                 })
             }
 
@@ -132,7 +133,6 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
 
                     Button(
                         onClick = {
-                            selectedValue.value = index
                             viewModel.onIconChange(icons)
                             navigate(Home)
                         },

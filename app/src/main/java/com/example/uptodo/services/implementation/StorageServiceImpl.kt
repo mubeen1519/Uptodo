@@ -118,7 +118,6 @@ class StorageServiceImpl @Inject constructor(
 
     companion object {
         private const val TODO_ID = "todoId"
-        private const val STORE_COLLECTION = "store"
         private const val TODO_COLLECTION = "todo"
         private const val SAVE_TASK_TRACE = "saveTask"
         private const val UPDATE_TASK_TRACE = "updateTask"

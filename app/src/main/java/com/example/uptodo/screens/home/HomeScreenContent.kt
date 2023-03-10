@@ -41,6 +41,7 @@ fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
     todoId: String,
+    openSheet: (BottomSheetType) -> Unit
 ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -224,7 +225,7 @@ fun HomeScreenContent(
                                 },
                                 sheetValue = sheetValue,
                                 onClick = {
-                                    BottomSheetType.TYPE2
+                                    openSheet(BottomSheetType.TYPE2)
                                 }
                             )
                         }

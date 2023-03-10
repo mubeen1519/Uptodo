@@ -2,7 +2,6 @@ package com.example.uptodo.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -16,7 +15,7 @@ import com.example.uptodo.screens.profile.ProfileScreen
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun HomeNavGraph(navHostController: NavHostController) {
+fun HomeNavGraph(navHostController: NavHostController,openSheet : (BottomSheetType) -> Unit) {
     NavHost(
         navController = navHostController,
         route = Graph.Home,
@@ -29,11 +28,12 @@ fun HomeNavGraph(navHostController: NavHostController) {
 
             HomeScreenContent(
                 todoId = it.arguments?.getString(Home_TODO_ID) ?: DEFAULT_TODO_ID,
+                openSheet = openSheet
             )
         }
 
         composable(BottomBar.Calender.route) {
-            CalenderScreen(currentBottomSheet = BottomSheetType.TYPE2)
+            CalenderScreen(openSheet = openSheet)
         }
 
         composable(BottomBar.Focus.route) {

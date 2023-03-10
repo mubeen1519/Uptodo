@@ -1,7 +1,6 @@
 package com.example.uptodo.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.*
@@ -19,7 +18,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.ui.theme.BottomBarColor
-import com.example.uptodo.ui.theme.Purple40
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

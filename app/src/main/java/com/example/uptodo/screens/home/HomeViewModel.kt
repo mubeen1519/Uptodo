@@ -9,6 +9,7 @@ import com.example.uptodo.components.patterns.hasDate
 import com.example.uptodo.components.patterns.hasTime
 import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.DEFAULT_TODO_ID
+import com.example.uptodo.navigation.Graph
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.screens.settings.ThemeSetting
@@ -126,6 +127,8 @@ class HomeViewModel @Inject constructor(
     fun onIconTitleChange(newValue: String) {
         todo.value.icon?.title = newValue
     }
+
+
 
 
     fun getDateAndTime(todoItem: TODOItem): String {
