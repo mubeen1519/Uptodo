@@ -23,7 +23,6 @@ import com.example.uptodo.components.categories.CategoryDialog
 import com.example.uptodo.components.categories.PriorityDialog
 import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.home.HomeViewModel
-import com.example.uptodo.services.implementation.TODOItem
 import com.example.uptodo.ui.theme.BottomBarColor
 import kotlinx.coroutines.launch
 
@@ -148,7 +147,7 @@ fun BottomScreen1(
                         Toast
                             .makeText(
                                 context,
-                                "Added succesfully",
+                                "Added successfully",
                                 Toast.LENGTH_SHORT
                             )
                             .show()
@@ -330,16 +329,16 @@ fun BottomScreen2(
                 modifier = Modifier.padding(10.dp)
 
             ) {
-                todoItem.priority?.let { painterResource(id = it.icon) }?.let {
+                
                     DrawableIcon(
-                        painter = it,
+                        painter = painterResource(id = R.drawable.priority),
                         contentDescription = "priority",
                         tint = Color.White,
                         modifier = Modifier
                             .padding(end = 4.dp)
                             .size(25.dp)
                     )
-                }
+                
                 Text(text = "Task Priority:", color = Color.White)
 
                 Spacer(modifier = Modifier.weight(1f))

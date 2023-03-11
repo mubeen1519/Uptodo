@@ -103,7 +103,6 @@ fun SearchField(
     modifier: Modifier = Modifier,
     state: MutableState<TextFieldValue>,
     placeholderText: String,
-    onClearClick: () -> Unit = {},
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -147,7 +146,7 @@ fun SearchField(
             }
         },
         trailingIcon = {
-            IconButton(onClick = { onClearClick() }) {
+            IconButton(onClick = { state.value = TextFieldValue("") }) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "Close",

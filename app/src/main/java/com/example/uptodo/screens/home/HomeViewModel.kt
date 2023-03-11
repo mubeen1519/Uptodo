@@ -61,7 +61,7 @@ class HomeViewModel @Inject constructor(
     fun getTodo(todoId: String) {
         viewModelScope.launch(super.showErrorExceptionHandler) {
             if (todoId != DEFAULT_TODO_ID) {
-                storageService.getTodoItem(todoId.idFromParameter()) ?: TODOItem()
+                storageService.getTodoItem(todoId) ?: TODOItem()
             }
         }
     }
