@@ -2,6 +2,9 @@ package com.example.uptodo.services.implementation
 
 import com.example.uptodo.services.module.AccountService
 import com.google.firebase.auth.*
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 class AccountServiceImpl @Inject constructor(private val auth : FirebaseAuth) : AccountService {
@@ -9,6 +12,15 @@ class AccountServiceImpl @Inject constructor(private val auth : FirebaseAuth) : 
     override fun hasUser(): FirebaseUser? {
         return auth.currentUser
     }
+
+    override val currentUser: Flow<UserProfileData>
+        get() = callbackFlow {
+            val listener = FirebaseAuth.AuthStateListener { auth ->
+                this.trySend(auth.currentUser?.let { UserProfileData(it.uid) } ?: UserProfileData())
+            }
+            auth.addAuthStateListener(listener)
+            awaitClose { auth.removeAuthStateListener(listener) }
+        }
 
     override fun isAnonymousUser(): Boolean {
         return auth.currentUser?.isAnonymous ?: true

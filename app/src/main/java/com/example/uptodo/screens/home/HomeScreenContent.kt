@@ -23,11 +23,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.SearchField
 import com.example.uptodo.components.categories.NavigationDrawerItem
+import com.example.uptodo.navigation.BottomBar
 import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.profile.ProfileViewModel
 import com.example.uptodo.screens.settings.ChangeThemeDialog
@@ -40,8 +43,8 @@ import kotlinx.coroutines.launch
 fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
-    todoId: String,
-    openSheet: (BottomSheetType) -> Unit
+    openSheet: (BottomSheetType) -> Unit,
+    navController: NavHostController
 ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -62,11 +65,9 @@ fun HomeScreenContent(
     var userProfileImg by remember { mutableStateOf("") }
     userProfileImg = userDataFromFirebase.imageUrl
 
+    val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
 
-    LaunchedEffect(viewModel) {
-        viewModel.getTodo(todoId)
-        viewModel.initailizeTodo()
-    }
+
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -177,7 +178,7 @@ fun HomeScreenContent(
                     }
                     Text(text = "Home", color = Color.White, textAlign = TextAlign.Center)
                     if (userProfileImg != "") {
-                        Box(modifier = Modifier.clip(CircleShape)) {
+                        Box(modifier = Modifier.clip(CircleShape).clickable { navController.navigate(BottomBar.Profile.route) }) {
                             Image(
                                 painter = rememberAsyncImagePainter(userProfileImg),
                                 contentDescription = "Profile",
@@ -201,7 +202,7 @@ fun HomeScreenContent(
                     .padding(top = 100.dp, start = 10.dp, end = 10.dp, bottom = 120.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (viewModel.allUserTodo.isEmpty()) {
+                if (tasks.value.isEmpty()) {
                     EmptyContent()
                 } else {
                     Row(
@@ -215,7 +216,7 @@ fun HomeScreenContent(
                     }
 
                     LazyColumn {
-                        items(viewModel.allUserTodo.filter {
+                        items(tasks.value.filter {
                             it.title.contains(searchedText, ignoreCase = true)
                         }.sortedBy { it.date }, key = { it.id }) { todoItem ->
                             TodoCardItems(
@@ -232,12 +233,6 @@ fun HomeScreenContent(
                     }
                 }
             }
-        }
-    }
-    DisposableEffect(viewModel) {
-        viewModel.addListener()
-        onDispose {
-            viewModel.removeListener()
         }
     }
 

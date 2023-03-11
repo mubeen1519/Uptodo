@@ -10,10 +10,11 @@ import kotlinx.coroutines.flow.Flow
 interface AccountService {
     fun hasUser(): FirebaseUser?
 
+    val currentUser: Flow<UserProfileData>
+
     fun isAnonymousUser(): Boolean
 
     fun getUserId(): String
-
     fun authenticate(email: String, password: String, onResult: (Throwable?) -> Unit)
 
     fun createAccount(

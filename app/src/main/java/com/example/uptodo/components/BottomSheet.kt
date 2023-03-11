@@ -35,7 +35,7 @@ fun SheetLayout(
     bottomSheetType: BottomSheetType,
     navController: NavHostController,
     state: ModalBottomSheetState,
-    todoId: String
+    todoId : String
 ) {
     when(bottomSheetType){
         BottomSheetType.TYPE1 -> BottomScreen1(navController = navController, sheetValue = state)
@@ -174,7 +174,7 @@ fun BottomScreen1(
 fun BottomScreen2(
     viewModel: HomeViewModel = hiltViewModel(),
     state: ModalBottomSheetState,
-    todoId: String,
+    todoId : String
 ) {
     val scope = rememberCoroutineScope()
     val todoItem by viewModel.todo

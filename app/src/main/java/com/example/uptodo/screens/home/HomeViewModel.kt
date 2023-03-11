@@ -1,15 +1,12 @@
 package com.example.uptodo.screens.home
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.viewModelScope
 import com.example.uptodo.components.patterns.hasDate
 import com.example.uptodo.components.patterns.hasTime
+import com.example.uptodo.components.patterns.idFromParameter
 import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.DEFAULT_TODO_ID
-import com.example.uptodo.navigation.Graph
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.screens.settings.ThemeSetting
@@ -30,8 +27,8 @@ class HomeViewModel @Inject constructor(
 
     @Inject
     lateinit var themeSetting: ThemeSetting
-    private var todoItem = mutableStateMapOf<String, TODOItem>()
-    var allUserTodo = mutableStateListOf<TODOItem>()
+
+    val tasks = storageService.tasks
 
     var todo = mutableStateOf(TODOItem())
 
@@ -40,26 +37,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(super.showErrorExceptionHandler) {
             storageService.updateTodoItem(todo.copy(completed = !todo.completed))
         }
-    }
-
-    fun addListener() {
-        viewModelScope.launch(super.showErrorExceptionHandler) {
-            storageService.addTodoListener(
-                UUID.randomUUID().toString(),
-                ::onDocumentEvent,
-                ::onError
-            )
-        }
-    }
-
-    fun removeListener() {
-        viewModelScope.launch(super.showErrorExceptionHandler) {
-            storageService.removeListener()
-        }
-    }
-
-    private fun onDocumentEvent(wasDocumentDeleted: Boolean, todos: TODOItem) {
-        if (wasDocumentDeleted) this.todoItem.remove(todos.id) else this.todoItem[todos.id] = todos
     }
 
     fun onSaveClick() {
@@ -81,28 +58,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun initailizeTodo() {
-        viewModelScope.launch(super.showErrorExceptionHandler) {
-            storageService.getAllTodoFromFireBase(
-                onResult = { if (null != it) onError(it) },
-                onSuccess = {
-                    allUserTodo.swapList(it)
-                }
-            )
-        }
-    }
-
-    private fun <T> SnapshotStateList<T>.swapList(newList: List<T>) {
-        clear()
-        addAll(newList)
-    }
-
     fun getTodo(todoId: String) {
         viewModelScope.launch(super.showErrorExceptionHandler) {
             if (todoId != DEFAULT_TODO_ID) {
-                storageService.getTodoItem(todoId, ::onError) {
-                    todo.value = it
-                }
+                storageService.getTodoItem(todoId.idFromParameter()) ?: TODOItem()
             }
         }
     }
@@ -123,13 +82,6 @@ class HomeViewModel @Inject constructor(
     fun onIconChange(icons: Icons) {
         todo.value.icon = icons
     }
-
-    fun onIconTitleChange(newValue: String) {
-        todo.value.icon?.title = newValue
-    }
-
-
-
 
     fun getDateAndTime(todoItem: TODOItem): String {
         val stringBuilder = StringBuilder("")

@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.screens.home.TodoCardItems
@@ -33,7 +34,6 @@ import com.himanshoe.kalendar.component.header.config.KalendarHeaderConfig
 import com.himanshoe.kalendar.component.text.config.KalendarTextColor
 import com.himanshoe.kalendar.component.text.config.KalendarTextConfig
 import com.himanshoe.kalendar.component.text.config.KalendarTextSize
-import com.himanshoe.kalendar.ui.oceanic.KalendarOceanic
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
@@ -47,17 +47,13 @@ fun CalenderScreen(
     openSheet: (BottomSheetType) -> Unit
 ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    val sheetContentState = remember {
-        mutableStateOf(0)
-    }
-    LaunchedEffect(viewModel) {
-        viewModel.initailizeTodo()
-    }
+
     var clicked by remember {
         mutableStateOf("")
     }
     val calendar = Calendar.getInstance(java.util.TimeZone.getTimeZone("UTC"))
     val todayDate = SimpleDateFormat("EEE, d MMM yyyy", Locale.ENGLISH).format(calendar.time)
+    val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -171,7 +167,7 @@ fun CalenderScreen(
         ) {
             if (clicked == "today") {
                 LazyColumn(userScrollEnabled = true) {
-                    items(viewModel.allUserTodo.filter {
+                    items(tasks.value.filter {
                         it.date.contains(
                             todayDate,
                             ignoreCase = true
@@ -192,7 +188,7 @@ fun CalenderScreen(
             } else if (clicked == "completed") {
                 LazyColumn(userScrollEnabled = true) {
                     items(
-                        viewModel.allUserTodo.filter { it.completed },
+                        tasks.value.filter { it.completed },
                         key = { it.id }) { todoItem ->
                         TodoCardItems(
                             todoItem = todoItem,
@@ -208,6 +204,5 @@ fun CalenderScreen(
                 }
             }
         }
-
     }
 }

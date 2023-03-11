@@ -23,12 +23,10 @@ fun HomeNavGraph(navHostController: NavHostController,openSheet : (BottomSheetTy
     ) {
         composable(
             BottomBar.Home.route,
-            arguments = listOf(navArgument(Home_TODO_ID) { defaultValue = DEFAULT_TODO_ID })
         ) {
-
             HomeScreenContent(
-                todoId = it.arguments?.getString(Home_TODO_ID) ?: DEFAULT_TODO_ID,
-                openSheet = openSheet
+                openSheet = openSheet,
+                navController = navHostController
             )
         }
 
