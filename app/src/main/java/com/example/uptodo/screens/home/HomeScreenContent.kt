@@ -44,6 +44,7 @@ fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
     openSheet: (BottomSheetType) -> Unit,
+    todoId : String,
     navController: NavHostController
 ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
@@ -67,7 +68,9 @@ fun HomeScreenContent(
 
     val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
 
-
+LaunchedEffect(Unit){
+    viewModel.getTodo(todoId)
+}
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -178,7 +181,9 @@ fun HomeScreenContent(
                     }
                     Text(text = "Home", color = Color.White, textAlign = TextAlign.Center)
                     if (userProfileImg != "") {
-                        Box(modifier = Modifier.clip(CircleShape).clickable { navController.navigate(BottomBar.Profile.route) }) {
+                        Box(modifier = Modifier
+                            .clip(CircleShape)
+                            .clickable { navController.navigate(BottomBar.Profile.route) }) {
                             Image(
                                 painter = rememberAsyncImagePainter(userProfileImg),
                                 contentDescription = "Profile",

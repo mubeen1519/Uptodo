@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.uptodo.R
 import com.example.uptodo.components.categories.CategoryDialog
+import com.example.uptodo.components.categories.DeleteTaskDialog
 import com.example.uptodo.components.categories.PriorityDialog
 import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.home.HomeViewModel
@@ -34,9 +35,9 @@ fun SheetLayout(
     bottomSheetType: BottomSheetType,
     navController: NavHostController,
     state: ModalBottomSheetState,
-    todoId : String
+    todoId: String
 ) {
-    when(bottomSheetType){
+    when (bottomSheetType) {
         BottomSheetType.TYPE1 -> BottomScreen1(navController = navController, sheetValue = state)
         BottomSheetType.TYPE2 -> BottomScreen2(state = state, todoId = todoId)
     }
@@ -143,14 +144,7 @@ fun BottomScreen1(
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(onClick = {
                     coroutineScope.launch {
-                        viewModel.onSaveClick()
-                        Toast
-                            .makeText(
-                                context,
-                                "Added successfully",
-                                Toast.LENGTH_SHORT
-                            )
-                            .show()
+                        viewModel.onSaveClick(context)
                         sheetValue.hide()
                     }
                 }) {
@@ -173,12 +167,16 @@ fun BottomScreen1(
 fun BottomScreen2(
     viewModel: HomeViewModel = hiltViewModel(),
     state: ModalBottomSheetState,
-    todoId : String
+    todoId: String
 ) {
     val scope = rememberCoroutineScope()
     val todoItem by viewModel.todo
     LaunchedEffect(Unit) {
         viewModel.getTodo(todoId)
+    }
+
+    val deleteDialog: MutableState<Boolean> = remember {
+        mutableStateOf(false)
     }
     Box(
         modifier = Modifier
@@ -329,16 +327,16 @@ fun BottomScreen2(
                 modifier = Modifier.padding(10.dp)
 
             ) {
-                
-                    DrawableIcon(
-                        painter = painterResource(id = R.drawable.priority),
-                        contentDescription = "priority",
-                        tint = Color.White,
-                        modifier = Modifier
-                            .padding(end = 4.dp)
-                            .size(25.dp)
-                    )
-                
+
+                DrawableIcon(
+                    painter = painterResource(id = R.drawable.priority),
+                    contentDescription = "priority",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .padding(end = 4.dp)
+                        .size(25.dp)
+                )
+
                 Text(text = "Task Priority:", color = Color.White)
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -387,8 +385,16 @@ fun BottomScreen2(
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
+            if (deleteDialog.value) {
+                DeleteTaskDialog(state = deleteDialog)
+            }
             Row(
-                verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(10.dp)
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .clickable {
+                        deleteDialog.value = true
+                    }
             ) {
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.baseline_delete_24),
@@ -397,9 +403,6 @@ fun BottomScreen2(
                     modifier = Modifier
                         .padding(end = 4.dp)
                         .size(25.dp)
-                        .clickable {
-                            viewModel.onDelete(todoItem)
-                        }
                 )
                 Text(text = "Delete Task", color = Color.Red)
 

@@ -19,7 +19,7 @@ import com.example.uptodo.ui.theme.BottomBarColor
 import kotlinx.coroutines.launch
 
 sealed class BottomBar(var title: String, var icon: Int, var route: String) {
-    object Home : BottomBar("Home", R.drawable.home_icon, com.example.uptodo.navigation.Home)
+    object Home : BottomBar("Home", R.drawable.home_icon, "${com.example.uptodo.navigation.Home}$STORE_TODO_ID")
     object Calender : BottomBar("Calender", R.drawable.calendar, CalenderPage)
     object Focus : BottomBar("Focus", R.drawable.clock, FocusPage)
     object Profile : BottomBar("Profile", R.drawable.user, ProfilePage)

@@ -7,10 +7,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -152,7 +149,7 @@ private fun PriorityContent(
     onItemSelection: (selectedItemIndex: Int) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    var dialogContent: List<Priority>
+    val dialogContent: List<Priority>
     dialogContent = ArrayList()
     val selectedIndex = remember {
         mutableStateOf(0)
@@ -239,7 +236,9 @@ private fun PriorityContent(
                     contentColor = Color.White
                 ),
                 shape = RoundedCornerShape(5.dp),
-                modifier = Modifier.padding(end = 10.dp).size(width = 150.dp, height = 40.dp)
+                modifier = Modifier
+                    .padding(end = 10.dp)
+                    .size(width = 150.dp, height = 40.dp)
             ) {
                 Text(text = "Save")
             }
@@ -248,12 +247,16 @@ private fun PriorityContent(
 }
 
 @Composable
-fun LibraryIcon(state: MutableState<Boolean>, viewModel: HomeViewModel = hiltViewModel(),selectedItem : (Int) -> Unit) {
+fun LibraryIcon(
+    state: MutableState<Boolean>,
+    viewModel: HomeViewModel = hiltViewModel(),
+    selectedItem: (Int) -> Unit
+) {
     CommonDialog(state = state) {
         IconLibraryContent(
             dialogState = state,
             viewModel = viewModel,
-            onItemSelection = {selectedItem(it)}
+            onItemSelection = { selectedItem(it) }
         )
     }
 }
@@ -479,6 +482,78 @@ private fun Logout(
                 Text(text = "Logout")
             }
 
+        }
+    }
+}
+
+@Composable
+fun DeleteTaskDialog(state: MutableState<Boolean>) {
+    CommonDialog(state = state) {
+        DeleteTaskContent(state = state)
+    }
+}
+
+@Composable
+fun DeleteTaskContent(
+    state: MutableState<Boolean>,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val todo by viewModel.todo
+    Column(
+        modifier = Modifier
+            .background(BottomBarColor)
+            .fillMaxWidth()
+            .padding(10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("Delete Task", color = Color.White, fontSize = 15.sp)
+        Spacer(modifier = Modifier.height(10.dp))
+        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Spacer(modifier = Modifier.height(15.dp))
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Are you sure you want to delete this task?",
+                color = Color.White,
+                fontSize = 15.sp
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Task title: ${todo.title}", color = Color.White)
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(
+                    onClick = { state.value = false }, colors = ButtonDefaults.buttonColors(
+                        containerColor = BottomBarColor,
+                        contentColor = Purple40
+                    )
+                ) {
+                    Text(text = "Cancel")
+                }
+                Spacer(modifier = Modifier.height(15.dp))
+
+                Spacer(modifier = Modifier.weight(1f))
+                Button(
+                    onClick = {
+                        viewModel.onDelete(todo)
+                        state.value = false
+                    }, colors = ButtonDefaults.buttonColors(
+                        containerColor = Purple40,
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(5.dp)
+                ) {
+                    Text(text = "Delete")
+                }
+
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.uptodo.screens.home
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.example.uptodo.components.patterns.hasDate
@@ -39,10 +41,15 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onSaveClick() {
-        viewModelScope.launch(super.showErrorExceptionHandler) {
-            val editTask = todo.value
-            saveTodo(editTask)
+    fun onSaveClick(context: Context) {
+        val pattern = Regex("^[a-zA-Z\\s]{4,}$")
+        if(pattern.matches(todo.value.title) && pattern.matches(todo.value.description)) {
+            viewModelScope.launch(super.showErrorExceptionHandler) {
+                val editTask = todo.value
+                saveTodo(editTask)
+            }
+        } else {
+            Toast.makeText(context,"Please write more then 3 words",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -61,7 +68,7 @@ class HomeViewModel @Inject constructor(
     fun getTodo(todoId: String) {
         viewModelScope.launch(super.showErrorExceptionHandler) {
             if (todoId != DEFAULT_TODO_ID) {
-                storageService.getTodoItem(todoId) ?: TODOItem()
+                todo.value = storageService.getTodoItem(todoId.idFromParameter()) ?: TODOItem()
             }
         }
     }

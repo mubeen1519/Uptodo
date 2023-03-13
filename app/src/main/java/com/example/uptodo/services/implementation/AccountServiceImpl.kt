@@ -9,6 +9,8 @@ import javax.inject.Inject
 
 class AccountServiceImpl @Inject constructor(private val auth : FirebaseAuth) : AccountService {
 
+    override val currentUserId: String
+        get() = auth.currentUser?.uid.orEmpty()
     override fun hasUser(): FirebaseUser? {
         return auth.currentUser
     }
@@ -70,11 +72,6 @@ class AccountServiceImpl @Inject constructor(private val auth : FirebaseAuth) : 
             .addOnCompleteListener {
                 onResult(it.exception)
             }
-    }
-
-
-    override suspend fun getUserData(): UserProfileData? {
-        TODO("Not yet implemented")
     }
 
     override fun RegisterAccount(email: String, password: String, onResult: (Throwable?) -> Unit) {

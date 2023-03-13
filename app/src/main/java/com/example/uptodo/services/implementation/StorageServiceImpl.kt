@@ -1,14 +1,14 @@
 package com.example.uptodo.services.implementation
 
+import android.util.Log
 import com.example.uptodo.services.module.AccountService
 import com.example.uptodo.services.module.StorageService
 import com.example.uptodo.services.module.trace
-import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -18,39 +18,40 @@ import javax.inject.Inject
 
 class StorageServiceImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val auth : AccountService
+    private val auth: AccountService
 ) : StorageService {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val tasks: Flow<List<TODOItem>>
         get() = auth.currentUser.flatMapLatest { user ->
             firestore.collection("user").document(user.id).collection(
-                TODO_COLLECTION).snapshots().map { snapshots -> snapshots.toObjects() }
+                TODO_COLLECTION
+            ).snapshots().map { snapshots -> snapshots.toObjects() }
         }
 
 
-    override suspend  fun getTodoItem(
+    override suspend fun getTodoItem(
         todoId: String,
-    ):TODOItem? =
-        firestore
-            .collection("user")
-            .document(Firebase.auth.currentUser?.uid!!)
-            .collection(TODO_COLLECTION)
+    ): TODOItem? {
+       val data =  currentCollection(auth.currentUserId)
             .document(todoId)
             .get()
+           .addOnFailureListener {
+               Log.d("Exception","todoId" + it.message.toString())
+           }
+            .addOnSuccessListener { document ->
+                Log.d("id","data:" + document.data.toString())
+            }
             .await()
-            .toObject()
-
+        return data.toObject<TODOItem>()
+    }
 
 
     override suspend fun addTodoItem(
         todoItem: TODOItem,
     ): String =
         trace(SAVE_TASK_TRACE) {
-            firestore
-                .collection("user")
-                .document(Firebase.auth.currentUser?.uid!!)
-                .collection(TODO_COLLECTION)
+            currentCollection(auth.currentUserId)
                 .add(todoItem)
                 .await()
                 .id
@@ -60,10 +61,7 @@ class StorageServiceImpl @Inject constructor(
         todoItem: TODOItem,
     ): Unit =
         trace(UPDATE_TASK_TRACE) {
-            firestore
-                .collection("user")
-                .document(Firebase.auth.currentUser?.uid!!)
-                .collection(TODO_COLLECTION)
+            currentCollection(auth.currentUserId)
                 .document(todoItem.id)
                 .set(todoItem)
                 .await()
@@ -72,32 +70,15 @@ class StorageServiceImpl @Inject constructor(
     override suspend fun deleteTodoItem(
         todoItem: String,
     ) {
-        firestore
-            .collection("user")
-            .document(Firebase.auth.currentUser?.uid!!)
-            .collection(TODO_COLLECTION)
+        currentCollection(auth.currentUserId)
             .document(todoItem)
             .delete()
             .await()
     }
 
+    private fun currentCollection(uid: String): CollectionReference =
+        firestore.collection("user").document(uid).collection(TODO_COLLECTION)
 
-    override suspend fun getAllTodoFromFireBase(
-        onResult: (Throwable?) -> Unit,
-        onSuccess: (List<TODOItem>) -> Unit
-    ) {
-        firestore
-            .collection("user")
-            .document(Firebase.auth.currentUser?.uid!!)
-            .collection(TODO_COLLECTION)
-            .get()
-            .addOnCompleteListener { if (it.exception != null) onResult(it.exception) }
-            .addOnSuccessListener {
-                val todo = it.toObjects<TODOItem>()
-                onSuccess(todo)
-            }.await()
-
-    }
 
     companion object {
         private const val TODO_COLLECTION = "todo"

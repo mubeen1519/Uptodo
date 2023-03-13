@@ -6,16 +6,12 @@ import kotlinx.coroutines.flow.Flow
 interface StorageService {
 
     val tasks: Flow<List<TODOItem>>
-    suspend fun getTodoItem(todoId: String) : TODOItem?
+    suspend fun getTodoItem(todoId: String): TODOItem?
 
-    suspend fun addTodoItem(todoItem: TODOItem) : String
+    suspend fun addTodoItem(todoItem: TODOItem): String
 
     suspend fun updateTodoItem(todoItem: TODOItem)
 
     suspend fun deleteTodoItem(todoItem: String)
 
-    suspend fun getAllTodoFromFireBase(
-        onResult: (Throwable?) -> Unit,
-        onSuccess: (List<TODOItem>) -> Unit
-    )
 }

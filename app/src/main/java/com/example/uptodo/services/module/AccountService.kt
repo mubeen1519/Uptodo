@@ -8,6 +8,8 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 interface AccountService {
+
+    val currentUserId: String
     fun hasUser(): FirebaseUser?
 
     val currentUser: Flow<UserProfileData>
@@ -30,9 +32,6 @@ interface AccountService {
     fun RegisterAccount(email: String,password: String,onResult: (Throwable?) -> Unit)
 
     fun deleteAccount(onResult: (Throwable?) -> Unit)
-
-
-    suspend fun getUserData(): UserProfileData?
 
     fun signInWithGoogle(credential: AuthCredential,onResult: (AuthResult?) -> Unit)
 }

@@ -26,7 +26,7 @@ fun RootNavigationGraphBuilder(navHostController: NavHostController) {
 object Graph {
     const val Root = "root_graph"
     const val Authentication = "auth_graph"
-    const val Home = "home_graph$STORE_TODO_ID"
+    const val Home = "home_graph"
     const val DETAILS = "details_graph"
 
 
