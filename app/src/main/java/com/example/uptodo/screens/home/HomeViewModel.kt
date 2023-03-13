@@ -42,14 +42,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onSaveClick(context: Context) {
-        val pattern = Regex("^[a-zA-Z\\s]{4,}$")
-        if(pattern.matches(todo.value.title) && pattern.matches(todo.value.description)) {
+        if (todo.value.title.isNotBlank() && todo.value.description.isNotBlank()) {
             viewModelScope.launch(super.showErrorExceptionHandler) {
                 val editTask = todo.value
                 saveTodo(editTask)
             }
         } else {
-            Toast.makeText(context,"Please write more then 3 words",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Please write more then 3 words", Toast.LENGTH_SHORT).show()
         }
     }
 

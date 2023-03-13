@@ -7,10 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
-class AccountServiceImpl @Inject constructor(private val auth : FirebaseAuth) : AccountService {
+class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : AccountService {
 
     override val currentUserId: String
         get() = auth.currentUser?.uid.orEmpty()
+
     override fun hasUser(): FirebaseUser? {
         return auth.currentUser
     }
@@ -87,7 +88,5 @@ class AccountServiceImpl @Inject constructor(private val auth : FirebaseAuth) : 
                     onResult(it.result)
                 }
             }
-
-
     }
 }
