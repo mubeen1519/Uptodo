@@ -14,6 +14,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -33,7 +34,7 @@ import kotlinx.coroutines.launch
     "UnusedMaterialScaffoldPaddingParameter"
 )
 @Composable
-fun HomeScreen(navController: NavHostController = rememberNavController()) {
+fun HomeScreen(navController: NavHostController = rememberNavController(),viewModel: HomeViewModel = hiltViewModel()) {
 
     val coroutineScope = rememberCoroutineScope()
     val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -57,9 +58,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
             }
         }
     }
-    val todo = remember {
-        mutableStateOf(TODOItem())
-    }
+    val todo by viewModel.todo
 
     ModalBottomSheetLayout(
         sheetState = state,
@@ -70,7 +69,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
                         bottomSheetType = it,
                         navController = navController,
                         state = state,
-                        todoId = todo.value.id
+                        todoId = todo.id
                     )
                 }
             }

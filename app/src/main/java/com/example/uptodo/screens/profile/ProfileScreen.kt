@@ -172,7 +172,8 @@ fun ProfileScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 20.dp, start = 10.dp, end = 10.dp),
+                        .padding(top = 20.dp, start = 10.dp, end = 10.dp)
+                        .clickable { accountName.value = true },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
@@ -192,7 +193,6 @@ fun ProfileScreen(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White,
-                        modifier = Modifier.clickable { accountName.value = true }
                     )
                 }
                 if (accountPassword.value) {
@@ -201,7 +201,8 @@ fun ProfileScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 25.dp, start = 10.dp, end = 10.dp),
+                        .padding(top = 25.dp, start = 10.dp, end = 10.dp)
+                        .clickable { accountPassword.value = true },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
@@ -221,7 +222,6 @@ fun ProfileScreen(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White,
-                        modifier = Modifier.clickable { accountPassword.value = true }
                     )
                 }
 
@@ -342,7 +342,8 @@ fun ProfileScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 25.dp, start = 10.dp, end = 10.dp, bottom = 110.dp),
+                        .padding(top = 25.dp, start = 10.dp, end = 10.dp, bottom = 110.dp)
+                        .clickable { logout.value = true },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
@@ -362,9 +363,6 @@ fun ProfileScreen(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
                         tint = Color.White,
-                        modifier = Modifier.clickable {
-                            logout.value = true
-                        }
                     )
                 }
             }

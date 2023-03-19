@@ -6,7 +6,7 @@ import com.example.uptodo.screens.category.Priority
 import com.google.firebase.firestore.DocumentId
 
 data class TODOItem(
-    @DocumentId var id : String = "",
+    @DocumentId val id : String = "",
     val title : String = "",
     var icon : Icons? = null,
     var description : String = "",

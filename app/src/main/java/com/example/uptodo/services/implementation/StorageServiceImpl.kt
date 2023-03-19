@@ -24,27 +24,24 @@ class StorageServiceImpl @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     override val tasks: Flow<List<TODOItem>>
         get() = auth.currentUser.flatMapLatest { user ->
-            firestore.collection("user").document(user.id).collection(
-                TODO_COLLECTION
-            ).snapshots().map { snapshots -> snapshots.toObjects() }
+            currentCollection(user.id).snapshots().map { snapshots -> snapshots.toObjects() }
         }
 
 
     override suspend fun getTodoItem(
         todoId: String,
-    ): TODOItem? {
-       val data =  currentCollection(auth.currentUserId)
+    ): TODOItem? =
+     currentCollection(auth.currentUserId)
             .document(todoId)
             .get()
-           .addOnFailureListener {
-               Log.d("Exception","todoId" + it.message.toString())
-           }
-            .addOnSuccessListener { document ->
-                Log.d("id","data:" + document.data.toString())
+         .addOnSuccessListener { result ->
+            for(document in result.id) {
+                println("document id $document")
             }
+         }
             .await()
-        return data.toObject<TODOItem>()
-    }
+            .toObject<TODOItem>()
+
 
 
     override suspend fun addTodoItem(

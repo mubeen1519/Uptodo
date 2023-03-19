@@ -44,7 +44,7 @@ fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
     openSheet: (BottomSheetType) -> Unit,
-    todoId : String,
+    todoId: String,
     navController: NavHostController
 ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
@@ -68,9 +68,10 @@ fun HomeScreenContent(
 
     val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
 
-LaunchedEffect(Unit){
-    viewModel.getTodo(todoId)
-}
+    LaunchedEffect(Unit) {
+        viewModel.getTodo(todoId)
+    }
+
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -121,6 +122,11 @@ LaunchedEffect(Unit){
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 24.dp, vertical = 20.dp)
+                                .clickable {
+                                    if (selectedItem == item) {
+                                        themeDialog.value = true
+                                    }
+                                }
                         ) {
                             DrawableIcon(
                                 painter = painterResource(id = item.icon),
@@ -141,11 +147,6 @@ LaunchedEffect(Unit){
                                     painter = painterResource(id = item.forwardIcon),
                                     contentDescription = "forward",
                                     tint = Color.White,
-                                    modifier = Modifier.clickable {
-                                        if (selectedItem == item) {
-                                            themeDialog.value = true
-                                        }
-                                    }
                                 )
                             }
                         }
@@ -191,7 +192,10 @@ LaunchedEffect(Unit){
                             )
                         }
                     } else {
-                        Box(modifier = Modifier.clip(CircleShape)) {
+                        Box(
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .clickable { navController.navigate(BottomBar.Profile.route) }) {
                             Image(
                                 painter = painterResource(id = R.drawable.user),
                                 contentDescription = "Profile",

@@ -1,7 +1,6 @@
 package com.example.uptodo.components
 
 import android.os.Build
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -52,6 +51,7 @@ fun BottomScreen1(
     navController: NavHostController,
     sheetValue: ModalBottomSheetState,
 ) {
+
     val coroutineScope = rememberCoroutineScope()
 
 
@@ -347,13 +347,22 @@ fun BottomScreen2(
                     ),
                     shape = RoundedCornerShape(5.dp)
                 ) {
-                    Text(
-                        text = todoItem.priority?.value.toString(),
-                        color = Color.White,
-                        fontSize = 8.sp
-                    )
+                    if (todoItem.priority?.value.toString() == "") {
+                        Text(
+                            text = "Default",
+                            color = Color.White,
+                            fontSize = 8.sp
+                        )
+                    } else {
+                        Text(
+                            text = todoItem.priority?.value.toString(),
+                            color = Color.White,
+                            fontSize = 8.sp
+                        )
+                    }
                 }
             }
+
             Spacer(modifier = Modifier.height(20.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -405,7 +414,6 @@ fun BottomScreen2(
                         .size(25.dp)
                 )
                 Text(text = "Delete Task", color = Color.Red)
-
             }
         }
     }
