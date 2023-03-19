@@ -28,7 +28,7 @@ class LoginViewModel @Inject constructor(
     private val _googleState = mutableStateOf(GoogleSignInState())
     val googleState: State<GoogleSignInState> = _googleState
 
-    fun showToast(context: Context, msg: String) {
+    private fun showToast(context: Context, msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
@@ -49,6 +49,7 @@ class LoginViewModel @Inject constructor(
                 if (error == null) {
                     linkAccount()
                     openScreen(Graph.Home)
+                    showToast(context,"Authenticated Successfully")
                 }
             }
         }

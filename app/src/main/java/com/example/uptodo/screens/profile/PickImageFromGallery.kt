@@ -82,7 +82,7 @@ fun PickImageFromGallery(
                     contentScale = ContentScale.Crop)
             } else {
                 Image(painter = rememberAsyncImagePainter(
-                    model = ImageRequest.Builder(context).data(R.drawable.user)
+                    model = ImageRequest.Builder(context).data(R.drawable.user_svg)
                         .build()
                 ),
                     contentDescription = null,

@@ -86,7 +86,7 @@ fun TodoCardItems(
                     )
                     Spacer(modifier = Modifier.weight(2f))
                     Button(
-                        modifier = Modifier.size(width = 100.dp, height = 35.dp),
+                        modifier = Modifier.size(width = 95.dp, height = 35.dp),
                         onClick = {},
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = when (todoItem.icon) {

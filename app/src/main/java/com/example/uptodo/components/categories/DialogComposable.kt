@@ -181,10 +181,9 @@ private fun PriorityContent(
                         modifier = Modifier
                             .size(width = 40.dp, height = 50.dp)
                             .background(if (selectedIndex.value == index) Purple40 else Color.Black)
-                            .clip(RoundedCornerShape(8.dp)),
+                            .clip(shape = RoundedCornerShape(10.dp)).padding(5.dp),
                         contentAlignment = Alignment.TopCenter
                     ) {
-
                         IconButton(
                             modifier = Modifier.size(25.dp),
                             onClick = {

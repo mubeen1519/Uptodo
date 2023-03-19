@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -48,7 +49,6 @@ fun HomeScreenContent(
     navController: NavHostController
 ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val openDrawer: () -> Unit = { scope.launch { drawerState.open() } }
@@ -85,7 +85,7 @@ fun HomeScreenContent(
             drawerBackgroundColor = Color.Black,
             drawerContent = {
                 val itemsList = navDrawerItems()
-                var selectedItem by remember { mutableStateOf(itemsList[0]) }
+                val selectedItem by remember { mutableStateOf(itemsList[0]) }
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -189,6 +189,7 @@ fun HomeScreenContent(
                                 painter = rememberAsyncImagePainter(userProfileImg),
                                 contentDescription = "Profile",
                                 modifier = Modifier.size(35.dp),
+                                contentScale = ContentScale.Crop
                             )
                         }
                     } else {
@@ -197,9 +198,11 @@ fun HomeScreenContent(
                                 .clip(CircleShape)
                                 .clickable { navController.navigate(BottomBar.Profile.route) }) {
                             Image(
-                                painter = painterResource(id = R.drawable.user),
+                                painter = painterResource(id = R.drawable.user_svg),
                                 contentDescription = "Profile",
                                 modifier = Modifier.size(30.dp),
+                                contentScale = ContentScale.Crop
+
                             )
                         }
                     }
@@ -244,7 +247,6 @@ fun HomeScreenContent(
             }
         }
     }
-
 }
 
 @Composable

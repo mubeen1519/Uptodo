@@ -31,7 +31,7 @@ enum class Colors constructor(val color : Color,val icon: Int) {
 
 enum class Icons constructor(var icon: Int, var title : String, var color: Color){
     Work(R.drawable.work,"Work", WorkColor),
-    University(R.drawable.university,"University", UniColor),
+    University(R.drawable.university,"School", UniColor),
     Sport(R.drawable.sport,"Sport", SportBox),
     Music(R.drawable.music,"Music", SocialBox),
     Design(R.drawable.design,"Design", DesignBox),
@@ -39,7 +39,7 @@ enum class Icons constructor(var icon: Int, var title : String, var color: Color
     Movie(R.drawable.movie,"Movie", MovieBox),
     Health(R.drawable.health,"Health", HealthBox),
     Social(R.drawable.social,"Social", SocialBox),
-    Grocery(R.drawable.grocery,"Grocery", SportBox)
+    Grocery(R.drawable.grocery_svg,"Grocery", SportBox)
 }
 
 enum class BottomSheetType {

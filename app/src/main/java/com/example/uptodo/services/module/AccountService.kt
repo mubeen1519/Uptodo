@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 interface AccountService {
 
     val currentUserId: String
-    fun hasUser(): FirebaseUser?
+    val hasUser : Boolean
 
     val currentUser: Flow<UserProfileData>
 
@@ -26,10 +26,9 @@ interface AccountService {
         onResult: (Throwable?) -> Unit
     )
 
-
     fun linkAccount(email: String, password: String, onResult: (Throwable?) -> Unit)
 
-    fun RegisterAccount(email: String,password: String,onResult: (Throwable?) -> Unit)
+    fun registerAccount(email: String,password: String,onResult: (Throwable?) -> Unit)
 
     fun deleteAccount(onResult: (Throwable?) -> Unit)
 

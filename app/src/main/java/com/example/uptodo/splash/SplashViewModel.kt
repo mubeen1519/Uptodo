@@ -16,7 +16,7 @@ class SplashViewModel @Inject constructor(
     logService: LogService
 ) : MainViewModel(logService) {
     fun onAppStart(navigate : (String) -> Unit) {
-        if(accountService.hasUser() != null){
+        if(accountService.hasUser){
             viewModelScope.launch(super.showErrorExceptionHandler) {
                 accountService.getUserId()
             }

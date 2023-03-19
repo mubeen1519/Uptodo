@@ -12,9 +12,9 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
     override val currentUserId: String
         get() = auth.currentUser?.uid.orEmpty()
 
-    override fun hasUser(): FirebaseUser? {
-        return auth.currentUser
-    }
+    override val hasUser: Boolean
+        get() = auth.currentUser != null
+
 
     override val currentUser: Flow<UserProfileData>
         get() = callbackFlow {
@@ -33,7 +33,7 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
         return auth.currentUser?.uid.orEmpty()
     }
 
-    override fun authenticate(email: String, password: String, onResult: (Throwable?) -> Unit) {
+    override  fun authenticate(email: String, password: String, onResult: (Throwable?) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -75,7 +75,7 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
             }
     }
 
-    override fun RegisterAccount(email: String, password: String, onResult: (Throwable?) -> Unit) {
+    override fun registerAccount(email: String, password: String, onResult: (Throwable?) -> Unit) {
         val credential = EmailAuthProvider.getCredential(email, password)
         auth.currentUser!!.linkWithCredential(credential)
             .addOnCompleteListener { onResult(it.exception) }

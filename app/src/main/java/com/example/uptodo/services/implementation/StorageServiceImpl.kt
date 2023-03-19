@@ -34,13 +34,8 @@ class StorageServiceImpl @Inject constructor(
      currentCollection(auth.currentUserId)
             .document(todoId)
             .get()
-         .addOnSuccessListener { result ->
-            for(document in result.id) {
-                println("document id $document")
-            }
-         }
             .await()
-            .toObject<TODOItem>()
+            .toObject()
 
 
 

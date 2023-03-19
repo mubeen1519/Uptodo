@@ -61,7 +61,7 @@ class RegistrationViewModel @Inject constructor(
 
     private fun linkRegisterAccount() {
         viewModelScope.launch(super.showErrorExceptionHandler) {
-            accountService.RegisterAccount(email, password) { error ->
+            accountService.registerAccount(email, password) { error ->
                 if (error != null) logService.logNonFatalCrash(error)
             }
         }

@@ -177,7 +177,7 @@ fun ProfileScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DrawableIcon(
-                        painter = painterResource(id = R.drawable.user),
+                        painter = painterResource(id = R.drawable.user_svg),
                         contentDescription = "user",
                         tint = Color.White,
                         modifier = Modifier.size(22.dp)

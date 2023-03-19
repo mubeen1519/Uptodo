@@ -51,10 +51,7 @@ fun BottomScreen1(
     navController: NavHostController,
     sheetValue: ModalBottomSheetState,
 ) {
-
     val coroutineScope = rememberCoroutineScope()
-
-
     val todo by viewModel.todo
     val context = LocalContext.current
     val categoryState: MutableState<Boolean> = remember {
