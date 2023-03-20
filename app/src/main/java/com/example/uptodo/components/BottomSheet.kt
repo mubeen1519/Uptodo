@@ -34,11 +34,11 @@ fun SheetLayout(
     bottomSheetType: BottomSheetType,
     navController: NavHostController,
     state: ModalBottomSheetState,
-    todoId: String
+    getTodo: (todoId: String) -> Unit
 ) {
     when (bottomSheetType) {
         BottomSheetType.TYPE1 -> BottomScreen1(navController = navController, sheetValue = state)
-        BottomSheetType.TYPE2 -> BottomScreen2(state = state, todoId = todoId)
+        BottomSheetType.TYPE2 -> BottomScreen2(state = state, getTodo = getTodo)
     }
 
 }
@@ -164,12 +164,12 @@ fun BottomScreen1(
 fun BottomScreen2(
     viewModel: HomeViewModel = hiltViewModel(),
     state: ModalBottomSheetState,
-    todoId: String
+    getTodo : (todoId : String) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val todoItem by viewModel.todo
     LaunchedEffect(Unit) {
-        viewModel.getTodo(todoId)
+        getTodo(todoItem.id)
     }
 
     val deleteDialog: MutableState<Boolean> = remember {

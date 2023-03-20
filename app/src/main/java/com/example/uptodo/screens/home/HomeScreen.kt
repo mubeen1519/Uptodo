@@ -22,7 +22,6 @@ import com.example.uptodo.components.SheetLayout
 import com.example.uptodo.components.VectorIcon
 import com.example.uptodo.navigation.*
 import com.example.uptodo.screens.category.BottomSheetType
-import com.example.uptodo.services.implementation.TODOItem
 import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 import kotlinx.coroutines.launch
@@ -69,7 +68,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),viewMo
                         bottomSheetType = it,
                         navController = navController,
                         state = state,
-                        todoId = todo.id
+                        getTodo = {viewModel.getTodo(todo.id)}
                     )
                 }
             }
