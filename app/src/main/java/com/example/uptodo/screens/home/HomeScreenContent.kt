@@ -68,9 +68,9 @@ fun HomeScreenContent(
 
     val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
 
-    LaunchedEffect(Unit) {
-        viewModel.getTodo(todoId)
-    }
+//    LaunchedEffect(Unit) {
+//        viewModel.getTodo()
+//    }
 
     BoxWithConstraints(
         modifier = Modifier

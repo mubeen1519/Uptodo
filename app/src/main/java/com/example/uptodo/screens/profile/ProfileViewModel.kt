@@ -4,7 +4,9 @@ import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.example.uptodo.mainViewModel.MainViewModel
+import com.example.uptodo.navigation.Graph
 import com.example.uptodo.services.implementation.UserProfileData
+import com.example.uptodo.services.module.AccountService
 import com.example.uptodo.services.module.LogService
 import com.example.uptodo.services.module.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
+    private val accountService: AccountService,
     private val useCases: ProfileScreenUseCases,
     logService: LogService
 ) : MainViewModel(logService) {
@@ -87,6 +90,12 @@ class ProfileViewModel @Inject constructor(
                     is Response.Error ->{}
                 }
             }
+        }
+    }
+    fun logout(navigate: (String) -> Unit){
+        viewModelScope.launch(super.showErrorExceptionHandler){
+            accountService.logout()
+            navigate(Graph.Authentication)
         }
     }
 }

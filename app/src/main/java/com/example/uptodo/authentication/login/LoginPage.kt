@@ -120,7 +120,7 @@ fun LoginPage(
                 onClick = { viewModel.onLoginClick(navigate,context) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
+                    .height(46.dp)
                     .padding(start = 30.dp, end = 30.dp),
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -159,7 +159,7 @@ fun LoginPage(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
+                    .height(46.dp)
                     .padding(start = 30.dp, end = 30.dp)
                     .border(
                         border = BorderStroke(
@@ -175,7 +175,8 @@ fun LoginPage(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.google),
                         contentDescription = "Google",
-                        modifier = Modifier.padding(end = 10.dp)
+                        modifier = Modifier.padding(end = 10.dp),
+                        tint = Color.Unspecified
                     )
                     Text(text = "Login with Google")
                 }
@@ -185,7 +186,7 @@ fun LoginPage(
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
+                    .height(46.dp)
                     .padding(start = 30.dp, end = 30.dp)
                     .border(
                         border = BorderStroke(
@@ -201,7 +202,8 @@ fun LoginPage(
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.apple),
                     contentDescription = "google",
-                    modifier = Modifier.padding(end = 10.dp)
+                    modifier = Modifier.padding(end = 10.dp).size(32.dp),
+                    tint = Color.Unspecified
                 )
                 Text(text = "Login with Apple")
             }

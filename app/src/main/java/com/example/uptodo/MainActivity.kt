@@ -34,9 +34,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val theme = themeSetting.themeFlow.collectAsState()
             val useDarkColors = when(theme.value){
-                AppTheme.DAY -> true
-                AppTheme.ORANGE -> isSystemInDarkTheme()
-                AppTheme.NIGHT -> false
+                AppTheme.DAY -> false
+                AppTheme.AUTO -> isSystemInDarkTheme()
+                AppTheme.NIGHT -> true
             }
             UptodoTheme(darkTheme = useDarkColors) {
                 // A surface container using the 'background' color from the theme

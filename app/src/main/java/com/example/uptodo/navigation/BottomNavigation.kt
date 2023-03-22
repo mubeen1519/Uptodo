@@ -60,32 +60,30 @@ fun RowScope.AddItems(
     val isSelected = currentDestination?.hierarchy?.any {
         it.route == screen.route
     } == true
-    BottomNavigationItem(
-        selectedContentColor = Color.White,
-        unselectedContentColor = Color.White,
-        modifier = Modifier.padding(6.dp),
-        selected = isSelected,
-        onClick = {
-            navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id)
-                launchSingleTop = true
-            }
+    CompositionLocalProvider(androidx.compose.material.LocalContentColor provides Color.White) {
+        BottomNavigationItem(
+            modifier = Modifier.padding(6.dp),
+            selected = isSelected,
+            onClick = {
+                navController.navigate(screen.route) {
+                    popUpTo(navController.graph.findStartDestination().id)
+                    launchSingleTop = true
+                }
 
-        },
-        alwaysShowLabel = false,
-        label = {
-            Text(text = screen.title, color = Color.White, fontSize = 12.sp)
-        },
-        icon = {
-            DrawableIcon(
-                painter = painterResource(id = screen.icon),
-                contentDescription = screen.title,
-                modifier = Modifier.size(25.dp),
-                tint = Color.Unspecified
-            )
-        },
-
+            },
+            alwaysShowLabel = false,
+            label = {
+                Text(text = screen.title, color = Color.White, fontSize = 12.sp)
+            },
+            icon = {
+                DrawableIcon(
+                    painter = painterResource(id = screen.icon),
+                    contentDescription = screen.title,
+                    modifier = Modifier.size(25.dp),
+                )
+            },
         )
+    }
 }
 
 

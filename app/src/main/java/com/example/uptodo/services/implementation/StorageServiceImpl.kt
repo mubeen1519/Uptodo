@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig.TAG
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -29,14 +30,25 @@ class StorageServiceImpl @Inject constructor(
 
 
     override suspend fun getTodoItem(
-        todoId: String,
-    ): TODOItem? =
-     currentCollection(auth.currentUserId)
-            .document(todoId)
-            .get()
+        todoId : String
+    ) {
+        val ref = currentCollection(auth.currentUserId).document(todoId)
+        ref.get()
+            .addOnSuccessListener { documentSnapShot ->
+                if (documentSnapShot.exists()) {
+                    val documentId = documentSnapShot.id
+                    Log.d(TAG, "Document id : $documentId")
+                } else {
+                    Log.d(TAG, "Document does not exist")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error getting document", e)
+            }
             .await()
-            .toObject()
+            .toObject<TODOItem>()
 
+    }
 
 
     override suspend fun addTodoItem(

@@ -77,7 +77,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),viewMo
         sheetShape = RoundedCornerShape(20.dp),
     ) {
         Scaffold(
-            backgroundColor = Color.Black,
+            backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
             bottomBar = { if (showBottomBar) BottomNavigationBar(navController = navController) },
             floatingActionButton = {
                 FloatingActionButton(

@@ -33,4 +33,6 @@ interface AccountService {
     fun deleteAccount(onResult: (Throwable?) -> Unit)
 
     fun signInWithGoogle(credential: AuthCredential,onResult: (AuthResult?) -> Unit)
+
+    fun logout()
 }

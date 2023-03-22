@@ -89,4 +89,8 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
                 }
             }
     }
+
+    override fun logout() {
+        auth.signOut()
+    }
 }

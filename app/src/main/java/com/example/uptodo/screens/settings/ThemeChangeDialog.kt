@@ -44,8 +44,8 @@ private fun ThemeContent(
             name = "Night Theme"
         ),
         RadioItems(
-            id = AppTheme.ORANGE.ordinal,
-            name = "Orange Theme"
+            id = AppTheme.AUTO.ordinal,
+            name = "Auto"
         )
     )
 
@@ -67,13 +67,3 @@ private fun ThemeContent(
     }
 }
 
-@Preview
-@Composable
-fun perv(){
-    UptodoTheme {
-        var theme by remember {
-            mutableStateOf(AppTheme.DAY)
-        }
-        ThemeContent(selectedTheme = theme, onItemSelect ={value -> theme = value})
-    }
-}

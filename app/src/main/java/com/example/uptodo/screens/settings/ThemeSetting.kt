@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 enum class AppTheme{
     DAY,
     NIGHT,
-    ORANGE;
+    AUTO;
 
     companion object{
         fun fromOrdinal(ordinal : Int) = values()[ordinal]

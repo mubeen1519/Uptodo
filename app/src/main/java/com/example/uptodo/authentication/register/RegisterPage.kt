@@ -126,7 +126,7 @@ fun RegisterPage(
                 onClick = { viewModel.onRegisterClick(navigate) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
+                    .height(46.dp)
                     .padding(start = 30.dp, end = 30.dp),
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -166,7 +166,7 @@ fun RegisterPage(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
+                    .height(46.dp)
                     .padding(start = 30.dp, end = 30.dp)
                     .border(
                         border = BorderStroke(
@@ -182,7 +182,8 @@ fun RegisterPage(
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.google),
                     contentDescription = "google",
-                    modifier = Modifier.padding(end = 10.dp)
+                    modifier = Modifier.padding(end = 10.dp),
+                    tint = Color.Unspecified
                 )
                 Text(text = "Register with Google")
             }
@@ -192,7 +193,7 @@ fun RegisterPage(
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
+                    .height(46.dp)
                     .padding(start = 30.dp, end = 30.dp)
                     .border(
                         border = BorderStroke(
@@ -208,7 +209,8 @@ fun RegisterPage(
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.apple),
                     contentDescription = "apple",
-                    modifier = Modifier.padding(end = 10.dp)
+                    modifier = Modifier.padding(end = 10.dp).size(32.dp),
+                    tint = Color.Unspecified
                 )
                 Text(text = "Register with Apple")
             }
@@ -221,7 +223,7 @@ fun RegisterPage(
                 ) {
                     Text(
                         buildAnnotatedString {
-                            append("Dont have any account?" + "")
+                            append("Don't have any account?" + "")
                             withStyle(
                                 style = SpanStyle(
                                     fontWeight = FontWeight.Bold,

@@ -25,6 +25,7 @@ import com.example.uptodo.navigation.Graph
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.screens.home.HomeViewModel
+import com.example.uptodo.screens.profile.ProfileViewModel
 import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 
@@ -433,17 +434,17 @@ private fun ChangeAccountPassword(
 }
 
 @Composable
-fun LogoutDialog(dialogState: MutableState<Boolean>, navController: NavHostController) {
+fun LogoutDialog(dialogState: MutableState<Boolean>,navigate: (String) -> Unit) {
     CommonDialog(state = dialogState) {
-        Logout(dialogState = dialogState, navController = navController)
+        Logout(dialogState = dialogState, navigate = navigate)
     }
 }
 
 @Composable
 private fun Logout(
     dialogState: MutableState<Boolean>,
-    viewModel: HomeViewModel = hiltViewModel(),
-    navController: NavHostController
+    viewModel: ProfileViewModel = hiltViewModel(),
+    navigate : (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -470,7 +471,8 @@ private fun Logout(
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = {
-                    navController.popBackStack()
+                    viewModel.logout(navigate)
+                    dialogState.value = false
                 }, colors = ButtonDefaults.buttonColors(
                     contentColor = Color.White,
                     containerColor = Purple40

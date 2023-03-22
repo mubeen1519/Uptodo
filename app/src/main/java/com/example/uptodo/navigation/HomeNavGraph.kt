@@ -8,7 +8,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.example.uptodo.screens.calender.CalenderScreen
 import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.focus.FocusScreen
@@ -43,7 +42,7 @@ fun HomeNavGraph(navHostController: NavHostController,openSheet : (BottomSheetTy
             FocusScreen()
         }
         composable(BottomBar.Profile.route) {
-            ProfileScreen(navHostController)
+            ProfileScreen(navigate = {route -> navHostController.navigate(route)})
         }
         detailNavGraph(navHostController)
     }

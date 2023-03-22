@@ -19,7 +19,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.categories.AccountNameDialog
@@ -31,7 +30,7 @@ import com.example.uptodo.ui.theme.BottomBarColor
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun ProfileScreen(
-    navHostController: NavHostController,
+    navigate : (String) -> Unit,
     profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
     var isLoading by remember {
@@ -337,7 +336,7 @@ fun ProfileScreen(
                     )
                 }
                 if (logout.value) {
-                    LogoutDialog(dialogState = logout, navController = navHostController)
+                    LogoutDialog(dialogState = logout, navigate = navigate)
                 }
                 Row(
                     modifier = Modifier
