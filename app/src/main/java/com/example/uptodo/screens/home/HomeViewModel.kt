@@ -9,6 +9,7 @@ import com.example.uptodo.components.patterns.hasTime
 import com.example.uptodo.components.patterns.idFromParameter
 import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.DEFAULT_TODO_ID
+import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.screens.settings.ThemeSetting
@@ -45,7 +46,11 @@ class HomeViewModel @Inject constructor(
         if (todo.value.title.isNotBlank() && todo.value.description.isNotBlank()) {
             viewModelScope.launch(super.showErrorExceptionHandler) {
                 val editTask = todo.value
-                saveTodo(editTask)
+                if (editTask.id.isBlank()) {
+                    saveTodo(editTask)
+                } else {
+                    storageService.updateTodoItem(editTask)
+                }
             }
         } else {
             Toast.makeText(context, "Please write more then 3 words", Toast.LENGTH_SHORT).show()
@@ -64,10 +69,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getTodo(todoId : String) {
+    fun getTodo(todoId: String) {
         viewModelScope.launch(super.showErrorExceptionHandler) {
-            if(todoId != DEFAULT_TODO_ID)
-           storageService.getTodoItem(todoId)
+            if (todoId != DEFAULT_TODO_ID)
+                storageService.getTodoItem(todoId)
         }
     }
 
@@ -118,5 +123,10 @@ class HomeViewModel @Inject constructor(
     private fun Int.toClockPattern(): String {
         return if (this < 10) "0$this" else "$this"
     }
+
+    fun onTodoClick(openScreen: (String) -> Unit, todoItem: TODOItem) {
+        openScreen("${BottomSheetType.TYPE2}=${todoItem.id}")
+    }
+
 
 }

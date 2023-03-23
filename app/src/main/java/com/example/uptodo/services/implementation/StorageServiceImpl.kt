@@ -35,7 +35,7 @@ class StorageServiceImpl @Inject constructor(
         val ref = currentCollection(auth.currentUserId).document(todoId)
         ref.get()
             .addOnSuccessListener { documentSnapShot ->
-                if (documentSnapShot.exists()) {
+                if (documentSnapShot != null && documentSnapShot.exists()) {
                     val documentId = documentSnapShot.id
                     Log.d(TAG, "Document id : $documentId")
                 } else {

@@ -44,7 +44,7 @@ import java.util.*
 @Composable
 fun CalenderScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    openSheet: (BottomSheetType) -> Unit
+    openSheet: (String) -> Unit
 ) {
     val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -180,7 +180,7 @@ fun CalenderScreen(
                             },
                             sheetValue = sheetValue,
                             onClick = {
-                                openSheet(BottomSheetType.TYPE2)
+                                viewModel.onTodoClick(openSheet,todoItem)
                             }
                         )
                     }
@@ -197,7 +197,7 @@ fun CalenderScreen(
                             },
                             sheetValue = sheetValue,
                             onClick = {
-                                openSheet(BottomSheetType.TYPE2)
+                                viewModel.onTodoClick(openSheet,todoItem)
                             }
                         )
                     }

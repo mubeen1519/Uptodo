@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.components.DrawableIcon
+import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.services.implementation.TODOItem
@@ -30,7 +31,7 @@ fun TodoCardItems(
     onCheckChange: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     sheetValue: ModalBottomSheetState,
-    onClick : () -> Unit
+    onClick : (String) -> Unit
 ) {
 
 
@@ -39,7 +40,7 @@ fun TodoCardItems(
     Card(
         onClick = {
             scope.launch {
-                    onClick()
+                    onClick(BottomSheetType.TYPE2.toString())
                 if(sheetValue.isVisible){
                     sheetValue.hide()
                 }else{
@@ -62,7 +63,8 @@ fun TodoCardItems(
                     .clip(RoundedCornerShape(200.dp)),
                 colors = CheckboxDefaults.colors(
                     uncheckedColor = Color.White,
-                    checkmarkColor = Color.White
+                    checkmarkColor = Color.White,
+                    checkedColor = Purple40,
                 )
             )
 

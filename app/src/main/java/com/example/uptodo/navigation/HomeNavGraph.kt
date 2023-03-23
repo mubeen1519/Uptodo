@@ -17,7 +17,7 @@ import com.example.uptodo.screens.profile.ProfileScreen
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun HomeNavGraph(navHostController: NavHostController,openSheet : (BottomSheetType) -> Unit,viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeNavGraph(navHostController: NavHostController,openSheet : (String) -> Unit,viewModel: HomeViewModel = hiltViewModel()) {
     NavHost(
         navController = navHostController,
         route = Graph.Home,

@@ -68,7 +68,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),viewMo
                         bottomSheetType = it,
                         navController = navController,
                         state = state,
-                        getTodo = {viewModel.getTodo(todo.id)}
+
                     )
                 }
             }
@@ -104,7 +104,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),viewMo
             isFloatingActionButtonDocked = true,
         ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                HomeNavGraph(navHostController = navController, openSheet = openSheet)
+                HomeNavGraph(navHostController = navController, openSheet = {openSheet(BottomSheetType.TYPE2)})
             }
         }
     }

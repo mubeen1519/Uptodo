@@ -44,7 +44,7 @@ import kotlinx.coroutines.launch
 fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
-    openSheet: (BottomSheetType) -> Unit,
+    openSheet: (String) -> Unit,
     todoId: String,
     navController: NavHostController
 ) {
@@ -68,9 +68,9 @@ fun HomeScreenContent(
 
     val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
 
-//    LaunchedEffect(Unit) {
-//        viewModel.getTodo()
-//    }
+    LaunchedEffect(Unit) {
+        viewModel.getTodo(todoId)
+    }
 
     BoxWithConstraints(
         modifier = Modifier
@@ -238,7 +238,7 @@ fun HomeScreenContent(
                                 },
                                 sheetValue = sheetValue,
                                 onClick = {
-                                    openSheet(BottomSheetType.TYPE2)
+                                    viewModel.onTodoClick(openSheet,todoItem)
                                 }
                             )
                         }

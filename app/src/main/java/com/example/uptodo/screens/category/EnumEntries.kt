@@ -43,7 +43,7 @@ enum class Icons constructor(var icon: Int, var title : String, var color: Color
 }
 
 enum class BottomSheetType {
-    TYPE1, TYPE2,
+    TYPE1, TYPE2;
 }
 
 
