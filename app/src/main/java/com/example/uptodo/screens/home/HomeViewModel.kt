@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.example.uptodo.components.patterns.hasDate
 import com.example.uptodo.components.patterns.hasTime
-import com.example.uptodo.components.patterns.idFromParameter
 import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.DEFAULT_TODO_ID
 import com.example.uptodo.screens.category.BottomSheetType
@@ -34,6 +33,7 @@ class HomeViewModel @Inject constructor(
     val tasks = storageService.tasks
 
     var todo = mutableStateOf(TODOItem())
+
 
 
     fun onTodoCheck(todo: TODOItem) {

@@ -1,7 +1,6 @@
 package com.example.uptodo.screens.profile
 
 import com.example.uptodo.services.implementation.UserProfileData
-import com.example.uptodo.services.module.AccountService
 import com.example.uptodo.services.module.ProfileScreenRepo
 
 class CreateOrUpdateProfileToFirebase(

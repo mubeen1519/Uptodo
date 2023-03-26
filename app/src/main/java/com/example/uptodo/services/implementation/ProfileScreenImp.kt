@@ -4,13 +4,10 @@ import android.net.Uri
 import com.example.uptodo.services.module.ProfileScreenRepo
 import com.example.uptodo.services.module.Response
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose

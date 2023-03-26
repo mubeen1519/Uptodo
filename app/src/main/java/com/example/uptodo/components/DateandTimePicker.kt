@@ -38,7 +38,7 @@ fun DateAndTimePicker(
     val time = remember { mutableStateOf("") }
     val timePickerDialog = TimePickerDialog(
         context,
-        R.style.themeOnverlay_timePicker,
+        R.style.themeOverlay_timePicker,
         { _, hours: Int, minutes: Int ->
             viewModel.onTimeChange(hours, minutes)
             time.value = "$hours:$minutes"

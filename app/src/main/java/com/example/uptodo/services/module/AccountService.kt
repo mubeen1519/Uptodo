@@ -1,10 +1,8 @@
 package com.example.uptodo.services.module
 
-import android.net.Uri
 import com.example.uptodo.services.implementation.UserProfileData
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 interface AccountService {

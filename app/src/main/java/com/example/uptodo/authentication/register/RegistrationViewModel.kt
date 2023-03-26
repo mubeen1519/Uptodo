@@ -4,7 +4,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.example.uptodo.authentication.GoogleSignInState
-import com.example.uptodo.components.patterns.isValidEmail
 import com.example.uptodo.mainViewModel.MainViewModel
 import com.example.uptodo.navigation.Graph
 import com.example.uptodo.screens.profile.ProfileScreenUseCases
@@ -14,7 +13,6 @@ import com.example.uptodo.services.module.LogService
 import com.example.uptodo.services.module.Response
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -9,7 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.uptodo.screens.calender.CalenderScreen
-import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.focus.FocusScreen
 import com.example.uptodo.screens.home.HomeScreenContent
 import com.example.uptodo.screens.home.HomeViewModel

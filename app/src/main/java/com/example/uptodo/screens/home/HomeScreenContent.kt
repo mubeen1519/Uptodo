@@ -31,8 +31,8 @@ import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.SearchField
 import com.example.uptodo.components.categories.NavigationDrawerItem
+import com.example.uptodo.components.categories.TypographyDialog
 import com.example.uptodo.navigation.BottomBar
-import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.profile.ProfileViewModel
 import com.example.uptodo.screens.settings.ChangeThemeDialog
 import com.example.uptodo.services.implementation.UserProfileData
@@ -61,6 +61,10 @@ fun HomeScreenContent(
     val themeDialog: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
+    val typeDialog: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+
     var userDataFromFirebase by remember { mutableStateOf(UserProfileData()) }
     userDataFromFirebase = profileViewModel.userDataStateFromFirebase.value
     var userProfileImg by remember { mutableStateOf("") }
@@ -78,6 +82,10 @@ fun HomeScreenContent(
     ) {
         if (themeDialog.value) {
             ChangeThemeDialog(dialogState = themeDialog, userSetting = viewModel.themeSetting)
+        }
+
+        if(typeDialog.value){
+            TypographyDialog(dialogState = typeDialog)
         }
 
         ModalDrawer(
@@ -125,6 +133,8 @@ fun HomeScreenContent(
                                 .clickable {
                                     if (selectedItem == item) {
                                         themeDialog.value = true
+                                    } else{
+                                        typeDialog.value = true
                                     }
                                 }
                         ) {

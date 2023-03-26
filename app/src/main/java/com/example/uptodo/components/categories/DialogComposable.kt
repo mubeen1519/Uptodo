@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,8 +27,7 @@ import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.screens.profile.ProfileViewModel
-import com.example.uptodo.ui.theme.BottomBarColor
-import com.example.uptodo.ui.theme.Purple40
+import com.example.uptodo.ui.theme.*
 
 @Composable
 fun CategoryDialog(
@@ -182,7 +182,8 @@ private fun PriorityContent(
                         modifier = Modifier
                             .size(width = 40.dp, height = 50.dp)
                             .background(if (selectedIndex.value == index) Purple40 else Color.Black)
-                            .clip(shape = RoundedCornerShape(10.dp)).padding(5.dp),
+                            .clip(shape = RoundedCornerShape(10.dp))
+                            .padding(5.dp),
                         contentAlignment = Alignment.TopCenter
                     ) {
                         IconButton(
@@ -434,7 +435,7 @@ private fun ChangeAccountPassword(
 }
 
 @Composable
-fun LogoutDialog(dialogState: MutableState<Boolean>,navigate: (String) -> Unit) {
+fun LogoutDialog(dialogState: MutableState<Boolean>, navigate: (String) -> Unit) {
     CommonDialog(state = dialogState) {
         Logout(dialogState = dialogState, navigate = navigate)
     }
@@ -444,7 +445,7 @@ fun LogoutDialog(dialogState: MutableState<Boolean>,navigate: (String) -> Unit) 
 private fun Logout(
     dialogState: MutableState<Boolean>,
     viewModel: ProfileViewModel = hiltViewModel(),
-    navigate : (String) -> Unit
+    navigate: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -558,4 +559,58 @@ fun DeleteTaskContent(
         }
     }
 }
+
+@Composable
+fun TypographyDialog(
+    dialogState: MutableState<Boolean>,
+) {
+    CommonDialog(state = dialogState) {
+        ChangeTypography(dialogState = dialogState)
+    }
+}
+
+@Composable
+private fun ChangeTypography(
+    modifier: Modifier = Modifier,
+    dialogState: MutableState<Boolean>,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(BottomBarColor),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "Change Typography", textAlign = TextAlign.Center, color = Color.White)
+        Spacer(modifier = Modifier.height(10.dp))
+        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Spacer(modifier = Modifier.height(10.dp))
+
+    }
+    Column(
+        modifier = modifier
+            .selectableGroup()
+            .background(BottomBarColor)
+    ) {
+        Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            RadioButton(
+                selected = AppThemeTypography.selectedFontFamily.value == latoFamily,
+                onClick = { AppThemeTypography.selectedFontFamily.value = latoFamily },
+            )
+            Text("Lato", color = Color.White, fontFamily = latoFamily)
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            RadioButton(
+                selected = AppThemeTypography.selectedFontFamily.value == quickSandFamily,
+                onClick = { AppThemeTypography.selectedFontFamily.value = quickSandFamily }
+            )
+            Text("QuickSand", color = Color.White, fontFamily = quickSandFamily)
+        }
+    }
+}
+
+
 

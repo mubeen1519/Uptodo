@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.screens.home.TodoCardItems
 import com.example.uptodo.ui.theme.BottomBarColor

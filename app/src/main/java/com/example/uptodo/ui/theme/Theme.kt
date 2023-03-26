@@ -3,18 +3,20 @@ package com.example.uptodo.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
+
+object AppThemeTypography {
+    val selectedFontFamily = mutableStateOf(latoFamily)
+}
+
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -62,9 +64,44 @@ fun UptodoTheme(
         }
     }
 
+//    val typography = MaterialTheme.typography.copy(
+//        bodySmall = MaterialTheme.typography.bodySmall.copy(
+//            fontFamily = AppTheme.selectedFontFamily.value,
+//            fontWeight = FontWeight.Normal,
+//            fontSize = 16.sp,
+//            lineHeight = 24.sp,
+//            letterSpacing = 0.5.sp
+//        ),
+//        bodyLarge = MaterialTheme.typography.bodyLarge.copy(
+//            fontFamily = AppTheme.selectedFontFamily.value,
+//            fontWeight = FontWeight.Normal,
+//            fontSize = 30.sp,
+//            lineHeight = 24.sp,
+//            letterSpacing = 0.5.sp
+//        ),
+//        titleLarge = MaterialTheme.typography.titleLarge.copy(
+//            fontFamily = AppTheme.selectedFontFamily.value,
+//            fontWeight = FontWeight.Normal,
+//            fontSize = 16.sp,
+//            lineHeight = 24.sp,
+//            letterSpacing = 0.5.sp
+//        ),
+//        titleMedium = MaterialTheme.typography.titleMedium.copy(
+//            fontFamily = AppTheme.selectedFontFamily.value,
+//            fontWeight = FontWeight.Normal,
+//            fontSize = 20.sp,
+//            lineHeight = 24.sp,
+//            letterSpacing = 0.5.sp
+//        )
+//    )
+//
+
+
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
         content = content
     )
+
+
 }

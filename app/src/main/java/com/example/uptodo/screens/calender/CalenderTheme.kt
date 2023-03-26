@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.example.uptodo.components.patterns.getNext7Dates
 import com.example.uptodo.components.patterns.getPrevious7Dates
 import com.example.uptodo.ui.theme.BottomBarColor
-import com.example.uptodo.ui.theme.Purple40
 import com.himanshoe.kalendar.color.KalendarThemeColor
 import com.himanshoe.kalendar.component.day.KalendarDay
 import com.himanshoe.kalendar.component.day.config.KalendarDayColors

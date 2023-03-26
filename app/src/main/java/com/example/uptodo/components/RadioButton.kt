@@ -4,18 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.uptodo.ui.theme.BottomBarColor
-import com.example.uptodo.ui.theme.UptodoTheme
 
 data class RadioItems(
     var id: Int,
@@ -70,42 +67,7 @@ private fun RadioGroupItems(
     }
 }
 
-private val radioItems = listOf(
-    RadioItems(
-        id = 1,
-        name = "Light Theme",
-    ),
-    RadioItems(
-        id = 2,
-        name = "Dark Theme",
-    ),
-    RadioItems(
-        id = 3,
-        name = "Auto Theme",
-    ),
-)
 
-@Preview
-@Composable
-fun items() {
-    UptodoTheme {
-        var selected by remember {
-            mutableStateOf(2)
-        }
-        RadioGroup(
-            items = radioItems,
-            selected = selected,
-            onItemSelected = { id -> selected = id })
-    }
-}
 
-//@Preview
-//@Composable
-//fun radio(){
-//    UptodoTheme {
-//        RadioGroupItems(items = RadioItems(
-//            id = 1,
-//            name = "Dark Theme"
-//        ), selected = true, onClick = null )
-//    }
-//}
+
+
