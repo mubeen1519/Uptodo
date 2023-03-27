@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.DrawerValue
 import androidx.compose.material3.*
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,10 +20,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -84,7 +85,7 @@ fun HomeScreenContent(
             ChangeThemeDialog(dialogState = themeDialog, userSetting = viewModel.themeSetting)
         }
 
-        if(typeDialog.value){
+        if (typeDialog.value) {
             TypographyDialog(dialogState = typeDialog)
         }
 
@@ -113,16 +114,16 @@ fun HomeScreenContent(
                     Spacer(modifier = Modifier.padding(horizontal = 30.dp))
 
                     androidx.compose.material.Text(
-                        text = "Settings",
+                        text = stringResource(id = R.string.settings),
                         color = Color.White,
-                        fontSize = 20.sp,
+                        style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )
                 }
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 50.dp),
+                        .padding(top = 30.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     this.items(items = itemsList) { item ->
@@ -133,10 +134,11 @@ fun HomeScreenContent(
                                 .clickable {
                                     if (selectedItem == item) {
                                         themeDialog.value = true
-                                    } else{
+                                    } else {
                                         typeDialog.value = true
                                     }
-                                }
+                                },
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             DrawableIcon(
                                 painter = painterResource(id = item.icon),
@@ -148,7 +150,7 @@ fun HomeScreenContent(
                             androidx.compose.material.Text(
                                 text = item.title,
                                 color = Color.White,
-                                fontSize = 14.sp,
+                                style = MaterialTheme.typography.bodySmall,
                                 modifier = Modifier.padding(start = 16.dp),
                             )
                             Spacer(modifier = Modifier.weight(1f))
@@ -190,7 +192,12 @@ fun HomeScreenContent(
                                 .size(40.dp)
                         )
                     }
-                    Text(text = "Home", color = Color.White, textAlign = TextAlign.Center)
+                    Text(
+                        text = stringResource(id = R.string.HomeHeading),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White,
+                        textAlign = TextAlign.Center
+                    )
                     if (userProfileImg != "") {
                         Box(modifier = Modifier
                             .clip(CircleShape)
@@ -234,7 +241,7 @@ fun HomeScreenContent(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        SearchField(state = textState, placeholderText = "Search for your task..")
+                        SearchField(state = textState)
                     }
 
                     LazyColumn {
@@ -248,7 +255,7 @@ fun HomeScreenContent(
                                 },
                                 sheetValue = sheetValue,
                                 onClick = {
-                                    viewModel.onTodoClick(openSheet,todoItem)
+                                    viewModel.onTodoClick(openSheet, todoItem)
                                 }
                             )
                         }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ProgressIndicatorDefaults
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -59,7 +60,7 @@ fun CountDownIndicator(
                     text = time,
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }

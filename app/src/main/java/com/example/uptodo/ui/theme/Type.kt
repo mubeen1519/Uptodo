@@ -27,10 +27,17 @@ val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = latoFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontSize = 20.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
+
+    bodySmall = TextStyle(
+        fontFamily = latoFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+    ),
+
     titleLarge = TextStyle(
         fontFamily = latoFamily,
         fontWeight = FontWeight.Normal,
@@ -38,10 +45,21 @@ val Typography = Typography(
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
+    titleMedium = TextStyle(
+        fontFamily = latoFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+
+    titleSmall = TextStyle(
+        fontFamily = latoFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 10.sp
+    ),
     labelSmall = TextStyle(
         fontFamily = latoFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
+        fontSize = 14.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     )

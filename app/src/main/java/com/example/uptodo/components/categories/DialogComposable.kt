@@ -14,11 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.uptodo.R
 import com.example.uptodo.components.CommonDialog
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.InputField
@@ -32,14 +33,12 @@ import com.example.uptodo.ui.theme.*
 @Composable
 fun CategoryDialog(
     state: MutableState<Boolean>,
-    btnText: String,
     viewModel: HomeViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
     CommonDialog(state = state) {
         BodyContent(
             navController = navController,
-            btnText = btnText,
             dialogState = state,
             viewModel = viewModel
         ) {}
@@ -50,7 +49,6 @@ fun CategoryDialog(
 private fun BodyContent(
     navController: NavHostController,
     viewModel: HomeViewModel = hiltViewModel(),
-    btnText: String,
     dialogState: MutableState<Boolean>,
     onItemSelection: (selectedItemIndex: Int) -> Unit,
 ) {
@@ -61,9 +59,14 @@ private fun BodyContent(
     Column(
         modifier = Modifier
             .background(BottomBarColor)
-            .padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally
+            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Choose Category", textAlign = TextAlign.Center, color = Color.White)
+        Text(
+            text = stringResource(id = R.string.chooseCategory),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium
+        )
         Spacer(modifier = Modifier.height(10.dp))
         Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
         Spacer(modifier = Modifier.height(8.dp))
@@ -103,7 +106,7 @@ private fun BodyContent(
                     Text(
                         text = icons.title,
                         color = Color.White,
-                        fontSize = 12.sp,
+                        style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 7.dp)
                     )
                 }
@@ -126,7 +129,7 @@ private fun BodyContent(
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = btnText)
+                Text(text = stringResource(id = R.string.addCategory))
             }
         }
 
@@ -163,9 +166,14 @@ private fun PriorityContent(
     Column(
         modifier = Modifier
             .background(BottomBarColor)
-            .padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally
+            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Task Priority", textAlign = TextAlign.Center, color = Color.White)
+        Text(
+            text = stringResource(id = R.string.priorityTitle),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium
+        )
         Spacer(modifier = Modifier.height(10.dp))
         Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
         Spacer(modifier = Modifier.height(8.dp))
@@ -205,6 +213,7 @@ private fun PriorityContent(
                         Text(
                             text = priority.value.toString(),
                             color = Color.White,
+                            style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.padding(top = 25.dp)
                         )
                     }
@@ -225,7 +234,7 @@ private fun PriorityContent(
                 ),
                 shape = RoundedCornerShape(5.dp),
             ) {
-                Text(text = "Cancel")
+                Text(text = stringResource(id = R.string.cancel))
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -241,7 +250,7 @@ private fun PriorityContent(
                     .padding(end = 10.dp)
                     .size(width = 150.dp, height = 40.dp)
             ) {
-                Text(text = "Save")
+                Text(text = stringResource(id = R.string.save))
             }
         }
     }
@@ -274,9 +283,14 @@ private fun IconLibraryContent(
     Column(
         modifier = Modifier
             .background(BottomBarColor)
-            .padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally
+            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Choose Icon From Library", textAlign = TextAlign.Center, color = Color.White)
+        Text(
+            text = stringResource(id = R.string.chooseIcon),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium
+        )
         Spacer(modifier = Modifier.height(10.dp))
         Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
         Spacer(modifier = Modifier.height(8.dp))
@@ -325,12 +339,19 @@ private fun ChangeAccountName(
             .background(BottomBarColor)
             .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Change account name", textAlign = TextAlign.Center, color = Color.White)
+        Text(
+            text = stringResource(id = R.string.accountName),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium
+        )
         Spacer(modifier = Modifier.height(10.dp))
         Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
         Spacer(modifier = Modifier.height(8.dp))
 
-        InputField(placeholderText = "Account Name", onFieldChange = {})
+        InputField(
+            placeholderText = stringResource(id = R.string.accountPlaceholder),
+            onFieldChange = {})
         Spacer(modifier = Modifier.height(15.dp))
         Row(modifier = Modifier.fillMaxWidth()) {
             Button(
@@ -341,7 +362,7 @@ private fun ChangeAccountName(
                 ),
                 shape = RoundedCornerShape(5.dp),
             ) {
-                Text(text = "Cancel")
+                Text(text = stringResource(id = R.string.cancel))
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -353,7 +374,7 @@ private fun ChangeAccountName(
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
-                Text(text = "Edit")
+                Text(text = stringResource(id = R.string.edit))
             }
         }
     }
@@ -377,7 +398,12 @@ private fun ChangeAccountPassword(
             .background(BottomBarColor)
             .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Change account Password", textAlign = TextAlign.Center, color = Color.White)
+        Text(
+            text = stringResource(id = R.string.accountPassword),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium
+        )
         Spacer(modifier = Modifier.height(10.dp))
         Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
         Spacer(modifier = Modifier.height(8.dp))
@@ -391,18 +417,18 @@ private fun ChangeAccountPassword(
     ) {
 
         InputField(
-            placeholderText = "Enter old Password",
+            placeholderText = stringResource(id = R.string.passwordPlaceholder),
             onFieldChange = {},
-            label = "Enter old Password",
+            label = stringResource(id = R.string.passwordPlaceholder),
             isFieldSecured = true
         )
 
         Spacer(modifier = Modifier.height(10.dp))
 
         InputField(
-            placeholderText = "Enter new Password",
+            placeholderText = stringResource(id = R.string.newPasswordPlaceholder),
             onFieldChange = {},
-            label = "Enter new Password",
+            label = stringResource(id = R.string.newPasswordPlaceholder),
             isFieldSecured = true
         )
 
@@ -416,7 +442,7 @@ private fun ChangeAccountPassword(
                 ),
                 shape = RoundedCornerShape(5.dp),
             ) {
-                Text(text = "Cancel")
+                Text(text = stringResource(id = R.string.cancel))
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -428,7 +454,7 @@ private fun ChangeAccountPassword(
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
-                Text(text = "Edit")
+                Text(text = stringResource(id = R.string.edit))
             }
         }
     }
@@ -455,7 +481,11 @@ private fun Logout(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Are you sure you want to logout", color = Color.White, fontSize = 15.sp)
+        Text(
+            stringResource(id = R.string.logoutTxt),
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium
+        )
         Spacer(modifier = Modifier.height(15.dp))
 
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -467,7 +497,7 @@ private fun Logout(
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
-                Text(text = "Cancel", color = Purple40)
+                Text(text = stringResource(id = R.string.cancel), color = Purple40)
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -481,7 +511,7 @@ private fun Logout(
                 shape = RoundedCornerShape(5.dp)
 
             ) {
-                Text(text = "Logout")
+                Text(text = stringResource(id = R.string.logout))
             }
 
         }
@@ -509,7 +539,11 @@ fun DeleteTaskContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Delete Task", color = Color.White, fontSize = 15.sp)
+        Text(
+            stringResource(id = R.string.deleteTask),
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium
+        )
         Spacer(modifier = Modifier.height(10.dp))
         Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
         Spacer(modifier = Modifier.height(15.dp))
@@ -519,9 +553,9 @@ fun DeleteTaskContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Are you sure you want to delete this task?",
+                text = stringResource(id = R.string.deleteDialog),
                 color = Color.White,
-                fontSize = 15.sp
+                style = MaterialTheme.typography.titleMedium
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = "Task title: ${todo.title}", color = Color.White)
@@ -537,7 +571,7 @@ fun DeleteTaskContent(
                         contentColor = Purple40
                     )
                 ) {
-                    Text(text = "Cancel")
+                    Text(text = stringResource(id = R.string.cancel))
                 }
                 Spacer(modifier = Modifier.height(15.dp))
 
@@ -552,7 +586,7 @@ fun DeleteTaskContent(
                     ),
                     shape = RoundedCornerShape(5.dp)
                 ) {
-                    Text(text = "Delete")
+                    Text(text = stringResource(id = R.string.delete))
                 }
 
             }
@@ -579,11 +613,17 @@ private fun ChangeTypography(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(BottomBarColor),
+            .background(BottomBarColor)
+            .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Change Typography", textAlign = TextAlign.Center, color = Color.White)
+        Text(
+            text = stringResource(id = R.string.typographyDialog),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            style = MaterialTheme.typography.titleMedium
+        )
         Spacer(modifier = Modifier.height(10.dp))
         Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
         Spacer(modifier = Modifier.height(10.dp))
@@ -594,20 +634,24 @@ private fun ChangeTypography(
             .selectableGroup()
             .background(BottomBarColor)
     ) {
-        Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = AppThemeTypography.selectedFontFamily.value == latoFamily,
                 onClick = { AppThemeTypography.selectedFontFamily.value = latoFamily },
             )
-            Text("Lato", color = Color.White, fontFamily = latoFamily)
+            Text(
+                stringResource(id = R.string.latoFont),
+                color = Color.White,
+                fontFamily = latoFamily
+            )
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = AppThemeTypography.selectedFontFamily.value == quickSandFamily,
                 onClick = { AppThemeTypography.selectedFontFamily.value = quickSandFamily }
             )
-            Text("QuickSand", color = Color.White, fontFamily = quickSandFamily)
+            Text(stringResource(id = R.string.quicksandFont), color = Color.White, fontFamily = quickSandFamily)
         }
     }
 }

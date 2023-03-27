@@ -73,7 +73,7 @@ fun TodoCardItems(
                     Text(
                         text = todoItem.title,
                         color = Color.White,
-                        fontSize = 16.sp
+                        style = androidx.compose.material3.MaterialTheme.typography.titleMedium
                     )
                 }
                 Row(

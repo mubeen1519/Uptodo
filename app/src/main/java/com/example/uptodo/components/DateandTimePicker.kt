@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.R
@@ -63,7 +64,7 @@ fun DateAndTimePicker(
             ),
             shape = RoundedCornerShape(8.dp)
         ) {
-            Text(text = "Choose Time")
+            Text(text = stringResource(id = R.string.chooseTime))
         }
     },
 //        dismissButton = {

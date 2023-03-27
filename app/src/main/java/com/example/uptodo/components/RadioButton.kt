@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -62,7 +63,8 @@ private fun RadioGroupItems(
         Spacer(modifier = modifier.width(5.dp))
         Text(
             text = items.name,
-            color = Color.White
+            color = Color.White,
+            style = MaterialTheme.typography.bodySmall
         )
     }
 }

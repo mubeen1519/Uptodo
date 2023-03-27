@@ -10,12 +10,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,7 +32,7 @@ import com.example.uptodo.ui.theme.BottomBarColor
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun ProfileScreen(
-    navigate : (String) -> Unit,
+    navigate: (String) -> Unit,
     profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
     var isLoading by remember {
@@ -70,7 +72,11 @@ fun ProfileScreen(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Profile", color = Color.White, fontSize = 20.sp)
+                Text(
+                    text = stringResource(id = R.string.profileTitle),
+                    color = Color.White,
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
 
             Column(
@@ -92,9 +98,13 @@ fun ProfileScreen(
 
                     }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(text = email, color = Color.White, fontSize = 15.sp)
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = email,
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(modifier = Modifier.height(14.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -128,7 +138,11 @@ fun ProfileScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    Text("Settings", color = Color.LightGray)
+                    Text(
+                        stringResource(id = R.string.settings),
+                        color = Color.LightGray,
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 }
                 Row(
                     modifier = Modifier
@@ -143,9 +157,9 @@ fun ProfileScreen(
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = "Change app Settings",
+                        text = stringResource(id = R.string.changeSetting),
                         color = Color.White,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -166,7 +180,11 @@ fun ProfileScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    Text("Account", color = Color.LightGray)
+                    Text(
+                        stringResource(id = R.string.txtAccount),
+                        color = Color.LightGray,
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 }
                 Row(
                     modifier = Modifier
@@ -182,9 +200,9 @@ fun ProfileScreen(
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = "Change account name",
+                        text = stringResource(id = R.string.accountName),
                         color = Color.White,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -211,9 +229,9 @@ fun ProfileScreen(
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = "Change account password",
+                        text = stringResource(id = R.string.accountPassword),
                         color = Color.White,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -232,7 +250,11 @@ fun ProfileScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    Text("Uptodo", color = Color.LightGray)
+                    Text(
+                        stringResource(id = R.string.app_name),
+                        color = Color.LightGray,
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 }
                 Row(
                     modifier = Modifier
@@ -247,9 +269,9 @@ fun ProfileScreen(
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = "About us",
+                        text = stringResource(id = R.string.aboutUs),
                         color = Color.White,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -272,9 +294,9 @@ fun ProfileScreen(
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = "FAQ",
+                        text = stringResource(id = R.string.faq),
                         color = Color.White,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -297,9 +319,9 @@ fun ProfileScreen(
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = "Help & Feedback",
+                        text = stringResource(id = R.string.feedback),
                         color = Color.White,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -323,9 +345,9 @@ fun ProfileScreen(
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = "Support Us",
+                        text = stringResource(id = R.string.support),
                         color = Color.White,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -352,9 +374,9 @@ fun ProfileScreen(
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
-                        text = "Logout",
+                        text = stringResource(id = R.string.logout),
                         color = Color.Red,
-                        fontSize = 14.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))

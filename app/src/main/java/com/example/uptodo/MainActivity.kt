@@ -44,9 +44,12 @@ class MainActivity : ComponentActivity() {
                 MaterialTheme(
                     typography = Typography.copy(
                         bodyLarge = Typography.bodyLarge.copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
+                        bodySmall = Typography.bodySmall.copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
                         titleLarge = Typography.titleLarge
                             .copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
-                        labelSmall = Typography.labelSmall.copy(fontFamily = AppThemeTypography.selectedFontFamily.value)
+                        titleMedium = Typography.titleMedium.copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
+                        labelSmall = Typography.labelSmall.copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
+                        titleSmall = Typography.titleSmall.copy(fontFamily = AppThemeTypography.selectedFontFamily.value)
                     ),
 
                     ) {

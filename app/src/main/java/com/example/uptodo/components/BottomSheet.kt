@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.uptodo.R
@@ -73,17 +73,21 @@ fun BottomScreen1(
                 .fillMaxSize()
                 .padding(start = 20.dp, top = 20.dp, end = 20.dp)
         ) {
-            Text(text = "Add Task", color = Color.White)
+            Text(
+                text = stringResource(id = R.string.sheetTitle),
+                color = Color.White,
+                style = androidx.compose.material3.MaterialTheme.typography.titleMedium
+            )
 
             InputField(
                 value = todo.title,
-                placeholderText = "Add Title",
+                placeholderText = stringResource(id = R.string.titlePlaceholder),
                 onFieldChange = viewModel::onTitleChange,
             )
             Spacer(modifier = Modifier.height(10.dp))
             InputField(
                 value = todo.description,
-                placeholderText = "Description",
+                placeholderText = stringResource(id = R.string.descriptionPlaceholder),
                 onFieldChange = viewModel::onDescriptionChange,
             )
             if (dateState.value) {
@@ -104,7 +108,6 @@ fun BottomScreen1(
 
                 if (categoryState.value) {
                     CategoryDialog(
-                        btnText = "Add Category",
                         navController = navController,
                         state = categoryState
                     )
@@ -218,7 +221,7 @@ fun BottomScreen2(
                         Text(
                             text = todoItem.title,
                             color = Color.White,
-                            fontSize = 18.sp
+                            style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         DrawableIcon(
@@ -233,7 +236,7 @@ fun BottomScreen2(
                         Text(
                             text = todoItem.description,
                             color = Color.White,
-                            fontSize = 12.sp
+                            style = androidx.compose.material3.MaterialTheme.typography.labelSmall
                         )
                     }
                 }
@@ -252,7 +255,11 @@ fun BottomScreen2(
                         .padding(end = 4.dp)
                         .size(25.dp)
                 )
-                Text(text = "Task Time:", color = Color.White)
+                Text(
+                    text = stringResource(id = R.string.taskTime),
+                    color = Color.White,
+                    style = androidx.compose.material3.MaterialTheme.typography.titleMedium
+                )
 
                 Spacer(modifier = Modifier.weight(1f))
                 Button(
@@ -266,7 +273,7 @@ fun BottomScreen2(
                     Text(
                         text = viewModel.getDateAndTime(todoItem),
                         color = Color.White,
-                        fontSize = 8.sp
+                        style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                     )
                 }
             }
@@ -285,7 +292,11 @@ fun BottomScreen2(
                         .padding(end = 4.dp)
                         .size(25.dp)
                 )
-                Text(text = "Task Category:", color = Color.White)
+                Text(
+                    text = stringResource(id = R.string.taskCategory),
+                    color = Color.White,
+                    style = androidx.compose.material3.MaterialTheme.typography.titleMedium
+                )
 
                 Spacer(modifier = Modifier.weight(1f))
                 Button(
@@ -308,7 +319,7 @@ fun BottomScreen2(
                         Text(
                             text = it.title,
                             color = Color.White,
-                            fontSize = 8.sp
+                            style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                         )
                     }
                 }
@@ -330,7 +341,11 @@ fun BottomScreen2(
                         .size(25.dp)
                 )
 
-                Text(text = "Task Priority:", color = Color.White)
+                Text(
+                    text = stringResource(id = R.string.taskPriority),
+                    color = Color.White,
+                    style = androidx.compose.material3.MaterialTheme.typography.titleMedium
+                )
 
                 Spacer(modifier = Modifier.weight(1f))
                 Button(
@@ -344,13 +359,13 @@ fun BottomScreen2(
                         Text(
                             text = "Default",
                             color = Color.White,
-                            fontSize = 8.sp
+                            style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                         )
                     } else {
                         Text(
                             text = todoItem.priority?.value.toString(),
                             color = Color.White,
-                            fontSize = 8.sp
+                            style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                         )
                     }
                 }
@@ -370,7 +385,11 @@ fun BottomScreen2(
                         .size(25.dp)
                         .padding(end = 4.dp)
                 )
-                Text(text = "Sub-Task:", color = Color.White)
+                Text(
+                    text = stringResource(id = R.string.subtask),
+                    color = Color.White,
+                    style = androidx.compose.material3.MaterialTheme.typography.titleMedium
+                )
 
                 Spacer(modifier = Modifier.weight(1f))
                 Button(
@@ -380,9 +399,9 @@ fun BottomScreen2(
                     )
                 ) {
                     Text(
-                        text = "Add Sub-Task",
+                        text = stringResource(id = R.string.addSubTask),
                         color = Color.White,
-                        fontSize = 8.sp
+                        style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                     )
                 }
             }
@@ -406,7 +425,11 @@ fun BottomScreen2(
                         .padding(end = 4.dp)
                         .size(25.dp)
                 )
-                Text(text = "Delete Task", color = Color.Red)
+                Text(
+                    text = stringResource(id = R.string.deleteTask),
+                    color = Color.Red,
+                    style = androidx.compose.material3.MaterialTheme.typography.titleMedium
+                )
             }
         }
     }

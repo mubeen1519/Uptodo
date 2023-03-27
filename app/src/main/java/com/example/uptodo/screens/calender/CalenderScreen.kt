@@ -13,16 +13,19 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.uptodo.R
 import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.screens.home.TodoCardItems
 import com.example.uptodo.ui.theme.BottomBarColor
@@ -60,7 +63,11 @@ fun CalenderScreen(
             .fillMaxWidth()
             .padding(top = 10.dp)
     ) {
-        Text(text = "Calender", color = Color.White, fontSize = 20.sp)
+        Text(
+            text = stringResource(id = R.string.calenderTitle),
+            color = Color.White,
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -131,7 +138,7 @@ fun CalenderScreen(
                             ),
                             shape = RoundedCornerShape(5.dp)
                         ) {
-                            Text(text = "Today")
+                            Text(text = stringResource(id = R.string.todayBtn))
                         }
                         Spacer(modifier = Modifier.weight(1f))
                         Button(
@@ -153,7 +160,7 @@ fun CalenderScreen(
                             shape = RoundedCornerShape(5.dp)
 
                         ) {
-                            Text(text = "Completed")
+                            Text(text = stringResource(id = R.string.completedBtn))
                         }
                     }
                 }
@@ -179,7 +186,7 @@ fun CalenderScreen(
                             },
                             sheetValue = sheetValue,
                             onClick = {
-                                viewModel.onTodoClick(openSheet,todoItem)
+                                viewModel.onTodoClick(openSheet, todoItem)
                             }
                         )
                     }
@@ -196,7 +203,7 @@ fun CalenderScreen(
                             },
                             sheetValue = sheetValue,
                             onClick = {
-                                viewModel.onTodoClick(openSheet,todoItem)
+                                viewModel.onTodoClick(openSheet, todoItem)
                             }
                         )
                     }

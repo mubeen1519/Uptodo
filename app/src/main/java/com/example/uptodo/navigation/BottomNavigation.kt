@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -62,7 +62,7 @@ fun RowScope.AddItems(
     } == true
     CompositionLocalProvider(androidx.compose.material.LocalContentColor provides Color.White) {
         BottomNavigationItem(
-            modifier = Modifier.padding(6.dp),
+            modifier = Modifier.padding(8.dp),
             selected = isSelected,
             onClick = {
                 navController.navigate(screen.route) {
@@ -73,7 +73,11 @@ fun RowScope.AddItems(
             },
             alwaysShowLabel = false,
             label = {
-                Text(text = screen.title, color = Color.White, fontSize = 12.sp)
+                Text(
+                    text = screen.title,
+                    color = Color.White,
+                    style = MaterialTheme.typography.labelSmall
+                )
             },
             icon = {
                 DrawableIcon(

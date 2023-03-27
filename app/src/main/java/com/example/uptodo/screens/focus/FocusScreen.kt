@@ -6,16 +6,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.uptodo.R
 import com.example.uptodo.components.patterns.Utility
 import com.example.uptodo.components.patterns.Utility.formatTime
 import com.example.uptodo.ui.theme.BottomBarColor
@@ -28,10 +31,12 @@ fun FocusScreen(viewModel: TimerViewModel = hiltViewModel()) {
     val isStarted by viewModel.isStarted.observeAsState(false)
 
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(scrollState)
-        .padding(bottom = 100.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
+            .padding(bottom = 100.dp)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -39,7 +44,11 @@ fun FocusScreen(viewModel: TimerViewModel = hiltViewModel()) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Focus Mode", color = Color.White, fontSize = 16.sp)
+            Text(
+                text = stringResource(id = com.example.uptodo.R.string.focusTitle),
+                color = Color.White,
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -48,17 +57,22 @@ fun FocusScreen(viewModel: TimerViewModel = hiltViewModel()) {
         }
         Spacer(modifier = Modifier.height(30.dp))
         Column(modifier = Modifier.fillMaxWidth()) {
-            Row(modifier = Modifier.padding(10.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.padding(10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = "Overview",
                     color = Color.White,
                     fontSize = 15.sp,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                androidx.compose.material3.Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
-                    containerColor = BottomBarColor,
-                    contentColor = Color.White
-                ),
+                androidx.compose.material3.Button(
+                    onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+                        containerColor = BottomBarColor,
+                        contentColor = Color.White
+                    ),
                     modifier = Modifier.size(width = 100.dp, height = 30.dp),
                     shape = RoundedCornerShape(5.dp)
                 ) {
@@ -74,14 +88,19 @@ fun FocusScreen(viewModel: TimerViewModel = hiltViewModel()) {
                     Pair(0.2f, "THU"),
                     Pair(0.9f, "FRI"),
                     Pair(0.8f, "SAT"),
-                    ),
+                ),
             )
         }
     }
 }
+
 @Composable
 fun TimeSection(time: String, progress: Float, isStarted: Boolean, optionSelected: () -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         CountDownIndicator(
             progress = progress,
             time = time,
@@ -93,11 +112,12 @@ fun TimeSection(time: String, progress: Float, isStarted: Boolean, optionSelecte
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
+                .padding(start = 25.dp, end = 25.dp)
         ) {
             Text(
-                text = "While your focus mode is on, all of your notification will be off",
+                text = stringResource(id = R.string.notify),
                 color = Color.White,
-                fontSize = 18.sp,
+                style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
             )
         }

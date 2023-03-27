@@ -25,12 +25,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.uptodo.R
 import com.example.uptodo.ui.theme.InputColor
 import com.example.uptodo.ui.theme.SearchBarColor
 
@@ -62,7 +64,7 @@ fun InputField(
         placeholder = {
             Text(
                 text = placeholderText,
-                fontSize = 12.sp
+                style = MaterialTheme.typography.bodySmall
             )
         },
         textStyle =MaterialTheme.typography.bodySmall,
@@ -102,7 +104,6 @@ fun InputField(
 fun SearchField(
     modifier: Modifier = Modifier,
     state: MutableState<TextFieldValue>,
-    placeholderText: String,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -118,15 +119,17 @@ fun SearchField(
             }
             .focusRequester(focusRequester)
             .alpha(0.8f)
-            .border(BorderStroke(
-                1.dp, Color.White
-            ), shape = RoundedCornerShape(5.dp)),
+            .border(
+                BorderStroke(
+                    1.dp, Color.White
+                ), shape = RoundedCornerShape(5.dp)
+            ),
         value = state.value,
         onValueChange = { value ->
             state.value = value
         },
         placeholder = {
-            Text(text = placeholderText, color = Color.White, fontSize = 12.sp)
+            Text(text = stringResource(id = R.string.searchFieldText), color = Color.White, style = MaterialTheme.typography.bodySmall)
         },
 
         colors = TextFieldDefaults.outlinedTextFieldColors(
