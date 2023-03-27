@@ -138,7 +138,7 @@ fun CalenderScreen(
                             ),
                             shape = RoundedCornerShape(5.dp)
                         ) {
-                            Text(text = stringResource(id = R.string.todayBtn))
+                            Text(text = stringResource(id = R.string.todayBtn), style = MaterialTheme.typography.titleMedium)
                         }
                         Spacer(modifier = Modifier.weight(1f))
                         Button(
@@ -160,7 +160,7 @@ fun CalenderScreen(
                             shape = RoundedCornerShape(5.dp)
 
                         ) {
-                            Text(text = stringResource(id = R.string.completedBtn))
+                            Text(text = stringResource(id = R.string.completedBtn), style = MaterialTheme.typography.titleMedium)
                         }
                     }
                 }

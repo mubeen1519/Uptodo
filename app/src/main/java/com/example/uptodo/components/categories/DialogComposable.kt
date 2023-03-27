@@ -129,7 +129,7 @@ private fun BodyContent(
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = stringResource(id = R.string.addCategory))
+                Text(text = stringResource(id = R.string.addCategory), style = MaterialTheme.typography.labelSmall)
             }
         }
 
@@ -234,7 +234,7 @@ private fun PriorityContent(
                 ),
                 shape = RoundedCornerShape(5.dp),
             ) {
-                Text(text = stringResource(id = R.string.cancel))
+                Text(text = stringResource(id = R.string.cancel), style = MaterialTheme.typography.labelSmall)
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -250,7 +250,7 @@ private fun PriorityContent(
                     .padding(end = 10.dp)
                     .size(width = 150.dp, height = 40.dp)
             ) {
-                Text(text = stringResource(id = R.string.save))
+                Text(text = stringResource(id = R.string.save), style = MaterialTheme.typography.labelSmall)
             }
         }
     }
@@ -362,7 +362,7 @@ private fun ChangeAccountName(
                 ),
                 shape = RoundedCornerShape(5.dp),
             ) {
-                Text(text = stringResource(id = R.string.cancel))
+                Text(text = stringResource(id = R.string.cancel), style = MaterialTheme.typography.labelSmall)
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -374,7 +374,7 @@ private fun ChangeAccountName(
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
-                Text(text = stringResource(id = R.string.edit))
+                Text(text = stringResource(id = R.string.edit), style = MaterialTheme.typography.labelSmall)
             }
         }
     }
@@ -442,7 +442,7 @@ private fun ChangeAccountPassword(
                 ),
                 shape = RoundedCornerShape(5.dp),
             ) {
-                Text(text = stringResource(id = R.string.cancel))
+                Text(text = stringResource(id = R.string.cancel), style = MaterialTheme.typography.labelSmall)
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -454,7 +454,7 @@ private fun ChangeAccountPassword(
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
-                Text(text = stringResource(id = R.string.edit))
+                Text(text = stringResource(id = R.string.edit), style = MaterialTheme.typography.labelSmall)
             }
         }
     }
@@ -497,7 +497,7 @@ private fun Logout(
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
-                Text(text = stringResource(id = R.string.cancel), color = Purple40)
+                Text(text = stringResource(id = R.string.cancel), color = Purple40, style = MaterialTheme.typography.labelSmall)
             }
             Spacer(modifier = Modifier.weight(1f))
             Button(
@@ -511,7 +511,7 @@ private fun Logout(
                 shape = RoundedCornerShape(5.dp)
 
             ) {
-                Text(text = stringResource(id = R.string.logout))
+                Text(text = stringResource(id = R.string.logout), style = MaterialTheme.typography.labelSmall)
             }
 
         }
@@ -571,7 +571,7 @@ fun DeleteTaskContent(
                         contentColor = Purple40
                     )
                 ) {
-                    Text(text = stringResource(id = R.string.cancel))
+                    Text(text = stringResource(id = R.string.cancel), style = MaterialTheme.typography.labelSmall)
                 }
                 Spacer(modifier = Modifier.height(15.dp))
 
@@ -586,7 +586,7 @@ fun DeleteTaskContent(
                     ),
                     shape = RoundedCornerShape(5.dp)
                 ) {
-                    Text(text = stringResource(id = R.string.delete))
+                    Text(text = stringResource(id = R.string.delete), style = MaterialTheme.typography.labelSmall)
                 }
 
             }

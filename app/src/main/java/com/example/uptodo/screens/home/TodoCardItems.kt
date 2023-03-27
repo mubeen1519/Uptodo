@@ -33,8 +33,6 @@ fun TodoCardItems(
     sheetValue: ModalBottomSheetState,
     onClick : (String) -> Unit
 ) {
-
-
     val scope = rememberCoroutineScope()
 
     Card(
@@ -70,7 +68,7 @@ fun TodoCardItems(
 
             Column {
                 Row {
-                    Text(
+                    androidx.compose.material3.Text(
                         text = todoItem.title,
                         color = Color.White,
                         style = androidx.compose.material3.MaterialTheme.typography.titleMedium
@@ -81,10 +79,10 @@ fun TodoCardItems(
                         .padding(top = 5.dp)
                         .fillMaxWidth()
                 ) {
-                    Text(
+                    androidx.compose.material3.Text(
                         text = viewModel.getDateAndTime(todoItem),
                         color = Color.White,
-                        fontSize = 9.sp
+                        style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                     )
                     Spacer(modifier = Modifier.weight(2f))
                     Button(
