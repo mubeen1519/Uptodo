@@ -9,7 +9,11 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,7 +22,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
@@ -26,7 +29,6 @@ import com.example.uptodo.components.InputField
 import com.example.uptodo.components.categories.LibraryIcon
 import com.example.uptodo.navigation.Home
 import com.example.uptodo.screens.home.HomeViewModel
-import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 
 @Composable
@@ -48,8 +50,8 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
         Icons.values().forEachIndexed { index, icons ->
             Text(
                 text = stringResource(id = R.string.new_category),
-                color = Color.White,
-                fontSize = 20.sp
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodyLarge
             )
 
             Spacer(modifier = Modifier.height(15.dp))
@@ -64,7 +66,10 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
             )
 
             Spacer(modifier = Modifier.height(15.dp))
-            Text(text = stringResource(id = R.string.category_icon), color = Color.LightGray)
+            Text(
+                text = stringResource(id = R.string.category_icon),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
 
             Spacer(modifier = Modifier.height(15.dp))
             if (iconLibraryState.value) {
@@ -78,8 +83,8 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
                     iconLibraryState.value = true
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = BottomBarColor,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 shape = RoundedCornerShape(8.dp),
             ) {
@@ -109,7 +114,10 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
                 }
             }
             Spacer(modifier = Modifier.height(15.dp))
-            Text(text = stringResource(id = R.string.category_color), color = Color.LightGray)
+            Text(
+                text = stringResource(id = R.string.category_color),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
 
             Spacer(modifier = Modifier.height(15.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -137,11 +145,11 @@ fun CategoryPage(navigate: (String) -> Unit, viewModel: HomeViewModel = hiltView
                         modifier = Modifier.size(width = 150.dp, height = 40.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Purple40,
-                            contentColor = Color.White
+                            contentColor = MaterialTheme.colorScheme.onSurface
                         ),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text(text = "Create Category", color = Color.White)
+                        Text(text = "Create Category", color = MaterialTheme.colorScheme.onSurface)
                     }
                 }
             }
@@ -174,7 +182,7 @@ fun EnumColors(
             DrawableIcon(
                 painter = painterResource(id = item.icon),
                 contentDescription = "check",
-                tint = if (selectedIndex.value == index) Color.White else Color.Transparent
+                tint = if (selectedIndex.value == index) MaterialTheme.colorScheme.background else Color.Transparent
             )
         }
     }

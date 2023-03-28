@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -15,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -58,17 +60,17 @@ private fun BodyContent(
 
     Column(
         modifier = Modifier
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.chooseCategory),
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Divider(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceVariant)
         Spacer(modifier = Modifier.height(8.dp))
 
         LazyVerticalGrid(
@@ -105,7 +107,7 @@ private fun BodyContent(
                     }
                     Text(
                         text = icons.title,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(top = 7.dp)
                     )
@@ -124,7 +126,7 @@ private fun BodyContent(
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Purple40,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier.fillMaxWidth()
@@ -165,17 +167,17 @@ private fun PriorityContent(
 
     Column(
         modifier = Modifier
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.priorityTitle),
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Divider(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceVariant)
         Spacer(modifier = Modifier.height(8.dp))
 
         LazyVerticalGrid(
@@ -189,7 +191,7 @@ private fun PriorityContent(
                     Box(
                         modifier = Modifier
                             .size(width = 40.dp, height = 50.dp)
-                            .background(if (selectedIndex.value == index) Purple40 else Color.Black)
+                            .background(if (selectedIndex.value == index) Purple40 else MaterialTheme.colorScheme.background)
                             .clip(shape = RoundedCornerShape(10.dp))
                             .padding(5.dp),
                         contentAlignment = Alignment.TopCenter
@@ -206,13 +208,13 @@ private fun PriorityContent(
                             DrawableIcon(
                                 painter = painterResource(id = priority.icon),
                                 contentDescription = "icons",
-                                tint = Color.White,
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.size(25.dp)
                             )
                         }
                         Text(
                             text = priority.value.toString(),
-                            color = Color.White,
+                            color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.padding(top = 25.dp)
                         )
@@ -229,7 +231,7 @@ private fun PriorityContent(
                     dialogState.value = false
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = BottomBarColor,
+                    containerColor = MaterialTheme.colorScheme.secondary,
                     contentColor = Purple40
                 ),
                 shape = RoundedCornerShape(5.dp),
@@ -243,7 +245,7 @@ private fun PriorityContent(
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Purple40,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier
@@ -282,17 +284,17 @@ private fun IconLibraryContent(
     }
     Column(
         modifier = Modifier
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.chooseIcon),
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Divider(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceVariant)
         Spacer(modifier = Modifier.height(8.dp))
         LazyVerticalGrid(
             columns = GridCells.Fixed(4),
@@ -313,7 +315,7 @@ private fun IconLibraryContent(
                         DrawableIcon(
                             painter = painterResource(id = icons.icon),
                             contentDescription = "icons",
-                            tint = Color.White,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.size(35.dp)
                         )
                     }
@@ -336,17 +338,17 @@ private fun ChangeAccountName(
 ) {
     Column(
         modifier = Modifier
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.accountName),
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Divider(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceVariant)
         Spacer(modifier = Modifier.height(8.dp))
 
         InputField(
@@ -357,7 +359,7 @@ private fun ChangeAccountName(
             Button(
                 onClick = { dialogState.value = false },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = BottomBarColor,
+                    containerColor = MaterialTheme.colorScheme.secondary,
                     contentColor = Purple40
                 ),
                 shape = RoundedCornerShape(5.dp),
@@ -370,7 +372,7 @@ private fun ChangeAccountName(
                     dialogState.value = false
                 }, colors = ButtonDefaults.buttonColors(
                     containerColor = Purple40,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
@@ -395,24 +397,24 @@ private fun ChangeAccountPassword(
 ) {
     Column(
         modifier = Modifier
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.accountPassword),
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Divider(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceVariant)
         Spacer(modifier = Modifier.height(8.dp))
 
     }
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .padding(20.dp)
     ) {
 
@@ -437,7 +439,7 @@ private fun ChangeAccountPassword(
             Button(
                 onClick = { dialogState.value = false },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = BottomBarColor,
+                    containerColor = MaterialTheme.colorScheme.secondary,
                     contentColor = Purple40
                 ),
                 shape = RoundedCornerShape(5.dp),
@@ -450,7 +452,7 @@ private fun ChangeAccountPassword(
                     dialogState.value = false
                 }, colors = ButtonDefaults.buttonColors(
                     containerColor = Purple40,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
@@ -475,7 +477,7 @@ private fun Logout(
 ) {
     Column(
         modifier = Modifier
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .fillMaxWidth()
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -483,7 +485,7 @@ private fun Logout(
     ) {
         Text(
             stringResource(id = R.string.logoutTxt),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(15.dp))
@@ -492,8 +494,8 @@ private fun Logout(
             Button(
                 onClick = { dialogState.value = false },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = BottomBarColor,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.secondary,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 shape = RoundedCornerShape(5.dp)
             ) {
@@ -505,7 +507,7 @@ private fun Logout(
                     viewModel.logout(navigate)
                     dialogState.value = false
                 }, colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White,
+                    contentColor = MaterialTheme.colorScheme.onSurface,
                     containerColor = Purple40
                 ),
                 shape = RoundedCornerShape(5.dp)
@@ -533,7 +535,7 @@ fun DeleteTaskContent(
     val todo by viewModel.todo
     Column(
         modifier = Modifier
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .fillMaxWidth()
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -541,11 +543,11 @@ fun DeleteTaskContent(
     ) {
         Text(
             stringResource(id = R.string.deleteTask),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Divider(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceVariant)
         Spacer(modifier = Modifier.height(15.dp))
 
         Column(
@@ -554,11 +556,11 @@ fun DeleteTaskContent(
         ) {
             Text(
                 text = stringResource(id = R.string.deleteDialog),
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.titleMedium
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Task title: ${todo.title}", color = Color.White)
+            Text(text = "Task title: ${todo.title}", color = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -567,7 +569,7 @@ fun DeleteTaskContent(
             ) {
                 Button(
                     onClick = { state.value = false }, colors = ButtonDefaults.buttonColors(
-                        containerColor = BottomBarColor,
+                        containerColor = MaterialTheme.colorScheme.secondary,
                         contentColor = Purple40
                     )
                 ) {
@@ -582,7 +584,7 @@ fun DeleteTaskContent(
                         state.value = false
                     }, colors = ButtonDefaults.buttonColors(
                         containerColor = Purple40,
-                        contentColor = Color.White
+                        contentColor = MaterialTheme.colorScheme.onSurface
                     ),
                     shape = RoundedCornerShape(5.dp)
                 ) {
@@ -613,7 +615,7 @@ private fun ChangeTypography(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -621,37 +623,59 @@ private fun ChangeTypography(
         Text(
             text = stringResource(id = R.string.typographyDialog),
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(modifier = Modifier.height(10.dp))
-        Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
+        Divider(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colorScheme.surfaceVariant)
         Spacer(modifier = Modifier.height(10.dp))
 
     }
     Column(
         modifier = modifier
             .selectableGroup()
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
     ) {
-        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Row(modifier.fillMaxWidth().selectable(
+            AppThemeTypography.selectedFontFamily.value == latoFamily,
+            onClick = { AppThemeTypography.selectedFontFamily.value = latoFamily },
+            role = Role.RadioButton
+        ).padding(top = 15.dp, bottom = 8.dp, start = 10.dp, end = 10.dp), verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = AppThemeTypography.selectedFontFamily.value == latoFamily,
-                onClick = { AppThemeTypography.selectedFontFamily.value = latoFamily },
+                onClick = null,
             )
+            Spacer(modifier = modifier.width(5.dp))
             Text(
                 stringResource(id = R.string.latoFont),
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontFamily = latoFamily
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Row(modifier.fillMaxWidth().selectable(
+            selected = AppThemeTypography.selectedFontFamily.value == quickSandFamily,
+            onClick =  { AppThemeTypography.selectedFontFamily.value = quickSandFamily },
+            role = Role.RadioButton
+        ).padding(top = 15.dp, bottom = 8.dp, start = 10.dp, end = 10.dp), verticalAlignment = Alignment.CenterVertically) {
             RadioButton(
                 selected = AppThemeTypography.selectedFontFamily.value == quickSandFamily,
-                onClick = { AppThemeTypography.selectedFontFamily.value = quickSandFamily }
+                onClick = null
             )
-            Text(stringResource(id = R.string.quicksandFont), color = Color.White, fontFamily = quickSandFamily)
+            Spacer(modifier = modifier.width(5.dp))
+            Text(stringResource(id = R.string.quicksandFont), color = MaterialTheme.colorScheme.onSurface, fontFamily = quickSandFamily)
+        }
+
+        Row(modifier.fillMaxWidth().selectable(
+            selected = AppThemeTypography.selectedFontFamily.value == lobsterFamily,
+            onClick =  { AppThemeTypography.selectedFontFamily.value = lobsterFamily },
+            role = Role.RadioButton
+        ).padding(top = 15.dp, bottom = 8.dp, start = 10.dp, end = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+            RadioButton(
+                selected = AppThemeTypography.selectedFontFamily.value == lobsterFamily,
+                onClick = null
+            )
+            Spacer(modifier = modifier.width(5.dp))
+            Text(stringResource(id = R.string.lobster), color = MaterialTheme.colorScheme.onSurface, fontFamily = lobsterFamily)
         }
     }
 }

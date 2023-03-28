@@ -19,13 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
@@ -48,27 +48,27 @@ fun RegisterPage(
     var uiState by viewModel.uiState
     val context = LocalContext.current
     val googleSignInState = viewModel.googleState.value
-    LaunchedEffect(key1 = googleSignInState.success){
-        if(googleSignInState.success != null){
-            Toast.makeText(context,"Sign in Success", Toast.LENGTH_SHORT).show()
+    LaunchedEffect(key1 = googleSignInState.success) {
+        if (googleSignInState.success != null) {
+            Toast.makeText(context, "Sign in Success", Toast.LENGTH_SHORT).show()
             navigate(Graph.Home)
         }
     }
     val launcher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()){
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
             val account = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
-                val result = account.getResult(ApiException ::class.java)
-                val credential = GoogleAuthProvider.getCredential(result.idToken,null)
+                val result = account.getResult(ApiException::class.java)
+                val credential = GoogleAuthProvider.getCredential(result.idToken, null)
                 viewModel.googleSignIn(credential)
-            } catch (it : ApiException){
+            } catch (it: ApiException) {
                 print(it)
             }
         }
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(MaterialTheme.colorScheme.background)
     )
     {
         Row(
@@ -78,7 +78,7 @@ fun RegisterPage(
             DrawableIcon(
                 painter = painterResource(id = R.drawable.arrow_back),
                 contentDescription = "ArrowBack",
-                tint = Color.LightGray,
+                tint = MaterialTheme.colorScheme.surfaceVariant,
                 modifier = Modifier.clickable { navigate(Create_Account) }
             )
         }
@@ -89,36 +89,36 @@ fun RegisterPage(
                 .fillMaxWidth(),
         ) {
             Text(
-                text = "Register",
-                color = Color.White,
+                text = stringResource(id = R.string.register),
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(start = 30.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
             InputField(
                 value = uiState.email,
-                placeholderText = "Enter your Email",
-                onFieldChange = viewModel ::onEmailChange,
+                placeholderText = stringResource(id = R.string.emailPlaceholder),
+                onFieldChange = viewModel::onEmailChange,
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp),
-                label = "Email"
+                label = stringResource(id = R.string.labelEmail)
             )
 
             Spacer(modifier = Modifier.height(15.dp))
             InputField(
                 value = uiState.password,
-                placeholderText = "Enter your Password",
-                onFieldChange = viewModel ::onPasswordChange,
+                placeholderText = stringResource(id = R.string.passPlaceholder),
+                onFieldChange = viewModel::onPasswordChange,
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp),
-                label = "Password",
+                label = stringResource(id = R.string.labelPassword),
                 isFieldSecured = true
             )
             Spacer(modifier = Modifier.height(15.dp))
             InputField(
                 value = uiState.confirmPassword,
-                placeholderText = "Enter your Confirm Password",
-                onFieldChange = viewModel ::onConfirmPassword,
+                placeholderText = stringResource(id = R.string.confirmPass),
+                onFieldChange = viewModel::onConfirmPassword,
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp),
-                label = "Confirm Password",
+                label = stringResource(id = R.string.labelConfirmPass),
                 isFieldSecured = true
             )
             Spacer(modifier = Modifier.height(30.dp))
@@ -131,10 +131,10 @@ fun RegisterPage(
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Purple40,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
-                Text(text = "Register")
+                Text(text = stringResource(id = R.string.register))
             }
             Spacer(modifier = Modifier.height(15.dp))
 
@@ -142,14 +142,20 @@ fun RegisterPage(
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Divider(modifier = Modifier.weight(1f), color = Color.LightGray)
+                Divider(
+                    modifier = Modifier.weight(1f),
+                    color = MaterialTheme.colorScheme.surfaceVariant
+                )
                 Text(
                     text = "or",
-                    fontSize = 20.sp,
-                    color = Color.White,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(start = 4.dp, end = 4.dp, bottom = 4.dp)
                 )
-                Divider(modifier = Modifier.weight(1f), color = Color.LightGray)
+                Divider(
+                    modifier = Modifier.weight(1f),
+                    color = MaterialTheme.colorScheme.surfaceVariant
+                )
             }
 
             Spacer(modifier = Modifier.height(15.dp))
@@ -175,8 +181,8 @@ fun RegisterPage(
                         ), shape = RoundedCornerShape(5.dp)
                     ),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
                 DrawableIcon(
@@ -185,7 +191,7 @@ fun RegisterPage(
                     modifier = Modifier.padding(end = 10.dp),
                     tint = Color.Unspecified
                 )
-                Text(text = "Register with Google")
+                Text(text = stringResource(id = R.string.registerGoogle))
             }
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -202,17 +208,19 @@ fun RegisterPage(
                         ), shape = RoundedCornerShape(5.dp)
                     ),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.apple),
                     contentDescription = "apple",
-                    modifier = Modifier.padding(end = 10.dp).size(32.dp),
+                    modifier = Modifier
+                        .padding(end = 10.dp)
+                        .size(32.dp),
                     tint = Color.Unspecified
                 )
-                Text(text = "Register with Apple")
+                Text(text = stringResource(id = R.string.registerApple))
             }
             Spacer(modifier = Modifier.height(30.dp))
             Box(modifier = Modifier.fillMaxWidth()) {
@@ -227,7 +235,7 @@ fun RegisterPage(
                             withStyle(
                                 style = SpanStyle(
                                     fontWeight = FontWeight.Bold,
-                                    color = Color.White
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                             ) {
                                 append("" + "Login")
@@ -236,9 +244,9 @@ fun RegisterPage(
                         modifier = Modifier
                             .clickable { navigate(Login) }
                             .fillMaxWidth(),
-                        color = Color.LightGray,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
                         textAlign = TextAlign.Center,
-                        fontSize = 15.sp
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
             }

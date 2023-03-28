@@ -95,7 +95,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),viewMo
                     },
                     containerColor = if (showBottomBar) Purple40 else Color.Black,
                     shape = RoundedCornerShape(100.dp),
-                    contentColor = if (showBottomBar) Color.White else Color.Black
+                    contentColor = if (showBottomBar) androidx.compose.material3.MaterialTheme.colorScheme.background else Color.Black
                 ) {
                     VectorIcon(imageVector = Icons.Default.Add, contentDescription = "Add todo")
                 }

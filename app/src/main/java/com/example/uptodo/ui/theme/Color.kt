@@ -10,7 +10,6 @@ val Purple40 = Color(0xFF8875FF)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 val InputColor = Color(0xFF1D1D1D)
-val BottomBarColor = Color(0xFF363636)
 val CardColor = Color(0xFF363636)
 val WorkColor = Color(0xFFFF9680)
 val SportBox = Color(0xFF80FFFF)
@@ -28,3 +27,11 @@ val Margenda = Color(0xFF9741CC)
 val DarkPink = Color(0xFFCC4173)
 val SearchBarColor = Color(0xFF1D1D1D)
 val ChartColor = Color(0xFFA5A5A5)
+
+//Light color scheme
+val Secondary = Color(0xFFE3E3E3)
+val LightSurfaceVarient = Color(0xFF444444)
+
+//Dark color scheme
+val DarkSurfaceVarient = Color(0xFFCCCCCC)
+val BottomBarColor = Color(0xFF363636)

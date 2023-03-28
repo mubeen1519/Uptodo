@@ -3,6 +3,7 @@ package com.example.uptodo.screens.settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -52,10 +53,10 @@ private fun ThemeContent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(BottomBarColor).padding(10.dp),
+            .background(MaterialTheme.colorScheme.secondary).padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Choose Your Theme", textAlign = TextAlign.Center, color = Color.White)
+        Text(text = "Choose Your Theme", textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurface)
         Spacer(modifier = Modifier.height(10.dp))
         Divider(modifier = Modifier.fillMaxWidth(), color = Color.LightGray)
         Spacer(modifier = Modifier.height(10.dp))

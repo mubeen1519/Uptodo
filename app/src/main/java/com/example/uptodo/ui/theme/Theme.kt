@@ -19,17 +19,21 @@ object AppThemeTypography {
 
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
+    primary = Purple40,
+    secondary = BottomBarColor,
     tertiary = Pink80,
-    background = Color.Black
+    background = Color.Black,
+    onSurface = Color.White,
+    surfaceVariant = DarkSurfaceVarient
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
-    secondary = PurpleGrey40,
+    secondary = Secondary,
     tertiary = Pink40,
-    background = Color.White
+    background = Color.White,
+    onSurface = Color.Black,
+    surfaceVariant = LightSurfaceVarient
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),

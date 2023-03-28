@@ -23,6 +23,10 @@ val quickSandFamily = FontFamily(
     Font(R.font.quicksand_bold, weight = FontWeight.Bold),
     Font(R.font.quicksand_medium, weight = FontWeight.Medium)
 )
+
+val lobsterFamily = FontFamily(
+    Font(R.font.lobster_regular, weight = FontWeight.Normal)
+)
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = latoFamily,

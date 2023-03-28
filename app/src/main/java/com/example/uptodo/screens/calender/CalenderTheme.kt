@@ -3,6 +3,7 @@ package com.example.uptodo.screens.calender
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,7 +51,7 @@ fun CalenderHorizontal(
 
     Column(
         modifier = modifier
-            .background(BottomBarColor)
+            .background(MaterialTheme.colorScheme.secondary)
             .wrapContentHeight()
             .fillMaxWidth()
             .padding(all = 5.dp)
@@ -69,7 +70,7 @@ fun CalenderHorizontal(
             },
             kalendarHeaderConfig = calendarHeaderConfig?: KalendarHeaderConfig(
                 kalendarTextConfig = KalendarTextConfig(
-                    kalendarTextColor = KalendarTextColor(Color.White)
+                    kalendarTextColor = KalendarTextColor(MaterialTheme.colorScheme.onSurface)
                 )
             )
         )
@@ -84,7 +85,7 @@ fun CalenderHorizontal(
                                 TextStyle.FULL, Locale.getDefault()
                             ).take(1),
                             fontWeight = FontWeight.Normal,
-                            textColor = Color.White
+                            textColor = MaterialTheme.colorScheme.onSurface
                         )
                     }
                     KalendarDay(

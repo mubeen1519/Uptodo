@@ -1,5 +1,27 @@
 <resources>
     <string name="app_name">Uptodo</string>
+
+    //Create Account Page
+    <string name="welcometxt">Welcome to UpTodo</string>
+    <string name="accountInstruction">Please login to your account or create new account to continue</string>
+    <string name="createAccount">create account</string>
+
+    //Login page
+    <string name="login">Login</string>
+    <string name="emailPlaceholder">Enter your Email</string>
+    <string name="labelEmail">Email</string>
+    <string name="passPlaceholder">Enter your Password</string>
+    <string name="labelPassword">Password</string>
+    <string name="googleBtn">Login with Google</string>
+    <string name="appleBtn">Login with Apple</string>
+
+    //Register page
+    <string name="register">Register</string>
+    <string name="confirmPass">Enter your Confirm Password</string>
+    <string name="labelConfirmPass">Confirm Password</string>
+    <string name="registerGoogle">Register with Google</string>
+    <string name="registerApple">Register with Apple</string>
+
     //Home page
     <string name="HomeText">What do you want to do today?</string>
     <string name="HomeText2">Tap + to add your tasks</string>
@@ -66,9 +88,6 @@
     <string name="notify">While your focus mode is on, all of your notification will be off</string>
 
 
-
-
-
     //Button texts
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
@@ -77,4 +96,6 @@
     <string name="delete">Delete</string>
     <string name="chooseTime">Choose Time</string>
 
+    //font
+    <string name="lobster">Lobster</string>
 </resources>

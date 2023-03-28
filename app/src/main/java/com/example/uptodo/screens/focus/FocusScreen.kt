@@ -46,7 +46,7 @@ fun FocusScreen(viewModel: TimerViewModel = hiltViewModel()) {
         ) {
             Text(
                 text = stringResource(id = com.example.uptodo.R.string.focusTitle),
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -64,19 +64,23 @@ fun FocusScreen(viewModel: TimerViewModel = hiltViewModel()) {
             ) {
                 Text(
                     text = "Overview",
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 15.sp,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 androidx.compose.material3.Button(
                     onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
-                        containerColor = BottomBarColor,
-                        contentColor = Color.White
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                        contentColor = MaterialTheme.colorScheme.onSurface
                     ),
                     modifier = Modifier.size(width = 100.dp, height = 30.dp),
                     shape = RoundedCornerShape(5.dp)
                 ) {
-                    Text(text = "This week", color = Color.White, fontSize = 10.sp)
+                    Text(
+                        text = "This week",
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.titleSmall
+                    )
                 }
             }
             Chart(
@@ -111,12 +115,13 @@ fun TimeSection(time: String, progress: Float, isStarted: Boolean, optionSelecte
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(start = 25.dp, end = 25.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.notify),
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
             )

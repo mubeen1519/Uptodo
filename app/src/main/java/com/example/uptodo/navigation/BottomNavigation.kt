@@ -37,7 +37,7 @@ fun BottomNavigationBar(
     val bottomBarDestination = pages.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
         BottomNavigation(
-            backgroundColor = BottomBarColor, modifier = Modifier.height(70.dp)
+            backgroundColor = MaterialTheme.colorScheme.secondary, modifier = Modifier.height(70.dp)
         ) {
             pages.forEach { screen ->
                 AddItems(
@@ -75,7 +75,7 @@ fun RowScope.AddItems(
             label = {
                 Text(
                     text = screen.title,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.labelSmall
                 )
             },

@@ -74,7 +74,7 @@ fun ProfileScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.profileTitle),
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
@@ -101,7 +101,7 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
                     text = email,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(modifier = Modifier.height(14.dp))
@@ -113,21 +113,21 @@ fun ProfileScreen(
                     Box(
                         modifier = Modifier
                             .size(width = 140.dp, height = 55.dp)
-                            .background(BottomBarColor)
+                            .background(MaterialTheme.colorScheme.secondary)
                             .clip(RoundedCornerShape(5.dp)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = "10 Task Left", color = Color.White)
+                        Text(text = "10 Task Left", color = MaterialTheme.colorScheme.onSurface)
                     }
                     Spacer(modifier = Modifier.weight(1f))
                     Box(
                         modifier = Modifier
                             .size(width = 140.dp, height = 55.dp)
-                            .background(BottomBarColor)
+                            .background(MaterialTheme.colorScheme.secondary)
                             .clip(RoundedCornerShape(5.dp)),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = "5 Task done", color = Color.White)
+                        Text(text = "5 Task done", color = MaterialTheme.colorScheme.onSurface)
                     }
                 }
                 //  Setting row
@@ -140,7 +140,7 @@ fun ProfileScreen(
                 ) {
                     Text(
                         stringResource(id = R.string.settings),
-                        color = Color.LightGray,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
                         style = MaterialTheme.typography.labelSmall
                     )
                 }
@@ -153,12 +153,12 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.setting),
                         contentDescription = "setting",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
                         text = stringResource(id = R.string.changeSetting),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
@@ -166,7 +166,7 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
                 // Account row
@@ -182,7 +182,7 @@ fun ProfileScreen(
                 ) {
                     Text(
                         stringResource(id = R.string.txtAccount),
-                        color = Color.LightGray,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
                         style = MaterialTheme.typography.labelSmall
                     )
                 }
@@ -196,12 +196,12 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.user_svg),
                         contentDescription = "user",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
                         text = stringResource(id = R.string.accountName),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
@@ -209,7 +209,7 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
                 if (accountPassword.value) {
@@ -225,12 +225,12 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.key),
                         contentDescription = "password",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
                         text = stringResource(id = R.string.accountPassword),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
@@ -238,7 +238,7 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
 
@@ -252,7 +252,7 @@ fun ProfileScreen(
                 ) {
                     Text(
                         stringResource(id = R.string.app_name),
-                        color = Color.LightGray,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
                         style = MaterialTheme.typography.labelSmall
                     )
                 }
@@ -265,12 +265,12 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.about_us),
                         contentDescription = "about us",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
                         text = stringResource(id = R.string.aboutUs),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
@@ -278,7 +278,7 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
                 Row(
@@ -290,12 +290,12 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.faq),
                         contentDescription = "faq",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
                         text = stringResource(id = R.string.faq),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
@@ -303,7 +303,7 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
                 Row(
@@ -315,12 +315,12 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.feedback),
                         contentDescription = "faq",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
                         text = stringResource(id = R.string.feedback),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
@@ -328,7 +328,7 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
 
@@ -341,12 +341,12 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.like),
                         contentDescription = "faq",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(22.dp)
                     )
                     Text(
                         text = stringResource(id = R.string.support),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
                     )
@@ -354,7 +354,7 @@ fun ProfileScreen(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.arrow_forward),
                         contentDescription = "forward",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
                 if (logout.value) {
@@ -378,12 +378,6 @@ fun ProfileScreen(
                         color = Color.Red,
                         style = MaterialTheme.typography.labelSmall,
                         modifier = Modifier.padding(start = 10.dp)
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    DrawableIcon(
-                        painter = painterResource(id = R.drawable.arrow_forward),
-                        contentDescription = "forward",
-                        tint = Color.White,
                     )
                 }
             }

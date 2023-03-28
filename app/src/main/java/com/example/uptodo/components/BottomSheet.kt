@@ -66,7 +66,7 @@ fun BottomScreen1(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(BottomBarColor)
+            .background(androidx.compose.material3.MaterialTheme.colorScheme.secondary)
     ) {
         Column(
             modifier = Modifier
@@ -75,7 +75,7 @@ fun BottomScreen1(
         ) {
             Text(
                 text = stringResource(id = R.string.sheetTitle),
-                color = Color.White,
+                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                 style = androidx.compose.material3.MaterialTheme.typography.titleMedium
             )
 
@@ -100,7 +100,7 @@ fun BottomScreen1(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.timer),
                         contentDescription = "Timer",
-                        tint = Color.White,
+                        tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
                             .size(25.dp)
                     )
@@ -118,7 +118,7 @@ fun BottomScreen1(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.tag),
                         contentDescription = "Tag",
-                        tint = Color.White,
+                        tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
                             .size(25.dp)
                     )
@@ -135,7 +135,7 @@ fun BottomScreen1(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.priority),
                         contentDescription = "priority",
-                        tint = Color.White,
+                        tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
                             .size(25.dp)
                     )
@@ -155,7 +155,6 @@ fun BottomScreen1(
                         tint = Color.Unspecified
                     )
                 }
-
             }
         }
     }
@@ -177,7 +176,7 @@ fun BottomScreen2(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Black)
+            .background(androidx.compose.material3.MaterialTheme.colorScheme.background)
     ) {
         Column(
             modifier = Modifier
@@ -188,15 +187,15 @@ fun BottomScreen2(
                 Button(
                     onClick = {},
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = BottomBarColor,
-                        contentColor = Color.White
+                        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
+                        contentColor = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
                     ),
                     shape = RoundedCornerShape(5.dp),
                 ) {
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.baseline_close_24),
                         contentDescription = "close",
-                        tint = Color.White,
+                        tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.clickable {
                             scope.launch {
                                 state.hide()
@@ -213,21 +212,21 @@ fun BottomScreen2(
             ) {
                 Checkbox(
                     checked = false, onCheckedChange = {}, colors = CheckboxDefaults.colors(
-                        uncheckedColor = BottomBarColor
+                        uncheckedColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary
                     )
                 )
                 Column {
                     Row {
                         Text(
                             text = todoItem.title,
-                            color = Color.White,
+                            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         DrawableIcon(
                             painter = painterResource(id = R.drawable.baseline_edit_24),
                             contentDescription = "edit",
-                            tint = Color.White,
+                            tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.size(24.dp)
                         )
                     }
@@ -235,7 +234,7 @@ fun BottomScreen2(
                     Row {
                         Text(
                             text = todoItem.description,
-                            color = Color.White,
+                            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             style = androidx.compose.material3.MaterialTheme.typography.labelSmall
                         )
                     }
@@ -250,14 +249,14 @@ fun BottomScreen2(
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.timer),
                     contentDescription = "time",
-                    tint = Color.White,
+                    tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .padding(end = 4.dp)
                         .size(25.dp)
                 )
                 Text(
                     text = stringResource(id = R.string.taskTime),
-                    color = Color.White,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     style = androidx.compose.material3.MaterialTheme.typography.titleMedium
                 )
 
@@ -265,14 +264,14 @@ fun BottomScreen2(
                 Button(
                     onClick = {},
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = BottomBarColor
+                        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary
                     ),
                     shape = RoundedCornerShape(5.dp)
 
                 ) {
                     Text(
                         text = viewModel.getDateAndTime(todoItem),
-                        color = Color.White,
+                        color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                     )
                 }
@@ -287,14 +286,14 @@ fun BottomScreen2(
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.tag),
                     contentDescription = "category",
-                    tint = Color.White,
+                    tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .padding(end = 4.dp)
                         .size(25.dp)
                 )
                 Text(
                     text = stringResource(id = R.string.taskCategory),
-                    color = Color.White,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     style = androidx.compose.material3.MaterialTheme.typography.titleMedium
                 )
 
@@ -302,7 +301,7 @@ fun BottomScreen2(
                 Button(
                     onClick = {},
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = BottomBarColor
+                        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary
                     ),
                     shape = RoundedCornerShape(5.dp)
                 ) {
@@ -318,7 +317,7 @@ fun BottomScreen2(
                     todoItem.icon?.let {
                         Text(
                             text = it.title,
-                            color = Color.White,
+                            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                         )
                     }
@@ -335,7 +334,7 @@ fun BottomScreen2(
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.priority),
                     contentDescription = "priority",
-                    tint = Color.White,
+                    tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .padding(end = 4.dp)
                         .size(25.dp)
@@ -343,7 +342,7 @@ fun BottomScreen2(
 
                 Text(
                     text = stringResource(id = R.string.taskPriority),
-                    color = Color.White,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     style = androidx.compose.material3.MaterialTheme.typography.titleMedium
                 )
 
@@ -351,20 +350,20 @@ fun BottomScreen2(
                 Button(
                     onClick = {},
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = BottomBarColor
+                        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary
                     ),
                     shape = RoundedCornerShape(5.dp)
                 ) {
                     if (todoItem.priority?.value.toString() == "") {
                         Text(
                             text = "Default",
-                            color = Color.White,
+                            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                         )
                     } else {
                         Text(
                             text = todoItem.priority?.value.toString(),
-                            color = Color.White,
+                            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                         )
                     }
@@ -380,14 +379,14 @@ fun BottomScreen2(
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.subtask),
                     contentDescription = "subtask",
-                    tint = Color.White,
+                    tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .size(25.dp)
                         .padding(end = 4.dp)
                 )
                 Text(
                     text = stringResource(id = R.string.subtask),
-                    color = Color.White,
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     style = androidx.compose.material3.MaterialTheme.typography.titleMedium
                 )
 
@@ -395,12 +394,12 @@ fun BottomScreen2(
                 Button(
                     onClick = {},
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = BottomBarColor
+                        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary
                     )
                 ) {
                     Text(
                         text = stringResource(id = R.string.addSubTask),
-                        color = Color.White,
+                        color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                     )
                 }

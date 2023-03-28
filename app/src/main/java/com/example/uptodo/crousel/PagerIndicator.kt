@@ -64,14 +64,14 @@ fun HorizontalPages() {
                 Text(
                     text = pages[currentPage].title,
                     style = MaterialTheme.typography.displaySmall,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 35.dp)
                 )
                 Text(
                     text = pages[currentPage].description,
                     style = MaterialTheme.typography.labelLarge,
-                    color = Color.LightGray,
+                    color = MaterialTheme.colorScheme.surfaceVariant,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 30.dp, top = 25.dp, start = 20.dp, end = 20.dp).align(Alignment.CenterHorizontally)
                 )

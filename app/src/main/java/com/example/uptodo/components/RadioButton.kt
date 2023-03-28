@@ -29,7 +29,7 @@ fun RadioGroup(
 ) {
     Column(modifier = modifier
         .selectableGroup()
-        .background(BottomBarColor)) {
+        .background(MaterialTheme.colorScheme.secondary)) {
         items.forEach { item ->
             RadioGroupItems(
                 items = item,
@@ -63,7 +63,7 @@ private fun RadioGroupItems(
         Spacer(modifier = modifier.width(5.dp))
         Text(
             text = items.name,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodySmall
         )
     }

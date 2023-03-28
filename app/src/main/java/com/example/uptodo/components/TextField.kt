@@ -31,10 +31,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.uptodo.R
-import com.example.uptodo.ui.theme.InputColor
-import com.example.uptodo.ui.theme.SearchBarColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +52,7 @@ fun InputField(
             text = label,
             style = MaterialTheme.typography.bodyMedium,
             modifier = modifier.alpha(0.87f),
-            color = Color.White
+            color = MaterialTheme.colorScheme.onSurface
         )
     }
     Spacer(modifier = modifier.padding(8.dp))
@@ -71,8 +68,8 @@ fun InputField(
         shape = RoundedCornerShape(5.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             placeholderColor = Color.Gray,
-            containerColor = InputColor,
-            textColor = Color.White,
+            containerColor = MaterialTheme.colorScheme.secondary,
+            textColor = MaterialTheme.colorScheme.onSurface,
         ),
         modifier = modifier
             .fillMaxWidth()
@@ -87,10 +84,10 @@ fun InputField(
             if (isFieldSecured) {
                 IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
                     if (isPasswordVisible) Icon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.ic_baseline_visibility_off_24),
+                        painter = painterResource(id = R.drawable.ic_baseline_visibility_off_24),
                         contentDescription = "Visibility OFF"
                     ) else Icon(
-                        painter = painterResource(id = com.example.uptodo.R.drawable.ic_baseline_remove_red_eye_24),
+                        painter = painterResource(id = R.drawable.ic_baseline_remove_red_eye_24),
                         contentDescription = "Visibility ON"
                     )
                 }
@@ -129,13 +126,13 @@ fun SearchField(
             state.value = value
         },
         placeholder = {
-            Text(text = stringResource(id = R.string.searchFieldText), color = Color.White, style = MaterialTheme.typography.bodySmall)
+            Text(text = stringResource(id = R.string.searchFieldText), color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.bodySmall)
         },
 
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            containerColor = SearchBarColor,
-            textColor = Color.White,
-            placeholderColor = Color.White
+            containerColor = MaterialTheme.colorScheme.secondary,
+            textColor = MaterialTheme.colorScheme.onSurface,
+            placeholderColor = MaterialTheme.colorScheme.onSurface
         ),
         textStyle = MaterialTheme.typography.bodySmall,
         singleLine = true,
@@ -144,7 +141,7 @@ fun SearchField(
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "search",
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
         },
@@ -153,7 +150,7 @@ fun SearchField(
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "Close",
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
         },

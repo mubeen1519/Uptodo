@@ -21,8 +21,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 
 @Composable
@@ -52,13 +50,13 @@ fun CountDownIndicator(
                 modifier = modifier
                     .width(size.dp)
                     .height(size.dp),
-                color = BottomBarColor,
+                color = MaterialTheme.colorScheme.secondary,
                 strokeWidth = stroke.dp
             )
             Column(modifier = modifier.align(Alignment.Center)) {
                 Text(
                     text = time,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyLarge
                 )

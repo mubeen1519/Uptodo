@@ -28,18 +28,22 @@ fun CountDownButton(
     ) {
         Button(
             onClick = { optionSelected() }, colors = ButtonDefaults.buttonColors(
-                contentColor = Color.White,
+                contentColor = MaterialTheme.colorScheme.onSurface,
                 containerColor = Purple40
             ),
             modifier = modifier.size(width = 140.dp, height = 60.dp),
             shape = RoundedCornerShape(5.dp)
         ) {
-        val pair = if(!isStarted){
-            "Start Focusing"
-        }else {
-            "Stop Focusing"
-        }
-            Text(text = pair, color = Color.White, style = MaterialTheme.typography.labelSmall)
+            val pair = if (!isStarted) {
+                "Start Focusing"
+            } else {
+                "Stop Focusing"
+            }
+            Text(
+                text = pair,
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.labelSmall
+            )
         }
     }
 }

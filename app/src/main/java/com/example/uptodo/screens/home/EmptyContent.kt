@@ -33,14 +33,14 @@ fun EmptyContent(){
         Text(
             text = stringResource(id = R.string.HomeText),
             style = MaterialTheme.typography.titleMedium,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(15.dp))
         Text(
             text = stringResource(id = R.string.HomeText2),
             style = MaterialTheme.typography.bodySmall,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center
         )
     }

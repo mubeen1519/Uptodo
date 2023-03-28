@@ -13,22 +13,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.navigation.Intro_Pages
 import com.example.uptodo.navigation.Login
 import com.example.uptodo.navigation.Registration
 import com.example.uptodo.ui.theme.Purple40
+import java.util.*
 
 @Composable
-fun CreateAccount(navigate:(String) -> Unit) {
+fun CreateAccount(navigate: (String) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(MaterialTheme.colorScheme.background)
     )
     {
         Row(
@@ -36,9 +38,9 @@ fun CreateAccount(navigate:(String) -> Unit) {
             modifier = Modifier.padding(top = 20.dp, start = 10.dp)
         ) {
             DrawableIcon(
-                painter = painterResource(id = com.example.uptodo.R.drawable.arrow_back),
+                painter = painterResource(id = R.drawable.arrow_back),
                 contentDescription = "ArrowBack",
-                tint = Color.LightGray,
+                tint = MaterialTheme.colorScheme.surfaceVariant,
                 modifier = Modifier.clickable { navigate(Intro_Pages) }
             )
         }
@@ -50,34 +52,36 @@ fun CreateAccount(navigate:(String) -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Welcome to Uptodo",
+                text = stringResource(id = R.string.welcometxt),
                 style = MaterialTheme.typography.displaySmall,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
-                text = "Please login to your account or create new account to continue",
+                text = stringResource(id = R.string.accountInstruction),
                 style = MaterialTheme.typography.labelLarge,
-                color = Color.LightGray,
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 30.dp, top = 30.dp, start = 30.dp, end = 30.dp)
             )
         }
 
-        Column(modifier = Modifier
-            .align(Alignment.BottomCenter)
-            .padding(bottom = 90.dp)) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 90.dp)
+        ) {
             Button(
                 onClick = { navigate(Login) },
                 modifier = Modifier.size(width = 300.dp, height = 40.dp),
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Purple40,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
-                Text(text = "LOGIN")
+                Text(text = stringResource(id = R.string.login).uppercase(Locale.ROOT))
             }
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -92,11 +96,11 @@ fun CreateAccount(navigate:(String) -> Unit) {
                         ), shape = RoundedCornerShape(5.dp)
                     ),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
-                Text(text = "CREATE ACCOUNT")
+                Text(text = stringResource(id = R.string.createAccount).uppercase(Locale.ROOT))
             }
         }
     }

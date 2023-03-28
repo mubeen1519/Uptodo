@@ -22,13 +22,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.uptodo.R
 import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.screens.home.TodoCardItems
-import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 import com.himanshoe.kalendar.color.KalendarThemeColor
 import com.himanshoe.kalendar.component.day.config.KalendarDayColors
@@ -65,7 +63,7 @@ fun CalenderScreen(
     ) {
         Text(
             text = stringResource(id = R.string.calenderTitle),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyLarge
         )
     }
@@ -83,18 +81,18 @@ fun CalenderScreen(
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(5.dp)),
                 calendarDayColors = KalendarDayColors(
-                    textColor = Color.White,
-                    selectedTextColor = Color.White
+                    textColor = MaterialTheme.colorScheme.onSurface,
+                    selectedTextColor = MaterialTheme.colorScheme.onSurface
                 ),
                 calendarThemeColor = KalendarThemeColor(
-                    backgroundColor = BottomBarColor,
+                    backgroundColor = MaterialTheme.colorScheme.secondary,
                     dayBackgroundColor = Purple40,
-                    headerTextColor = Color.White,
+                    headerTextColor = MaterialTheme.colorScheme.onSurface,
                 ),
                 calendarHeaderConfig = KalendarHeaderConfig(
                     kalendarTextConfig = KalendarTextConfig(
                         kalendarTextColor = KalendarTextColor(
-                            Color.White
+                            MaterialTheme.colorScheme.onSurface
                         ),
                         kalendarTextSize = KalendarTextSize.Title
                     )
@@ -110,7 +108,7 @@ fun CalenderScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(BottomBarColor)
+                    .background(MaterialTheme.colorScheme.secondary)
                     .clip(shape = RoundedCornerShape(5.dp))
             ) {
                 CompositionLocalProvider(LocalMinimumTouchTargetEnforcement provides false) {
@@ -133,8 +131,8 @@ fun CalenderScreen(
                                     shape = RoundedCornerShape(5.dp)
                                 ),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = if (clicked == "today") Purple40 else BottomBarColor,
-                                contentColor = Color.White
+                                containerColor = if (clicked == "today") Purple40 else MaterialTheme.colorScheme.secondary,
+                                contentColor = MaterialTheme.colorScheme.onSurface
                             ),
                             shape = RoundedCornerShape(5.dp)
                         ) {
@@ -154,8 +152,8 @@ fun CalenderScreen(
                                     shape = RoundedCornerShape(5.dp)
                                 ),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = if (clicked == "completed") Purple40 else BottomBarColor,
-                                contentColor = Color.White
+                                containerColor = if (clicked == "completed") Purple40 else MaterialTheme.colorScheme.secondary,
+                                contentColor = MaterialTheme.colorScheme.onSurface
                             ),
                             shape = RoundedCornerShape(5.dp)
 

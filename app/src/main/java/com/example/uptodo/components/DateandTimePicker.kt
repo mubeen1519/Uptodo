@@ -60,7 +60,7 @@ fun DateAndTimePicker(
             modifier = Modifier.size(width = 130.dp, height = 40.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Purple40,
-                contentColor = Color.White
+                contentColor = MaterialTheme.colorScheme.onSurface
             ),
             shape = RoundedCornerShape(8.dp)
         ) {
@@ -73,7 +73,7 @@ fun DateAndTimePicker(
 //            })
 //        },
         colors = DatePickerDefaults.colors(
-            containerColor = BottomBarColor,
+            containerColor = MaterialTheme.colorScheme.secondary,
 
             )
 
@@ -83,18 +83,18 @@ fun DateAndTimePicker(
         DatePicker(
             state = datePickerState,
             colors = DatePickerDefaults.colors(
-                titleContentColor = Color.White,
+                titleContentColor = MaterialTheme.colorScheme.onSurface,
                 selectedDayContainerColor = Purple40,
-                headlineContentColor = Color.White,
-                yearContentColor = Color.White,
-                selectedYearContainerColor = BottomBarColor,
-                weekdayContentColor = Color.White,
-                selectedYearContentColor = Color.White,
-                currentYearContentColor = Color.White,
-                todayContentColor = Color.White,
-                dayContentColor = Color.White,
-                subheadContentColor = BottomBarColor,
-                disabledDayContentColor = Color.White,
+                headlineContentColor = MaterialTheme.colorScheme.onSurface,
+                yearContentColor = MaterialTheme.colorScheme.onSurface,
+                selectedYearContainerColor = MaterialTheme.colorScheme.secondary,
+                weekdayContentColor = MaterialTheme.colorScheme.onSurface,
+                selectedYearContentColor = MaterialTheme.colorScheme.onSurface,
+                currentYearContentColor = MaterialTheme.colorScheme.onSurface,
+                todayContentColor = MaterialTheme.colorScheme.onSurface,
+                dayContentColor = MaterialTheme.colorScheme.onSurface,
+                subheadContentColor = MaterialTheme.colorScheme.secondary,
+                disabledDayContentColor = MaterialTheme.colorScheme.onSurface,
             ),
             )
     }

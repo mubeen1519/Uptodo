@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -70,7 +71,7 @@ fun LoginPage(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(MaterialTheme.colorScheme.background)
     )
     {
         Row(
@@ -80,7 +81,7 @@ fun LoginPage(
             DrawableIcon(
                 painter = painterResource(id = R.drawable.arrow_back),
                 contentDescription = "ArrowBack",
-                tint = Color.LightGray,
+                tint = MaterialTheme.colorScheme.surfaceVariant,
                 modifier = Modifier.clickable { navigate(Create_Account) }
             )
         }
@@ -90,28 +91,28 @@ fun LoginPage(
                 .fillMaxWidth(),
         ) {
             Text(
-                text = "Login",
-                color = Color.White,
+                text = stringResource(id = R.string.login),
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(start = 30.dp)
             )
 
             Spacer(modifier = Modifier.height(20.dp))
             InputField(
-                placeholderText = "Enter your Email",
+                placeholderText = stringResource(id = R.string.emailPlaceholder),
                 onFieldChange = viewModel::onEmailChange,
                 value = uiState.email,
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp),
-                label = "Email"
+                label = stringResource(id = R.string.labelEmail)
             )
 
             Spacer(modifier = Modifier.height(20.dp))
             InputField(
                 value = uiState.password,
-                placeholderText = "Enter your Password",
+                placeholderText = stringResource(id = R.string.passPlaceholder),
                 onFieldChange = viewModel::onPasswordChange,
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp),
-                label = "Password",
+                label = stringResource(id = R.string.labelPassword),
                 isFieldSecured = true
             )
 
@@ -125,10 +126,10 @@ fun LoginPage(
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Purple40,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
-                Text(text = "Login")
+                Text(text = stringResource(id = R.string.login))
             }
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -136,14 +137,14 @@ fun LoginPage(
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Divider(modifier = Modifier.weight(1f), color = Color.LightGray)
+                Divider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.surfaceVariant)
                 Text(
                     text = "or",
                     fontSize = 20.sp,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(start = 4.dp, end = 4.dp, bottom = 4.dp)
                 )
-                Divider(modifier = Modifier.weight(1f), color = Color.LightGray)
+                Divider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.surfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -168,8 +169,8 @@ fun LoginPage(
                         ), shape = RoundedCornerShape(5.dp)
                     ),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
                     DrawableIcon(
@@ -178,7 +179,7 @@ fun LoginPage(
                         modifier = Modifier.padding(end = 10.dp),
                         tint = Color.Unspecified
                     )
-                    Text(text = "Login with Google")
+                    Text(text = stringResource(id = R.string.googleBtn))
                 }
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -195,17 +196,19 @@ fun LoginPage(
                         ), shape = RoundedCornerShape(5.dp)
                     ),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Black,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.onSurface
                 )
             ) {
                 DrawableIcon(
                     painter = painterResource(id = R.drawable.apple),
-                    contentDescription = "google",
-                    modifier = Modifier.padding(end = 10.dp).size(32.dp),
+                    contentDescription = "apple",
+                    modifier = Modifier
+                        .padding(end = 10.dp)
+                        .size(32.dp),
                     tint = Color.Unspecified
                 )
-                Text(text = "Login with Apple")
+                Text(text = stringResource(id = R.string.appleBtn))
             }
             Spacer(modifier = Modifier.height(50.dp))
             Box(modifier = Modifier.fillMaxWidth()) {
@@ -221,7 +224,7 @@ fun LoginPage(
                             withStyle(
                                 style = SpanStyle(
                                     fontWeight = FontWeight.Bold,
-                                    color = Color.White
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                             ) {
                                 append("" + "Register")
@@ -230,9 +233,9 @@ fun LoginPage(
                         modifier = Modifier
                             .clickable { navigate(Registration) }
                             .fillMaxWidth(),
-                        color = Color.LightGray,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
                         textAlign = TextAlign.Center,
-                        fontSize = 15.sp
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
             }

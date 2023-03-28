@@ -31,23 +31,23 @@ fun TodoCardItems(
     onCheckChange: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     sheetValue: ModalBottomSheetState,
-    onClick : (String) -> Unit
+    onClick: (String) -> Unit
 ) {
     val scope = rememberCoroutineScope()
 
     Card(
         onClick = {
             scope.launch {
-                    onClick(BottomSheetType.TYPE2.toString())
-                if(sheetValue.isVisible){
+                onClick(BottomSheetType.TYPE2.toString())
+                if (sheetValue.isVisible) {
                     sheetValue.hide()
-                }else{
+                } else {
                     sheetValue.show()
                 }
 
             }
         },
-        backgroundColor = CardColor,
+        backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
@@ -60,8 +60,8 @@ fun TodoCardItems(
                     .padding(start = 5.dp)
                     .clip(RoundedCornerShape(200.dp)),
                 colors = CheckboxDefaults.colors(
-                    uncheckedColor = Color.White,
-                    checkmarkColor = Color.White,
+                    uncheckedColor = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
+                    checkmarkColor = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     checkedColor = Purple40,
                 )
             )
@@ -70,7 +70,7 @@ fun TodoCardItems(
                 Row {
                     androidx.compose.material3.Text(
                         text = todoItem.title,
-                        color = Color.White,
+                        color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         style = androidx.compose.material3.MaterialTheme.typography.titleMedium
                     )
                 }
@@ -81,7 +81,7 @@ fun TodoCardItems(
                 ) {
                     androidx.compose.material3.Text(
                         text = viewModel.getDateAndTime(todoItem),
-                        color = Color.White,
+                        color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         style = androidx.compose.material3.MaterialTheme.typography.titleSmall
                     )
                     Spacer(modifier = Modifier.weight(2f))
@@ -138,7 +138,7 @@ fun TodoCardItems(
                                 Icons.Work -> Icons.Work.title
                                 null -> Icons.University.title
                             },
-                            color = Color.White,
+                            color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             fontSize = 9.sp
                         )
                     }
@@ -156,7 +156,7 @@ fun TodoCardItems(
                             onClick = {},
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = BottomBarColor,
-                                contentColor = Color.White,
+                                contentColor = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             )
                         ) {
                             DrawableIcon(
@@ -193,7 +193,7 @@ fun TodoCardItems(
                                     Priority.Priority10 -> Priority.Priority10.value.toString()
                                     null -> Priority.Priority1.value.toString()
                                 },
-                                color = Color.White, fontSize = 9.sp
+                                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface, fontSize = 9.sp
                             )
                         }
                     }

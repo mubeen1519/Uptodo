@@ -17,7 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -91,7 +91,7 @@ fun HomeScreenContent(
 
         ModalDrawer(
             drawerState = drawerState,
-            drawerBackgroundColor = Color.Black,
+            drawerBackgroundColor = MaterialTheme.colorScheme.background,
             drawerContent = {
                 val itemsList = navDrawerItems()
                 val selectedItem by remember { mutableStateOf(itemsList[0]) }
@@ -106,7 +106,7 @@ fun HomeScreenContent(
                     DrawableIcon(
                         painter = painterResource(id = R.drawable.arrow_back),
                         contentDescription = "back",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.clickable {
                             closeDrawer()
                         }
@@ -115,7 +115,7 @@ fun HomeScreenContent(
 
                     androidx.compose.material.Text(
                         text = stringResource(id = R.string.settings),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )
@@ -143,13 +143,13 @@ fun HomeScreenContent(
                             DrawableIcon(
                                 painter = painterResource(id = item.icon),
                                 contentDescription = "icons",
-                                tint = Color.White,
+                                tint = MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.size(25.dp)
                             )
 
                             androidx.compose.material.Text(
                                 text = item.title,
-                                color = Color.White,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.bodySmall,
                                 modifier = Modifier.padding(start = 16.dp),
                             )
@@ -158,7 +158,7 @@ fun HomeScreenContent(
                                 DrawableIcon(
                                     painter = painterResource(id = item.forwardIcon),
                                     contentDescription = "forward",
-                                    tint = Color.White,
+                                    tint = MaterialTheme.colorScheme.onSurface,
                                 )
                             }
                         }
@@ -187,7 +187,7 @@ fun HomeScreenContent(
                         DrawableIcon(
                             painter = painterResource(id = R.drawable.dropdown),
                             contentDescription = "dropdown",
-                            tint = Color.White,
+                            tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier
                                 .size(40.dp)
                         )
@@ -195,7 +195,7 @@ fun HomeScreenContent(
                     Text(
                         text = stringResource(id = R.string.HomeHeading),
                         style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         textAlign = TextAlign.Center
                     )
                     if (userProfileImg != "") {
@@ -218,7 +218,8 @@ fun HomeScreenContent(
                                 painter = painterResource(id = R.drawable.user_svg),
                                 contentDescription = "Profile",
                                 modifier = Modifier.size(30.dp),
-                                contentScale = ContentScale.Crop
+                                contentScale = ContentScale.Crop,
+                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
 
                             )
                         }
