@@ -17,7 +17,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.uptodo.components.DrawableIcon
-import com.example.uptodo.ui.theme.BottomBarColor
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -37,7 +36,8 @@ fun BottomNavigationBar(
     val bottomBarDestination = pages.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
         BottomNavigation(
-            backgroundColor = MaterialTheme.colorScheme.secondary, modifier = Modifier.height(70.dp)
+            backgroundColor = MaterialTheme.colorScheme.secondary, modifier = Modifier.height(70.dp),
+            elevation = 3.dp
         ) {
             pages.forEach { screen ->
                 AddItems(
@@ -63,11 +63,15 @@ fun RowScope.AddItems(
     CompositionLocalProvider(androidx.compose.material.LocalContentColor provides Color.White) {
         BottomNavigationItem(
             modifier = Modifier.padding(8.dp),
+            selectedContentColor = MaterialTheme.colorScheme.onSurface,
             selected = isSelected,
             onClick = {
                 navController.navigate(screen.route) {
-                    popUpTo(navController.graph.findStartDestination().id)
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
                     launchSingleTop = true
+                    restoreState = true
                 }
 
             },
