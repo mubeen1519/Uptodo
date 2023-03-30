@@ -30,72 +30,73 @@
     <string name="searchFieldText">Search for your task..</string>
     <string name="priorityTitle">Task Priority</string>
     <string name="chooseCategory">Choose Category</string>
-    <string name="addCategory">Add Category</string>
-    <string name="deleteTask">Delete Task</string>
+    <string name="addCategory" translatable="false">Add Category</string>
+    <string name="deleteTask" translatable="false">Delete Task</string>
     <string name="deleteDialog">Are you sure you want to delete this task?</string>
 
 
     //Category page
     <string name="new_category">Create new category</string>
-    <string name="category_icon">Category icon:</string>
-    <string name="choose_icon">Choose icon from library</string>
-    <string name="category_color">Category color:</string>
-    <string name="chooseIcon">Choose Icon From Library</string>
+    <string name="category_icon" translatable="false">Category icon:</string>
+    <string name="choose_icon" translatable="false">Choose icon from library</string>
+    <string name="category_color" translatable="false">Category color:</string>
+    <string name="chooseIcon" translatable="false">Choose Icon From Library</string>
 
     //ProfileScreen
-    <string name="accountName">Change account name</string>
-    <string name="accountPlaceholder">Account Name</string>
-    <string name="accountPassword">Change account Password</string>
-    <string name="passwordPlaceholder">Enter old Password</string>
-    <string name="newPasswordPlaceholder">Enter new Password</string>
-    <string name="logoutTxt">Are you sure you want to logout</string>
-    <string name="profileTitle">Profile</string>
-    <string name="changeSetting">Change app Settings</string>
-    <string name="txtAccount">Account</string>
-    <string name="aboutUs">About us</string>
-    <string name="faq">FAQ</string>
-    <string name="feedback">Help &amp; Feedback</string>
-    <string name="support">Support Us</string>
+    <string name="accountName" translatable="false">Change account name</string>
+    <string name="accountPlaceholder" translatable="false">Account Name</string>
+    <string name="accountPassword" translatable="false">Change account Password</string>
+    <string name="passwordPlaceholder" translatable="false">Enter old Password</string>
+    <string name="newPasswordPlaceholder" translatable="false">Enter new Password</string>
+    <string name="logoutTxt" translatable="false">Are you sure you want to logout</string>
+    <string name="profileTitle" translatable="false">Profile</string>
+    <string name="changeSetting" translatable="false">Change app Settings</string>
+    <string name="txtAccount" translatable="false">Account</string>
+    <string name="aboutUs" translatable="false">About us</string>
+    <string name="faq" translatable="false">FAQ</string>
+    <string name="feedback" translatable="false">Help &amp; Feedback</string>
+    <string name="support" translatable="false">Support Us</string>
 
     //Settings Screen
-    <string name="typographyDialog">Change Typography</string>
-    <string name="latoFont">Lato</string>
-    <string name="quicksandFont">QuickSand</string>
+    <string name="typographyDialog" translatable="false">Change Typography</string>
+    <string name="latoFont" translatable="false">Lato</string>
+    <string name="quicksandFont" translatable="false">QuickSand</string>
+    <string name="changeLanguage" translatable="false">Change App Language</string>
 
     //BottomSheet 1
-    <string name="sheetTitle">Add Task</string>
-    <string name="titlePlaceholder">Add Title</string>
-    <string name="descriptionPlaceholder">Description</string>
+    <string name="sheetTitle" translatable="false">Add Task</string>
+    <string name="titlePlaceholder" translatable="false">Add Title</string>
+    <string name="descriptionPlaceholder" translatable="false">Description</string>
 
     //BottomSheet 2
-    <string name="taskTime">Task Time:</string>
-    <string name="taskCategory">Task Category:</string>
-    <string name="taskPriority">Task Priority:</string>
-    <string name="subtask">Sub-Task:</string>
-    <string name="addSubTask">Add Sub-Task</string>
+    <string name="taskTime" translatable="false">Task Time:</string>
+    <string name="taskCategory" translatable="false">Task Category:</string>
+    <string name="taskPriority" translatable="false">Task Priority:</string>
+    <string name="subtask" translatable="false">Sub-Task:</string>
+    <string name="addSubTask" translatable="false">Add Sub-Task</string>
 
     //SplashScreen
-    <string name="manageTaskTitle">Manage your tasks</string>
-    <string name="manageTaskDescription">You can easily manage all of your daily tasks in DoMe for free</string>
+    <string name="manageTaskTitle" translatable="false">Manage your tasks</string>
+    <string name="manageTaskDescription" translatable="false">You can easily manage all of your daily tasks in DoMe for free</string>
 
     //CalenderScreen
-    <string name="calenderTitle">Calender</string>
-    <string name="todayBtn">Today</string>
-    <string name="completedBtn">Completed</string>
+    <string name="calenderTitle" translatable="false">Calender</string>
+    <string name="todayBtn" translatable="false">Today</string>
+    <string name="completedBtn" translatable="false">Completed</string>
 
     //Focus screen
-    <string name="focusTitle">Focus Mode</string>
-    <string name="notify">While your focus mode is on, all of your notification will be off</string>
+    <string name="focusTitle" translatable="false">Focus Mode</string>
+    <string name="notify" translatable="false">While your focus mode is on, all of your notification will be off</string>
 
 
     //Button texts
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
-    <string name="edit">Edit</string>
-    <string name="logout">Logout</string>
-    <string name="delete">Delete</string>
-    <string name="chooseTime">Choose Time</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="save" translatable="false">Save</string>
+    <string name="edit" translatable="false">Edit</string>
+    <string name="logout" translatable="false">Logout</string>
+    <string name="delete" translatable="false">Delete</string>
+    <string name="chooseTime" translatable="false">Choose Time</string>
 
     //font
-    <string name="lobster">Lobster</string>
+    <string name="lobster" translatable="false">Lobster</string>
 </resources>

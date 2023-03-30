@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">UpTodo</string>
+    <string name="welcometxt">Willkommen bei UpTodo</string>
+    <string name="accountInstruction">Bitte melden Sie sich bei Ihrem Konto an oder erstellen Sie ein neues Konto, um fortzufahren</string>
+    <string name="createAccount">Benutzerkonto erstellen</string>
+    <string name="login">Anmeldung</string>
+    <string name="emailPlaceholder">Geben sie ihre E-Mail Adresse ein</string>
+    <string name="labelEmail">Email</string>
+    <string name="passPlaceholder">" Geben Sie Ihr Passwort ein"</string>
+    <string name="labelPassword">Password</string>
+    <string name="googleBtn">" Melden Sie sich mit Google an"</string>
+    <string name="appleBtn">" Melden Sie sich bei Apple an"</string>
+    <string name="register">" Registrieren"</string>
+    <string name="confirmPass">Geben Sie Ihr Bestätigungspasswort ein</string>
+    <string name="labelConfirmPass">" Bestätige das Passwort"</string>
+    <string name="registerGoogle">Registrieren Sie sich bei Google</string>
+    <string name="registerApple">" Registrieren Sie sich bei Apple"</string>
+    <string name="HomeText">" Was willst Du heute machen?"</string>
+    <string name="HomeText2">" Tippen Sie auf +, um Ihre Aufgaben hinzuzufügen"</string>
+    <string name="settings">" Einstellungen"</string>
+    <string name="HomeHeading">Heim</string>
+    <string name="searchFieldText">Suche nach deiner Aufgabe..</string>
+    <string name="priorityTitle">" Aufgabenpriorität"</string>
+    <string name="chooseCategory">" Kategorie auswählen"</string>
+    <string name="deleteDialog">" Möchten Sie diese Aufgabe wirklich löschen? "</string>
+    <string name="new_category">" Neue Kategorie erstellen"</string>
+</resources>

@@ -20,12 +20,14 @@ import com.example.uptodo.ui.theme.AppThemeTypography
 import com.example.uptodo.ui.theme.Typography
 import com.example.uptodo.ui.theme.UptodoTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
     lateinit var themeSetting: ThemeSetting
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {

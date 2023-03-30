@@ -12,7 +12,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -93,9 +92,9 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),viewMo
                             }
                         }
                     },
-                    containerColor = if (showBottomBar) Purple40 else Color.Black,
+                    containerColor = if (showBottomBar) Purple40 else androidx.compose.material3.MaterialTheme.colorScheme.background,
                     shape = RoundedCornerShape(100.dp),
-                    contentColor = if (showBottomBar) androidx.compose.material3.MaterialTheme.colorScheme.background else Color.Black
+                    contentColor = if(showBottomBar) androidx.compose.material3.MaterialTheme.colorScheme.surface else androidx.compose.material3.MaterialTheme.colorScheme.background
                 ) {
                     VectorIcon(imageVector = Icons.Default.Add, contentDescription = "Add todo")
                 }

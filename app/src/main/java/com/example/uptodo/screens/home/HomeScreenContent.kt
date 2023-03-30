@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.DrawerValue
@@ -31,6 +32,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.uptodo.R
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.SearchField
+import com.example.uptodo.components.categories.ChangeLanguageDialog
 import com.example.uptodo.components.categories.NavigationDrawerItem
 import com.example.uptodo.components.categories.TypographyDialog
 import com.example.uptodo.navigation.BottomBar
@@ -65,6 +67,10 @@ fun HomeScreenContent(
     val typeDialog: MutableState<Boolean> = remember {
         mutableStateOf(false)
     }
+    val languageDialog: MutableState<Boolean> = remember {
+        mutableStateOf(false)
+    }
+
 
     var userDataFromFirebase by remember { mutableStateOf(UserProfileData()) }
     userDataFromFirebase = profileViewModel.userDataStateFromFirebase.value
@@ -89,13 +95,15 @@ fun HomeScreenContent(
             TypographyDialog(dialogState = typeDialog)
         }
 
+        if(languageDialog.value){
+            ChangeLanguageDialog(state = languageDialog)
+        }
+
         ModalDrawer(
             drawerState = drawerState,
             drawerBackgroundColor = MaterialTheme.colorScheme.background,
             drawerContent = {
                 val itemsList = navDrawerItems()
-                val selectedItem by remember { mutableStateOf(itemsList[0]) }
-
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
@@ -126,16 +134,20 @@ fun HomeScreenContent(
                         .padding(top = 30.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    this.items(items = itemsList) { item ->
+                    this.itemsIndexed(items = itemsList) { index,item ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 24.dp, vertical = 20.dp)
                                 .clickable {
-                                    if (selectedItem == item) {
+                                    if (index == 0) {
                                         themeDialog.value = true
-                                    } else {
+                                    }
+                                    if(index == 1){
                                         typeDialog.value = true
+                                    }
+                                    if(index == 2){
+                                        languageDialog.value = true
                                     }
                                 },
                             verticalAlignment = Alignment.CenterVertically
