@@ -20,6 +20,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.uptodo.R
@@ -89,10 +90,10 @@ private fun BodyContent(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Box(
                         modifier = Modifier
-                            .size(width = 40.dp, height = 40.dp)
-                            .background(icons.color)
-                            .clip(RoundedCornerShape(8.dp)),
-                        contentAlignment = Alignment.Center
+                            .size(width = 60.dp, height = 60.dp)
+                            .clip(RoundedCornerShape(5.dp))
+                            .background(icons.color),
+                             contentAlignment = Alignment.Center
                     ) {
                         IconButton(
                             modifier = Modifier.size(30.dp),
@@ -107,7 +108,7 @@ private fun BodyContent(
                                 painter = painterResource(id = icons.icon),
                                 contentDescription = "icons",
                                 tint = Color.Unspecified,
-                                modifier = Modifier.size(25.dp)
+                                modifier = Modifier.size(30.dp)
                             )
                         }
                     }
@@ -202,9 +203,9 @@ private fun PriorityContent(
                 Column {
                     Box(
                         modifier = Modifier
-                            .size(width = 40.dp, height = 50.dp)
-                            .background(if (selectedIndex.value == index) Purple40 else MaterialTheme.colorScheme.background)
-                            .clip(shape = RoundedCornerShape(10.dp))
+                            .size(width = 60.dp, height = 60.dp)
+                            .clip(shape = RoundedCornerShape(5.dp))
+                            .background(if (selectedIndex.value == index) Purple40 else MaterialTheme.colorScheme.onSecondary)
                             .padding(5.dp),
                         contentAlignment = Alignment.TopCenter
                     ) {
@@ -228,7 +229,8 @@ private fun PriorityContent(
                             text = priority.value.toString(),
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(top = 25.dp)
+                            modifier = Modifier.padding(top = 30.dp),
+
                         )
                     }
                 }

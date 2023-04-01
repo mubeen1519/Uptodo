@@ -93,7 +93,7 @@ fun BottomScreen1(
             if (dateState.value) {
                 DateAndTimePicker(state = dateState, viewModel, viewModel::onDateChange)
             }
-            Row {
+            Row(modifier = Modifier.fillMaxWidth().padding(top = 8.dp)) {
                 IconButton(onClick = {
                     dateState.value = true
                 }) {
@@ -102,7 +102,7 @@ fun BottomScreen1(
                         contentDescription = "Timer",
                         tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
-                            .size(25.dp)
+                            .size(30.dp)
                     )
                 }
 
@@ -120,7 +120,7 @@ fun BottomScreen1(
                         contentDescription = "Tag",
                         tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
-                            .size(25.dp)
+                            .size(30.dp)
                     )
                 }
 
@@ -137,7 +137,7 @@ fun BottomScreen1(
                         contentDescription = "priority",
                         tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier
-                            .size(25.dp)
+                            .size(30.dp)
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
@@ -151,7 +151,7 @@ fun BottomScreen1(
                         painter = painterResource(id = R.drawable.save),
                         contentDescription = "save",
                         modifier = Modifier
-                            .size(25.dp),
+                            .size(30.dp),
                         tint = Color.Unspecified
                     )
                 }

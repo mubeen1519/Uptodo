@@ -35,3 +35,4 @@ val LightSurfaceVarient = Color(0xFF444444)
 //Dark color scheme
 val DarkSurfaceVarient = Color(0xFFCCCCCC)
 val BottomBarColor = Color(0xFF363636)
+val MidBlack = Color(0xFF272727)
