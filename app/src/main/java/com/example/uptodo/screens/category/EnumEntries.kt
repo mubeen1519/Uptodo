@@ -2,7 +2,14 @@ package com.example.uptodo.screens.category
 
 import androidx.compose.ui.graphics.Color
 import com.example.uptodo.R
-import com.example.uptodo.ui.theme.*
+import com.example.uptodo.ui.theme.DesignBox
+import com.example.uptodo.ui.theme.HealthBox
+import com.example.uptodo.ui.theme.HomeBox
+import com.example.uptodo.ui.theme.MovieBox
+import com.example.uptodo.ui.theme.SocialBox
+import com.example.uptodo.ui.theme.SportBox
+import com.example.uptodo.ui.theme.UniColor
+import com.example.uptodo.ui.theme.WorkColor
 
 enum class Priority constructor(val value : Int,val icon: Int){
     Priority1(1,R.drawable.priority),
@@ -17,18 +24,6 @@ enum class Priority constructor(val value : Int,val icon: Int){
     Priority10(10,R.drawable.priority),
 }
 
-enum class Colors constructor(val color : Color,val icon: Int) {
-    Yellow(Yellows,R.drawable.baseline_check_24),
-    Green(Color.Green,R.drawable.baseline_check_24),
-    SkyBlue(com.example.uptodo.ui.theme.SkyBlue,R.drawable.baseline_check_24),
-    OceanBlue(com.example.uptodo.ui.theme.OceanBlue,R.drawable.baseline_check_24),
-    LightBlue(com.example.uptodo.ui.theme.LightBlue,R.drawable.baseline_check_24),
-    Peach(HomeBox,R.drawable.baseline_check_24),
-    DarkPurple(Margenda,R.drawable.baseline_check_24),
-    DarkPink(com.example.uptodo.ui.theme.DarkPink,R.drawable.baseline_check_24)
-}
-
-
 enum class Icons constructor(var icon: Int, var title : String, var color: Color){
     Work(R.drawable.work,"Work", WorkColor),
     University(R.drawable.university,"School", UniColor),
@@ -42,9 +37,6 @@ enum class Icons constructor(var icon: Int, var title : String, var color: Color
     Grocery(R.drawable.grocery_svg,"Grocery", SportBox)
 }
 
-enum class BottomSheetType {
-    TYPE1, TYPE2;
-}
 
 
 

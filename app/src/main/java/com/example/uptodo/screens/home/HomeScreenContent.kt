@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -41,17 +42,14 @@ import com.example.uptodo.screens.settings.ChangeThemeDialog
 import com.example.uptodo.services.implementation.UserProfileData
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterialApi::class)
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun HomeScreenContent(
     viewModel: HomeViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel(),
     openSheet: (String) -> Unit,
-    todoId: String,
     navController: NavHostController
 ) {
-    val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val openDrawer: () -> Unit = { scope.launch { drawerState.open() } }
@@ -71,6 +69,8 @@ fun HomeScreenContent(
         mutableStateOf(false)
     }
 
+    val context = LocalContext.current
+
 
     var userDataFromFirebase by remember { mutableStateOf(UserProfileData()) }
     userDataFromFirebase = profileViewModel.userDataStateFromFirebase.value
@@ -78,10 +78,6 @@ fun HomeScreenContent(
     userProfileImg = userDataFromFirebase.imageUrl
 
     val tasks = viewModel.tasks.collectAsStateWithLifecycle(emptyList())
-
-    LaunchedEffect(Unit) {
-        viewModel.getTodo(todoId)
-    }
 
     BoxWithConstraints(
         modifier = Modifier
@@ -95,8 +91,8 @@ fun HomeScreenContent(
             TypographyDialog(dialogState = typeDialog)
         }
 
-        if(languageDialog.value){
-            ChangeLanguageDialog(state = languageDialog)
+        if (languageDialog.value) {
+            ChangeLanguageDialog(state = languageDialog, context)
         }
 
         ModalDrawer(
@@ -134,7 +130,7 @@ fun HomeScreenContent(
                         .padding(top = 30.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    this.itemsIndexed(items = itemsList) { index,item ->
+                    this.itemsIndexed(items = itemsList) { index, item ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -143,10 +139,10 @@ fun HomeScreenContent(
                                     if (index == 0) {
                                         themeDialog.value = true
                                     }
-                                    if(index == 1){
+                                    if (index == 1) {
                                         typeDialog.value = true
                                     }
-                                    if(index == 2){
+                                    if (index == 2) {
                                         languageDialog.value = true
                                     }
                                 },
@@ -213,7 +209,12 @@ fun HomeScreenContent(
                     if (userProfileImg != "") {
                         Box(modifier = Modifier
                             .clip(CircleShape)
-                            .clickable { navController.navigate(BottomBar.Profile.route) }) {
+                            .clickable {
+                                navController.navigate(BottomBar.Profile.route) {
+                                    launchSingleTop = true
+                                    popUpTo(BottomBar.Home.route)
+                                }
+                            }) {
                             Image(
                                 painter = rememberAsyncImagePainter(userProfileImg),
                                 contentDescription = "Profile",
@@ -256,7 +257,6 @@ fun HomeScreenContent(
                     ) {
                         SearchField(state = textState)
                     }
-
                     LazyColumn {
                         items(tasks.value.filter {
                             it.title.contains(searchedText, ignoreCase = true)
@@ -266,7 +266,6 @@ fun HomeScreenContent(
                                 onCheckChange = {
                                     viewModel.onTodoCheck(todoItem)
                                 },
-                                sheetValue = sheetValue,
                                 onClick = {
                                     viewModel.onTodoClick(openSheet, todoItem)
                                 }

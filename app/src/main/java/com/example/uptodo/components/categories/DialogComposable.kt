@@ -1,5 +1,7 @@
 package com.example.uptodo.components.categories
 
+import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -7,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,34 +20,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.core.os.LocaleListCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.example.uptodo.R
 import com.example.uptodo.components.CommonDialog
 import com.example.uptodo.components.DrawableIcon
 import com.example.uptodo.components.InputField
-import com.example.uptodo.navigation.Graph
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
+import com.example.uptodo.screens.edittodo.EditTodoViewModel
 import com.example.uptodo.screens.home.HomeViewModel
 import com.example.uptodo.screens.profile.ProfileViewModel
-import com.example.uptodo.screens.settings.SettingViewModel
 import com.example.uptodo.ui.theme.*
-import java.util.*
 
 @Composable
 fun CategoryDialog(
     state: MutableState<Boolean>,
     viewModel: HomeViewModel = hiltViewModel(),
-    navController: NavHostController
 ) {
     CommonDialog(state = state) {
         BodyContent(
-            navController = navController,
             dialogState = state,
             viewModel = viewModel
         ) {}
@@ -53,7 +50,6 @@ fun CategoryDialog(
 
 @Composable
 private fun BodyContent(
-    navController: NavHostController,
     viewModel: HomeViewModel = hiltViewModel(),
     dialogState: MutableState<Boolean>,
     onItemSelection: (selectedItemIndex: Int) -> Unit,
@@ -90,15 +86,21 @@ private fun BodyContent(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Box(
                         modifier = Modifier
+                            .size(10.dp)
+                            .clip(CircleShape)
+                            .background(if (selectedIndex.value == index) Purple40 else MaterialTheme.colorScheme.secondary)
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Box(
+                        modifier = Modifier
                             .size(width = 60.dp, height = 60.dp)
                             .clip(RoundedCornerShape(5.dp))
                             .background(icons.color),
-                             contentAlignment = Alignment.Center
+                        contentAlignment = Alignment.Center
                     ) {
                         IconButton(
                             modifier = Modifier.size(30.dp),
                             onClick = {
-                                dialogState.value = false
                                 selectedIndex.value = index
                                 onItemSelection(selectedIndex.value)
                                 viewModel.onIconChange(icons)
@@ -128,7 +130,6 @@ private fun BodyContent(
         ) {
             Button(
                 onClick = {
-                    navController.navigate(Graph.DETAILS)
                     dialogState.value = false
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -139,12 +140,11 @@ private fun BodyContent(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = stringResource(id = R.string.addCategory),
+                    text = stringResource(id = R.string.saveCategory),
                     style = MaterialTheme.typography.labelSmall
                 )
             }
         }
-
     }
 }
 
@@ -231,7 +231,7 @@ private fun PriorityContent(
                             style = MaterialTheme.typography.bodySmall,
                             modifier = Modifier.padding(top = 30.dp),
 
-                        )
+                            )
                     }
                 }
             }
@@ -273,76 +273,6 @@ private fun PriorityContent(
                     text = stringResource(id = R.string.save),
                     style = MaterialTheme.typography.labelSmall
                 )
-            }
-        }
-    }
-}
-
-@Composable
-fun LibraryIcon(
-    state: MutableState<Boolean>,
-    viewModel: HomeViewModel = hiltViewModel(),
-    selectedItem: (Int) -> Unit
-) {
-    CommonDialog(state = state) {
-        IconLibraryContent(
-            dialogState = state,
-            viewModel = viewModel,
-            onItemSelection = { selectedItem(it) }
-        )
-    }
-}
-
-@Composable
-private fun IconLibraryContent(
-    dialogState: MutableState<Boolean>,
-    onItemSelection: (selectedItemIndex: Int) -> Unit,
-    viewModel: HomeViewModel = hiltViewModel(),
-) {
-    val selectedIndex = remember {
-        mutableStateOf(0)
-    }
-    Column(
-        modifier = Modifier
-            .background(MaterialTheme.colorScheme.secondary)
-            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = stringResource(id = R.string.chooseIcon),
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.titleMedium
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            color = MaterialTheme.colorScheme.surfaceVariant
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(4),
-            contentPadding = PaddingValues(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(18.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp),
-        ) {
-            itemsIndexed(Icons.values()) { index, icons ->
-                Column {
-                    IconButton(
-                        modifier = Modifier.size(35.dp),
-                        onClick = {
-                            selectedIndex.value = index
-                            onItemSelection(selectedIndex.value)
-                            dialogState.value = false
-                        },
-                    ) {
-                        DrawableIcon(
-                            painter = painterResource(id = icons.icon),
-                            contentDescription = "icons",
-                            tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.size(35.dp)
-                        )
-                    }
-                }
             }
         }
     }
@@ -578,7 +508,7 @@ fun DeleteTaskDialog(state: MutableState<Boolean>) {
 @Composable
 fun DeleteTaskContent(
     state: MutableState<Boolean>,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: EditTodoViewModel = hiltViewModel()
 ) {
     val todo by viewModel.todo
     Column(
@@ -701,7 +631,10 @@ private fun ChangeTypography(
                 .fillMaxWidth()
                 .selectable(
                     AppThemeTypography.selectedFontFamily.value == latoFamily,
-                    onClick = { AppThemeTypography.selectedFontFamily.value = latoFamily },
+                    onClick = {
+                        AppThemeTypography.selectedFontFamily.value = latoFamily
+                        dialogState.value = false
+                    },
                     role = Role.RadioButton
                 )
                 .padding(top = 15.dp, bottom = 8.dp, start = 10.dp, end = 10.dp),
@@ -723,7 +656,10 @@ private fun ChangeTypography(
                 .fillMaxWidth()
                 .selectable(
                     selected = AppThemeTypography.selectedFontFamily.value == quickSandFamily,
-                    onClick = { AppThemeTypography.selectedFontFamily.value = quickSandFamily },
+                    onClick = {
+                        AppThemeTypography.selectedFontFamily.value = quickSandFamily
+                        dialogState.value = false
+                    },
                     role = Role.RadioButton
                 )
                 .padding(top = 15.dp, bottom = 8.dp, start = 10.dp, end = 10.dp),
@@ -746,7 +682,10 @@ private fun ChangeTypography(
                 .fillMaxWidth()
                 .selectable(
                     selected = AppThemeTypography.selectedFontFamily.value == lobsterFamily,
-                    onClick = { AppThemeTypography.selectedFontFamily.value = lobsterFamily },
+                    onClick = {
+                        AppThemeTypography.selectedFontFamily.value = lobsterFamily
+                        dialogState.value = false
+                    },
                     role = Role.RadioButton
                 )
                 .padding(top = 15.dp, bottom = 8.dp, start = 10.dp, end = 10.dp),
@@ -767,18 +706,28 @@ private fun ChangeTypography(
 }
 
 @Composable
-fun ChangeLanguageDialog(state: MutableState<Boolean>) {
+fun ChangeLanguageDialog(state: MutableState<Boolean>, context: Context) {
     CommonDialog(state = state) {
-        ChangeLanguage(state = state)
+        ChangeLanguage(state = state, context)
     }
 }
 
 @Composable
 private fun ChangeLanguage(
     state: MutableState<Boolean>,
-    viewModel: SettingViewModel = hiltViewModel(),
+    context: Context
 ) {
-    val currentLocale = viewModel.locale.collectAsState()
+
+    val localeOption = mapOf(
+        R.string.en to "en",
+        R.string.fr to "fr",
+        R.string.de to "de"
+    ).mapKeys { stringResource(id = it.key) }
+
+    var selected by remember {
+        mutableStateOf(localeOption.toString())
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -806,59 +755,30 @@ private fun ChangeLanguage(
             .background(MaterialTheme.colorScheme.secondary)
             .selectableGroup()
     ) {
-        LanguageOption(
-            locale = Locale.ENGLISH,
-            currentLocale = currentLocale.value,
-            onLanguageSelected = {
-                viewModel.onLanguageSelected(Locale.ENGLISH)
-                state.value = false
-            })
-        LanguageOption(
-            locale = Locale.FRENCH,
-            currentLocale = currentLocale.value,
-            onLanguageSelected = {
-                viewModel.onLanguageSelected(Locale.FRENCH)
-                state.value = false
-            })
-
-        LanguageOption(
-            locale = Locale.GERMAN,
-            currentLocale = currentLocale.value,
-            onLanguageSelected = {
-                viewModel.onLanguageSelected(Locale.GERMAN)
-                state.value = false
-            })
+        localeOption.keys.forEach { selectLocale ->
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .selectable(
+                    selected = selected == selectLocale,
+                    role = Role.RadioButton,
+                    onClick = {
+                        AppCompatDelegate.setApplicationLocales(
+                            LocaleListCompat.forLanguageTags(
+                                localeOption[selectLocale]
+                            )
+                        )
+                    }
+                ), verticalAlignment = Alignment.CenterVertically) {
+                RadioButton(selected = selected == selectLocale, onClick = null)
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    text = selectLocale,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+        }
     }
-}
-
-@Composable
-private fun LanguageOption(
-    locale: Locale,
-    currentLocale: Locale,
-    onLanguageSelected: () -> Unit
-) {
-    val isSelected = locale.language == currentLocale.language
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .selectable(
-                selected = isSelected,
-                onClick = { onLanguageSelected() },
-                role = Role.RadioButton
-            )
-            .padding(top = 15.dp, bottom = 8.dp, start = 10.dp, end = 10.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        RadioButton(selected = isSelected, onClick = null)
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = locale.getDisplayName(locale),
-            style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-            ),
-            color = MaterialTheme.colorScheme.onSurface,
-        )
-    }
-
 }
 

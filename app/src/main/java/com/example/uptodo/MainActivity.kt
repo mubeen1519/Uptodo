@@ -39,9 +39,6 @@ class MainActivity : ComponentActivity() {
                 AppTheme.AUTO -> isSystemInDarkTheme()
                 AppTheme.NIGHT -> true
             }
-
-
-
             UptodoTheme(darkTheme = useDarkColors) {
                 MaterialTheme(
                     typography = Typography.copy(
@@ -51,7 +48,8 @@ class MainActivity : ComponentActivity() {
                             .copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
                         titleMedium = Typography.titleMedium.copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
                         labelSmall = Typography.labelSmall.copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
-                        titleSmall = Typography.titleSmall.copy(fontFamily = AppThemeTypography.selectedFontFamily.value)
+                        titleSmall = Typography.titleSmall.copy(fontFamily = AppThemeTypography.selectedFontFamily.value),
+                        headlineSmall = Typography.headlineSmall.copy(fontFamily = AppThemeTypography.selectedFontFamily.value)
                     ),
 
                     ) {

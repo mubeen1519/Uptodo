@@ -2,12 +2,30 @@ package com.example.uptodo.screens.home
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.LocalMinimumTouchTargetEnforcement
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -15,14 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.components.DrawableIcon
-import com.example.uptodo.screens.category.BottomSheetType
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.services.implementation.TODOItem
-import com.example.uptodo.ui.theme.BottomBarColor
-import com.example.uptodo.ui.theme.CardColor
 import com.example.uptodo.ui.theme.Purple40
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -30,22 +44,12 @@ fun TodoCardItems(
     todoItem: TODOItem,
     onCheckChange: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
-    sheetValue: ModalBottomSheetState,
-    onClick: (String) -> Unit
+    onClick: () -> Unit
 ) {
-    val scope = rememberCoroutineScope()
 
     Card(
         onClick = {
-            scope.launch {
-                onClick(BottomSheetType.TYPE2.toString())
-                if (sheetValue.isVisible) {
-                    sheetValue.hide()
-                } else {
-                    sheetValue.show()
-                }
-
-            }
+            onClick()
         },
         backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
         modifier = Modifier
@@ -58,7 +62,7 @@ fun TodoCardItems(
                 checked = todoItem.completed, onCheckedChange = { onCheckChange() },
                 modifier = Modifier
                     .padding(start = 5.dp)
-                    .clip(RoundedCornerShape(200.dp)),
+                    .clip(CircleShape),
                 colors = CheckboxDefaults.colors(
                     uncheckedColor = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                     checkmarkColor = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
@@ -76,7 +80,7 @@ fun TodoCardItems(
                 }
                 Row(
                     modifier = Modifier
-                        .padding(top = 5.dp)
+                        .padding(top = 10.dp)
                         .fillMaxWidth()
                 ) {
                     androidx.compose.material3.Text(
@@ -86,7 +90,7 @@ fun TodoCardItems(
                     )
                     Spacer(modifier = Modifier.weight(2f))
                     Button(
-                        modifier = Modifier.size(width = 95.dp, height = 35.dp),
+                        modifier = Modifier.height(35.dp).alpha(0.8f),
                         onClick = {},
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = when (todoItem.icon) {
@@ -155,7 +159,7 @@ fun TodoCardItems(
                             contentPadding = PaddingValues(0.dp),
                             onClick = {},
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = BottomBarColor,
+                                backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
                                 contentColor = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                             )
                         ) {
@@ -176,7 +180,7 @@ fun TodoCardItems(
                                     }
                                 ),
                                 contentDescription = "some",
-                                tint = Color.Unspecified,
+                                tint = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.size(10.dp)
                             )
                             Text(
@@ -193,7 +197,8 @@ fun TodoCardItems(
                                     Priority.Priority10 -> Priority.Priority10.value.toString()
                                     null -> Priority.Priority1.value.toString()
                                 },
-                                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface, fontSize = 9.sp
+                                color = androidx.compose.material3.MaterialTheme.colorScheme.onSurface,
+                                fontSize = 9.sp
                             )
                         }
                     }

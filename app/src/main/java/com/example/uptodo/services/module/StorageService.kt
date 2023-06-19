@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.Flow
 interface StorageService {
 
     val tasks: Flow<List<TODOItem>>
-     suspend fun getTodoItem(todoId : String)
+
+     suspend fun getTodoItem(todoId : String) : TODOItem?
 
     suspend fun addTodoItem(todoItem: TODOItem): String
 

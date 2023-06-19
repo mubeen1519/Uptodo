@@ -25,10 +25,10 @@ fun BottomNavigationBar(
 ) {
     val pages = listOf(
         BottomBar.Home,
-        BottomBar.Profile,
         BottomBar.Calender,
-        BottomBar.Focus
-    )
+        BottomBar.Focus,
+        BottomBar.Profile,
+        )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
@@ -36,7 +36,8 @@ fun BottomNavigationBar(
     val bottomBarDestination = pages.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
         BottomNavigation(
-            backgroundColor = MaterialTheme.colorScheme.secondary, modifier = Modifier.height(70.dp),
+            backgroundColor = MaterialTheme.colorScheme.secondary,
+            modifier = Modifier.height(85.dp),
             elevation = 3.dp
         ) {
             pages.forEach { screen ->
@@ -62,9 +63,9 @@ fun RowScope.AddItems(
     } == true
     CompositionLocalProvider(androidx.compose.material.LocalContentColor provides Color.White) {
         BottomNavigationItem(
-            modifier = Modifier.padding(8.dp),
             selectedContentColor = MaterialTheme.colorScheme.onSurface,
             selected = isSelected,
+            modifier = Modifier.padding(bottom = 10.dp),
             onClick = {
                 navController.navigate(screen.route) {
                     popUpTo(navController.graph.findStartDestination().id) {
@@ -75,17 +76,16 @@ fun RowScope.AddItems(
                 }
 
             },
-            alwaysShowLabel = false,
             label = {
                 Text(
                     text = screen.title,
                     color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.labelSmall,
                 )
             },
             icon = {
                 DrawableIcon(
-                    painter = painterResource(id = screen.icon),
+                    painter = painterResource(id = if (isSelected) screen.icon_focused else screen.icon),
                     contentDescription = screen.title,
                     modifier = Modifier.size(25.dp),
                 )

@@ -3,21 +3,29 @@ package com.example.uptodo.components
 import android.app.TimePickerDialog
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDefaults
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.uptodo.R
 import com.example.uptodo.screens.home.HomeViewModel
-import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
-import java.util.*
+import java.util.Calendar
+import java.util.TimeZone
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
@@ -57,7 +65,6 @@ fun DateAndTimePicker(
                 state.value = false
                 datePickerState.selectedDateMillis?.let { onDateChange(it) }
             },
-            modifier = Modifier.size(width = 130.dp, height = 40.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Purple40,
                 contentColor = MaterialTheme.colorScheme.onSurface
@@ -67,15 +74,16 @@ fun DateAndTimePicker(
             Text(text = stringResource(id = R.string.chooseTime))
         }
     },
-//        dismissButton = {
-//            Text(text = "Cancel", color = Purple40, modifier = Modifier.clickable {
-//                state.value = false
-//            })
-//        },
-        colors = DatePickerDefaults.colors(
-            containerColor = MaterialTheme.colorScheme.secondary,
+        dismissButton = {
+            Button(onClick = { state.value = false }, shape = RoundedCornerShape(8.dp), colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = Purple40
+            )) {
+                Text(text = "Cancel")
+            }
 
-            )
+        },
+        colors = DatePickerDefaults.colors(containerColor = MaterialTheme.colorScheme.secondary)
 
 
     ) {

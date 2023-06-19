@@ -3,24 +3,29 @@ package com.example.uptodo.screens.home
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.uptodo.components.SheetLayout
+import com.example.uptodo.components.BottomScreen
 import com.example.uptodo.components.VectorIcon
-import com.example.uptodo.navigation.*
-import com.example.uptodo.screens.category.BottomSheetType
+import com.example.uptodo.navigation.BottomNavigationBar
+import com.example.uptodo.navigation.HomeNavGraph
 import com.example.uptodo.ui.theme.BottomBarColor
 import com.example.uptodo.ui.theme.Purple40
 import kotlinx.coroutines.launch
@@ -32,44 +37,18 @@ import kotlinx.coroutines.launch
     "UnusedMaterialScaffoldPaddingParameter"
 )
 @Composable
-fun HomeScreen(navController: NavHostController = rememberNavController(),viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    navController: NavHostController = rememberNavController(),
+) {
 
     val coroutineScope = rememberCoroutineScope()
     val state = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
-    var showBottomBar by rememberSaveable { mutableStateOf(true) }
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-    showBottomBar = when (navBackStackEntry?.destination?.route) {
-        Details.CategoryPages.route -> false
-        else -> true
-    }
-    var currentBottomSheet: BottomSheetType? by remember {
-        mutableStateOf(null)
-    }
-    val openSheet: (BottomSheetType) -> Unit = {
-        coroutineScope.launch {
-            currentBottomSheet = it
-            if (state.isVisible) {
-                state.hide()
-            } else {
-                state.show()
-            }
-        }
-    }
-    val todo by viewModel.todo
 
     ModalBottomSheetLayout(
         sheetState = state,
         sheetContent = {
             Column(modifier = Modifier.fillMaxSize()) {
-                currentBottomSheet?.let {
-                    SheetLayout(
-                        bottomSheetType = it,
-                        navController = navController,
-                        state = state,
-
-                    )
-                }
+                BottomScreen(sheetValue = state)
             }
         },
         sheetBackgroundColor = BottomBarColor,
@@ -77,24 +56,21 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),viewMo
     ) {
         Scaffold(
             backgroundColor = androidx.compose.material3.MaterialTheme.colorScheme.background,
-            bottomBar = { if (showBottomBar) BottomNavigationBar(navController = navController) },
+            bottomBar = { BottomNavigationBar(navController = navController) },
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = {
-                        if (showBottomBar) {
-                            coroutineScope.launch {
-                                currentBottomSheet = BottomSheetType.TYPE1
-                                if (state.isVisible) {
-                                    state.hide()
-                                } else {
-                                    state.show()
-                                }
+                        coroutineScope.launch {
+                            if (state.isVisible) {
+                                state.hide()
+                            } else {
+                                state.show()
                             }
                         }
                     },
-                    containerColor = if (showBottomBar) Purple40 else androidx.compose.material3.MaterialTheme.colorScheme.background,
-                    shape = RoundedCornerShape(100.dp),
-                    contentColor = if(showBottomBar) androidx.compose.material3.MaterialTheme.colorScheme.onSurface else androidx.compose.material3.MaterialTheme.colorScheme.background
+                    containerColor = Purple40,
+                    shape = CircleShape,
+                    contentColor = androidx.compose.material3.MaterialTheme.colorScheme.onSurface
                 ) {
                     VectorIcon(imageVector = Icons.Default.Add, contentDescription = "Add todo")
                 }
@@ -103,7 +79,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController(),viewMo
             isFloatingActionButtonDocked = true,
         ) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                HomeNavGraph(navHostController = navController, openSheet = {openSheet(BottomSheetType.TYPE2)})
+                HomeNavGraph(navHostController = navController)
             }
         }
     }

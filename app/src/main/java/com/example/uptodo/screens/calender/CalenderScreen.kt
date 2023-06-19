@@ -3,19 +3,31 @@ package com.example.uptodo.screens.calender
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.LocalMinimumTouchTargetEnforcement
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,7 +50,8 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -46,7 +59,6 @@ fun CalenderScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     openSheet: (String) -> Unit
 ) {
-    val sheetValue = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
     var clicked by remember {
         mutableStateOf("")
@@ -182,7 +194,6 @@ fun CalenderScreen(
                             onCheckChange = {
                                 viewModel.onTodoCheck(todoItem)
                             },
-                            sheetValue = sheetValue,
                             onClick = {
                                 viewModel.onTodoClick(openSheet, todoItem)
                             }
@@ -199,7 +210,6 @@ fun CalenderScreen(
                             onCheckChange = {
                                 viewModel.onTodoCheck(todoItem)
                             },
-                            sheetValue = sheetValue,
                             onClick = {
                                 viewModel.onTodoClick(openSheet, todoItem)
                             }

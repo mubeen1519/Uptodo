@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.uptodo.components.patterns.hasDate
 import com.example.uptodo.components.patterns.hasTime
 import com.example.uptodo.mainViewModel.MainViewModel
-import com.example.uptodo.navigation.DEFAULT_TODO_ID
-import com.example.uptodo.screens.category.BottomSheetType
+import com.example.uptodo.navigation.EditTodoPage
+import com.example.uptodo.navigation.TASK_ID
 import com.example.uptodo.screens.category.Icons
 import com.example.uptodo.screens.category.Priority
 import com.example.uptodo.screens.settings.ThemeSetting
@@ -18,7 +18,9 @@ import com.example.uptodo.services.module.StorageService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
+import java.util.TimeZone
 import javax.inject.Inject
 
 @HiltViewModel
@@ -63,18 +65,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onDelete(todo: TODOItem) {
-        viewModelScope.launch(super.showErrorExceptionHandler) {
-            storageService.deleteTodoItem(todo.id)
-        }
-    }
-
-    fun getTodo(todoId: String) {
-        viewModelScope.launch(super.showErrorExceptionHandler) {
-            if (todoId != DEFAULT_TODO_ID)
-                storageService.getTodoItem(todoId)
-        }
-    }
 
     fun onTitleChange(newValue: String) {
         todo.value = todo.value.copy(title = newValue)
@@ -125,7 +115,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun onTodoClick(openScreen: (String) -> Unit, todoItem: TODOItem) {
-        openScreen("${BottomSheetType.TYPE2}=${todoItem.id}")
+        openScreen("$EditTodoPage?$TASK_ID={${todoItem.id}}")
     }
 
 

@@ -49,7 +49,7 @@ fun HorizontalPages() {
                 .weight(1f)
                 .padding(bottom = 20.dp)
         ) { currentPage ->
-            Column() {
+            Column {
                 Image(painter = painterResource(id = pages[currentPage].image), contentDescription = "Images", modifier = Modifier.fillMaxWidth().size(250.dp).padding(bottom = 40.dp))
                 HorizontalPagerIndicator(
                     pagerState = pagerState,
