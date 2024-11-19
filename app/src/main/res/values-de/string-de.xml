@@ -25,4 +25,5 @@
     <string name="chooseCategory">" Kategorie auswählen"</string>
     <string name="deleteDialog">" Möchten Sie diese Aufgabe wirklich löschen? "</string>
     <string name="new_category">" Neue Kategorie erstellen"</string>
+    <string name="EditTime">Edit Time</string>
 </resources>

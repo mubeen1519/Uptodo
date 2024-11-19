@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "628633215066",
+    "firebase_url": "https://uptodo-15899-default-rtdb.firebaseio.com",
     "project_id": "uptodo-15899",
     "storage_bucket": "uptodo-15899.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:628633215066:android:1972d4adb1f762a2fdf863",
+        "mobilesdk_app_id": "1:628633215066:android:6747ff40ade75970fdf863",
         "android_client_info": {
-          "package_name": "com.example.uptodo"
+          "package_name": "com.stellerbyte.uptodo"
         }
       },
       "oauth_client": [

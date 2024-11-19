@@ -9,7 +9,12 @@
     //Login page
     <string name="login">Login</string>
     <string name="emailPlaceholder">Enter your Email</string>
+    <string name="userPlaceholder" translatable="false">Enter your Username</string>
+    <string name="delete_label" translatable="false">Delete Account</string>
+    <string name="delete_description" translatable="false">Enter your credentials again to delete your account</string>
     <string name="labelEmail">Email</string>
+    <string name="labelUser" translatable="false">Username</string>
+
     <string name="passPlaceholder">Enter your Password</string>
     <string name="labelPassword">Password</string>
     <string name="googleBtn">Login with Google</string>
@@ -34,6 +39,9 @@
     <string name="deleteTask" translatable="false">Delete Task</string>
     <string name="deleteDialog">Are you sure you want to delete this task?</string>
 
+    <string name="EditTime">Edit Time</string>
+    <string name="editCategory" translatable="false">Edit</string>
+
 
     //Category page
     <string name="new_category">Create new category</string>
@@ -49,6 +57,8 @@
     <string name="passwordPlaceholder" translatable="false">Enter old Password</string>
     <string name="newPasswordPlaceholder" translatable="false">Enter new Password</string>
     <string name="logoutTxt" translatable="false">Are you sure you want to logout</string>
+    <string name="deleteTxt" translatable="false">Are you sure you want to delete your account? This action is permanent and cannot be undone. All your data will be lost.</string>
+
     <string name="profileTitle" translatable="false">Profile</string>
     <string name="changeSetting" translatable="false">Change app Settings</string>
     <string name="txtAccount" translatable="false">Account</string>
@@ -56,7 +66,7 @@
     <string name="faq" translatable="false">FAQ</string>
     <string name="feedback" translatable="false">Help &amp; Feedback</string>
     <string name="support" translatable="false">Support Us</string>
-
+    <string name="deletion" translatable="false">Account Deletion</string>
     //Settings Screen
     <string name="typographyDialog" translatable="false">Change Typography</string>
     <string name="latoFont" translatable="false">Lato</string>
@@ -96,7 +106,7 @@
     <string name="logout" translatable="false">Logout</string>
     <string name="delete" translatable="false">Delete</string>
     <string name="chooseTime" translatable="false">Choose Time</string>
-
+    <string name="delete_account" translatable="false">Delete Account</string>
     //font
     <string name="lobster" translatable="false">Lobster</string>
 

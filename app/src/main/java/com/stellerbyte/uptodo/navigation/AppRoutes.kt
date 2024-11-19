@@ -1,0 +1,17 @@
+package com.stellerbyte.uptodo.navigation
+
+const val Splash_Screen = "SplashScreen"
+const val Intro_Pages = "IntroPages"
+const val Create_Account = "CreateAccount"
+const val Login = "Login"
+const val Registration = "Registration"
+const val CalenderPage = "Calender"
+const val EditTodoPage = "EditTodo"
+const val FocusPage = "Focus"
+const val ProfilePage = "Profile"
+const val TASK_ID = "taskId"
+const val TASK_DEFAULT_ID = "-1"
+const val TASK_ID_ARG = "?$TASK_ID={$TASK_ID}"
+const val Home = "HomeScreen$TASK_ID_ARG"
+const val DeleteScreen = "DeleteScreen"
+const val ABOUT_US_SCREEN = "AboutScreen"
